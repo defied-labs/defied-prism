@@ -1,0 +1,3 @@
+{
+  "extends": "@defied-prism/config/tsconfig.base.json"
+}

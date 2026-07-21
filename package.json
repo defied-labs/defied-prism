@@ -1,0 +1,28 @@
+{
+  "name": "defied-prism",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "test": "pnpm --filter web test"
+  },
+  "dependencies": {
+    "@defied-prism/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@defied-prism/config": "workspace:*",
+    "@types/node": "catalog:",
+    "turbo": "^2.10.0",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "pnpm@10.13.1"
+}
