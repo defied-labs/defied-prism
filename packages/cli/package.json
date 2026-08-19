@@ -1,0 +1,30 @@
+{
+  "name": "@defied-prism/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "@defied-prism/cli": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@defied-prism/style-engine": "workspace:*",
+    "@t3-oss/env-core": "^0.13.11",
+    "@t3-oss/env-nextjs": "^0.13.11",
+    "commander": "^15.0.0",
+    "dotenv": "catalog:",
+    "sucrase": "^3.35.0",
+    "tsup": "^8.5.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@defied-prism/core": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "^6.0.3"
+  }
+}

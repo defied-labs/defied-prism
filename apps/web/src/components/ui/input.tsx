@@ -1,20 +1,99 @@
-import { Input as InputPrimitive } from "@base-ui/react/input";
-import * as React from "react";
+import React, { useMemo } from "react";
 
-import { cn } from "@/lib/utils";
+import { useMachine } from "@defied-prism/react";
+import { InputEvents, inputMachineDefinition } from "@defied-prism/core";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
-    <InputPrimitive
-      type={type}
-      data-slot="input"
-      className={cn(
-        "dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-colors file:h-6 file:text-xs file:font-medium focus-visible:ring-1 aria-invalid:ring-1 md:text-xs file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        className,
-      )}
-      {...props}
-    />
-  );
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  onValueChange?: (value: string) => void;
+  showClear?: boolean;
 }
 
-export { Input };
+export function Input({
+  className,
+  disabled,
+  value,
+  defaultValue,
+  onFocus,
+  onBlur,
+  onChange,
+  onValueChange,
+  showClear = false,
+  ...props
+}: InputProps) {
+  const { state, send } = useMachine(inputMachineDefinition);
+
+  const isControlled = value !== undefined;
+  const currentValue = isControlled
+    ? (value as string)
+    : (state.data.value as string);
+
+  const dataState = disabled
+    ? "disabled"
+    : state.status === "focused"
+      ? "focused"
+      : currentValue
+        ? "filled"
+        : "empty";
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const next = event.target.value;
+
+    if (!isControlled) {
+      send(InputEvents.change(next));
+    }
+
+    onValueChange?.(next);
+    onChange?.(event);
+  };
+
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (!disabled) {
+      send(InputEvents.focus());
+    }
+    onFocus?.(event);
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (!disabled) {
+      send(InputEvents.blur());
+    }
+    onBlur?.(event);
+  };
+
+  const handleClear = () => {
+    if (!isControlled) {
+      send(InputEvents.clear());
+    }
+    onValueChange?.("");
+  };
+
+  return (
+    <div className="relative inline-flex w-full items-center">
+      <input
+        {...props}
+        type={props.type ?? "text"}
+        className={["bg-white text-slate-900 rounded-md px-3 py-2", className]
+          .filter(Boolean)
+          .join(" ")}
+        disabled={disabled}
+        value={isControlled ? currentValue : undefined}
+        defaultValue={isControlled ? undefined : defaultValue}
+        data-state={dataState}
+        aria-disabled={disabled || undefined}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
+      {showClear && currentValue ? (
+        <button
+          type="button"
+          aria-label="Clear input"
+          onClick={handleClear}
+          className="absolute right-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+        >
+          ×
+        </button>
+      ) : null}
+    </div>
+  );
+}

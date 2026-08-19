@@ -10,11 +10,15 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "check-types": "turbo check-types",
+    "lint": "turbo lint",
     "dev:web": "turbo -F web dev",
     "test": "pnpm --filter web test"
   },
   "dependencies": {
+    "@defied-prism/cli": "workspace:^",
     "@defied-prism/env": "workspace:*",
+    "@defied-prism/react": "workspace:^",
+    "@defied-prism/style-engine": "workspace:^",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },

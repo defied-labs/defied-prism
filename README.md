@@ -1,43 +1,46 @@
-# defied-prism
+# Defied Prism
 
-This project was created with [Better Fullstack](https://github.com/Marve10s/Better-Fullstack), a modern TypeScript stack that combines Next.js, Self, and more.
+Defied Prism is a multi-framework component engine and state machine architecture built for modern UI development.
 
 ## Features
 
-- **TypeScript** - For type safety and improved developer experience
-- **Next.js** - Full-stack React framework
-- **TailwindCSS** - CSS framework
-- **shadcn/ui** - UI components
-- **Turborepo** - Optimized monorepo build system
+- **Multi-Framework Generators**: Code generation for React and Vue.
+- **Dual-Engine Styling**: Single `defineStyle` DSL targeting both **Tailwind CSS** and **CSS Modules**.
+- **State Machine Core**: Headless, state-driven UI logic using per-mount machine definition instances.
+- **CLI Registry**: Command-line generator with built-in TypeScript transpilation (via Sucrase) for dynamic registry style evaluation.
+
+## Dual-Engine Compatibility
+
+Defied Prism uses a single DSL (`defineStyle`) to compile components into either Tailwind CSS utility strings or scoped CSS Modules files:
+
+- **Tailwind Engine**: Maps spacing scale steps (`4`, `rem(1)`, `px(16)`) to Tailwind utilities (e.g. `px-4`, `py-2`).
+- **CSS Modules Engine**: Compiles typed lengths into explicit CSS property declarations (`padding-left: 1rem;`).
+
+> **Engine Limitations & Trade-offs**:
+> While common layout properties, colors, pseudo-states (`:hover`, `:focus-visible`), and spacing steps map cleanly between Tailwind and CSS Modules, arbitrary raw CSS strings or non-standard utility tokens may require explicit engine targeting. Using structured length helpers (`rem`, `px`) ensures cross-engine compatibility across both output targets.
 
 ## Getting Started
 
-First, install the dependencies:
+Install dependencies:
 
 ```bash
 pnpm install
 ```
 
-Then, run the development server:
+Run tests:
+
+```bash
+pnpm test
+```
+
+Run development server:
 
 ```bash
 pnpm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in your browser to see the fullstack application.
+Check types across workspace:
 
-## Project Structure
-
+```bash
+pnpm run check-types
 ```
-defied-prism/
-├── apps/
-│   └── web/         # Fullstack application (Next.js)
-├── packages/
-│   ├── api/         # API layer / business logic
-```
-
-## Available Scripts
-
-- `pnpm run dev`: Start all applications in development mode
-- `pnpm run build`: Build all applications
-- `pnpm run check-types`: Check TypeScript types across all apps

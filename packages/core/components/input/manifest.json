@@ -1,0 +1,1 @@
+{"id": "input", "version": "0.1.0", "type": "primitive", "frameworks": ["react", "vue"], "accessibility": {"wcag": "AAA", "keyboard": true, "screenReader": true}, "core": {"machine": true, "stateDriven": true}}
