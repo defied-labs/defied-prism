@@ -33,9 +33,9 @@ export function Input({
 
   const dataState = disabled
     ? "disabled"
-    : state.status === "focused"
+    : state.status === "focusedEmpty" || state.status === "focusedFilled"
       ? "focused"
-      : currentValue
+      : state.status === "filled"
         ? "filled"
         : "empty";
 
@@ -52,21 +52,21 @@ export function Input({
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     if (!disabled) {
-      send(InputEvents.focus);
+      send(InputEvents.focus());
     }
     onFocus?.(event);
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (!disabled) {
-      send(InputEvents.blur);
+      send(InputEvents.blur());
     }
     onBlur?.(event);
   };
 
   const handleClear = () => {
     if (!isControlled) {
-      send(InputEvents.clear);
+      send(InputEvents.clear());
     }
     onValueChange?.("");
   };

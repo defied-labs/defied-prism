@@ -40,11 +40,25 @@ export function useMachine<
   input: MachineInput<TStatus, TData, TEvent>,
   key?: string | number,
 ): UseMachineReturn<TStatus, TData, TEvent> {
-  // Stable machine instance - only recreated when key changes
   const machineRef = useRef<Machine<TStatus, TData, TEvent> | null>(null);
+  const inputRef = useRef(input);
+
+  const stableKey = useMemo(() => {
+    if (key !== undefined) return key;
+    const res = typeof input === "function" ? input() : input;
+    if (res instanceof Machine) {
+      return (
+        res.constructor.name + "-" + JSON.stringify(res.getDefinition?.() ?? {})
+      );
+    }
+    return "machine-" + JSON.stringify(res);
+  }, [key, input]);
+
+  const inputChanged = !Object.is(inputRef.current, input);
+  inputRef.current = input;
 
   const machine = useMemo(() => {
-    if (machineRef.current && key === undefined) {
+    if (machineRef.current && !inputChanged && key === undefined) {
       return machineRef.current;
     }
 
@@ -53,7 +67,7 @@ export function useMachine<
       res instanceof Machine ? res : new Machine<TStatus, TData, TEvent>(res);
     machineRef.current = newMachine;
     return newMachine;
-  }, [key]);
+  }, [stableKey, inputChanged]);
 
   const [state, setState] = useState<MachineState<TStatus, TData>>(() =>
     machine.getState(),

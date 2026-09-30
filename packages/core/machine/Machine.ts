@@ -86,7 +86,7 @@ export function validateMachineDefinition<
       );
     }
 
-    const fromStates = Array.from(tr.from);
+    const fromStates = Array.from(tr.from) as TStatus[];
     if (fromStates.length === 0) {
       throw new Error(
         `[Machine] Transition for event "${tr.event}" has empty "from" list.`,
@@ -171,6 +171,11 @@ export class Machine<
   /** Get current status */
   getStatus(): TStatus {
     return this.#state.status;
+  }
+
+  /** Get the machine definition */
+  getDefinition(): MachineDefinition<TStatus, TData, TEvent> {
+    return this.#definition;
   }
 
   /** Get machine lifecycle status */

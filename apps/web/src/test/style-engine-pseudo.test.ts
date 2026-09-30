@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { CSSModulesCompiler } from "../../../../packages/style-engine/src/compiler/CSSModulesCompiler";
-import { TailwindCompiler } from "../../../../packages/style-engine/src/compiler/TailwindCompiler";
+import { TailwindCompiler } from "../../../../packages/style-engine/src/compiler/tailwind/TailwindCompiler";
 import { StyleParser } from "../../../../packages/style-engine/src/parser/StyleParser";
 import {
   after,

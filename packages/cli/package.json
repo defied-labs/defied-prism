@@ -1,10 +1,18 @@
 {
   "name": "@defied-prism/cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./commands/add": "./src/commands/add.ts",
+    "./commands/sync": "./src/commands/sync.ts",
+    "./commands/init": "./src/commands/init.ts",
+    "./config/loadConfig": "./src/config/loadConfig.ts",
+    "./registry/RegistryClient": "./src/registry/RegistryClient.ts",
+    "./generators/GeneratorFactory": "./src/generators/GeneratorFactory.ts",
+    "./generators/Generator": "./src/generators/Generator.ts",
+    "./generators/ReactGenerator": "./src/generators/ReactGenerator.ts"
   },
   "bin": {
     "@defied-prism/cli": "./dist/index.js"
@@ -14,17 +22,16 @@
   },
   "dependencies": {
     "@defied-prism/style-engine": "workspace:*",
-    "@t3-oss/env-core": "^0.13.11",
-    "@t3-oss/env-nextjs": "^0.13.11",
+    "@defied-prism/core": "workspace:*",
     "commander": "^15.0.0",
     "dotenv": "catalog:",
     "sucrase": "^3.35.0",
-    "tsup": "^8.5.1",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@defied-prism/core": "workspace:*",
+    "@defied-prism/config": "workspace:*",
     "@types/node": "catalog:",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3"
   }
 }

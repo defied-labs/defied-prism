@@ -1,6 +1,6 @@
 {
   "name": "@defied-prism/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -15,9 +15,7 @@
   "dependencies": {
     "@t3-oss/env-core": "^0.13.11",
     "@t3-oss/env-nextjs": "^0.13.11",
-    "@types/react": "^19.2.17",
     "dotenv": "catalog:",
-    "react": "^19.2.7",
     "zod": "catalog:"
   },
   "devDependencies": {

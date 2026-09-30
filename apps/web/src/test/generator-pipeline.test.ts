@@ -4,7 +4,6 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { ReactGenerator } from "../../../../packages/cli/src/generators/ReactGenerator";
-import { VueGenerator } from "../../../../packages/cli/src/generators/VueGenerator";
 import { createGenerator } from "../../../../packages/cli/src/generators/GeneratorFactory";
 
 const tempDirs: string[] = [];
@@ -26,10 +25,6 @@ describe("Generator Pipeline", () => {
           framework: "react",
           files: [{ source: "Button.tsx", destination: "Button.tsx" }],
         },
-        {
-          framework: "vue",
-          files: [{ source: "Button.vue", destination: "Button.vue" }],
-        },
       ],
     },
   };
@@ -42,9 +37,6 @@ const base = {{STYLE_BASE}};
 const variants = {{STYLE_VARIANTS}};
 const host = {{STYLE_HOST_STATES}};
 export const Button = () => <button className={base} />;`;
-      }
-      if (file === "Button.vue") {
-        return `<template><button>Click</button></template>`;
       }
       throw new Error("File not found");
     },

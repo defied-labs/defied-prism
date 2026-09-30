@@ -54,7 +54,11 @@ export class ReactGenerator implements Generator {
         const targetFileName = path.basename(file.destination);
         const componentName = path.parse(targetFileName).name;
 
-        const injectedContent = this.injectStyles(rawContent, componentName);
+        // Only inject styles into component files (not style files which are pre-compiled CSS)
+        let injectedContent = rawContent;
+        if (file.type === "component") {
+          injectedContent = this.injectStyles(rawContent, componentName);
+        }
 
         const tempFilePath = path.join(tempStagingDir, targetFileName);
         await fs.writeFile(tempFilePath, injectedContent, "utf8");
@@ -104,9 +108,13 @@ export class ReactGenerator implements Generator {
     }
 
     if (this.options.styling === "tailwind") {
-      const baseLiteral = JSON.stringify(this.options.compiledBase);
-      const variantsLiteral = this.options.compiledVariants || "{}";
-      const hostStatesLiteral = JSON.stringify(this.options.compiledHostStates);
+      // Template expects:
+      // - STYLE_BASE: raw string (template adds quotes: "{{STYLE_BASE}}")
+      // - STYLE_VARIANTS: JSON string for JSON.parse("{{STYLE_VARIANTS}}")
+      // - STYLE_HOST_STATES: raw string (template adds quotes: "{{STYLE_HOST_STATES}}")
+      const baseLiteral = this.options.compiledBase; // raw string, no JSON.stringify
+      const variantsLiteral = this.options.compiledVariants || "{}"; // already JSON string from add.ts
+      const hostStatesLiteral = this.options.compiledHostStates; // raw string, no JSON.stringify
 
       return content
         .split(REQUIRED_PLACEHOLDERS.STYLE_BASE)

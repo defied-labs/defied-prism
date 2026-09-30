@@ -9,7 +9,10 @@ import { syncCommand } from "./commands/sync";
 
 const program = new Command();
 
-program.name("prism").description("Defied Prism CLI").version("0.1.0");
+program
+  .name("@defied-prism/cli")
+  .description("Defied Prism CLI")
+  .version("0.1.0");
 
 program.command("init").description("Initialize Prism").action(initCommand);
 

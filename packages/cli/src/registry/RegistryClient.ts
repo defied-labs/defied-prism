@@ -73,35 +73,163 @@ export class LocalRegistryClient implements RegistryClientInterface {
   }
 }
 
-export class RepositoryRegistryClient implements RegistryClientInterface {
-  constructor(private repositoryUrl: string) {}
+export class RegistryClientError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly statusCode?: number,
+  ) {
+    super(message);
+    this.name = "RegistryClientError";
+  }
+}
 
-  async getManifest(component: string): Promise<ComponentManifest> {
-    const url = `${this.repositoryUrl}/components/${component}/manifest.json`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`[prism] Failed to fetch manifest for component "${component}" from ${url} (HTTP ${response.status}).`);
-    }
-    const data = await response.json();
-    return ManifestValidator.validate(data, component);
+export interface RemoteRegistryOptions {
+  baseUrl: string;
+  token?: string;
+  timeout?: number;
+  cache?: Map<string, { data: any; expires: number }>;
+}
+
+export class RemoteRegistryClient implements RegistryClientInterface {
+  private baseUrl: string;
+  private token?: string;
+  private timeout: number;
+  private cache: Map<string, { data: any; expires: number }>;
+
+  constructor(options: RemoteRegistryOptions) {
+    this.baseUrl = options.baseUrl.replace(/\/$/, "");
+    this.token = options.token;
+    this.timeout = options.timeout ?? 30000;
+    this.cache = options.cache ?? new Map();
   }
 
-  async getStyle(component: string) {
-    const url = `${this.repositoryUrl}/components/${component}/style.ts`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`[prism] Failed to fetch style for component "${component}" from ${url} (HTTP ${response.status}).`);
-    }
-    const text = await response.text();
-    return StyleEvaluator.evaluate(text, component);
+  private getCacheKey(endpoint: string): string {
+    return `${this.baseUrl}${endpoint}`;
   }
 
-  async getFile(component: string, file: string) {
-    const url = `${this.repositoryUrl}/components/${component}/${file}`;
-    const response = await fetch(url);
+  private getCached<T>(key: string): T | null {
+    const entry = this.cache.get(key);
+    if (!entry) return null;
+    if (Date.now() > entry.expires) {
+      this.cache.delete(key);
+      return null;
+    }
+    return entry.data as T;
+  }
+
+  private setCache(key: string, data: any, ttlMs = 60000): void {
+    this.cache.set(key, { data, expires: Date.now() + ttlMs });
+  }
+
+  private async fetchWithTimeout(
+    url: string,
+    options: RequestInit = {},
+  ): Promise<Response> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+        headers: {
+          "Content-Type": "application/json",
+          ...(this.token && { Authorization: `Bearer ${this.token}` }),
+          ...options.headers,
+        },
+      });
+      return response;
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  private async fetchJson<T>(url: string): Promise<T> {
+    const response = await this.fetchWithTimeout(url);
     if (!response.ok) {
-      throw new Error(`[prism] Failed to fetch file "${file}" for component "${component}" from ${url} (HTTP ${response.status}).`);
+      const text = await response.text().catch(() => "");
+      throw new RegistryClientError(
+        `Failed to fetch ${url}: ${response.status} ${response.statusText} ${text}`,
+        "FETCH_FAILED",
+        response.status,
+      );
+    }
+    return response.json() as Promise<T>;
+  }
+
+  private async fetchText(url: string): Promise<string> {
+    const response = await this.fetchWithTimeout(url);
+    if (!response.ok) {
+      const text = await response.text().catch(() => "");
+      throw new RegistryClientError(
+        `Failed to fetch ${url}: ${response.status} ${response.statusText} ${text}`,
+        "FETCH_FAILED",
+        response.status,
+      );
     }
     return response.text();
   }
+
+  async getManifest(component: string): Promise<ComponentManifest> {
+    const cacheKey = this.getCacheKey(`/components/${component}/manifest.json`);
+    const cached = this.getCached<ComponentManifest>(cacheKey);
+    if (cached) return cached;
+
+    const url = `${this.baseUrl}/components/${component}/manifest.json`;
+    const data = await this.fetchJson<any>(url);
+    const manifest = ManifestValidator.validate(data, component);
+    this.setCache(cacheKey, manifest);
+    return manifest;
+  }
+
+  async getStyle(component: string) {
+    const cacheKey = this.getCacheKey(`/components/${component}/style.ts`);
+    const cached = this.getCached(cacheKey);
+    if (cached) return cached;
+
+    const url = `${this.baseUrl}/components/${component}/style.ts`;
+    const text = await this.fetchText(url);
+    const evaluated = StyleEvaluator.evaluate(text, component);
+    this.setCache(cacheKey, evaluated);
+    return evaluated;
+  }
+
+  async getFile(component: string, file: string) {
+    const cacheKey = this.getCacheKey(`/components/${component}/${file}`);
+    const cached = this.getCached<string>(cacheKey);
+    if (cached) return cached;
+
+    const url = `${this.baseUrl}/components/${component}/${file}`;
+    const text = await this.fetchText(url);
+    this.setCache(cacheKey, text);
+    return text;
+  }
+
+  clearCache(): void {
+    this.cache.clear();
+  }
+
+  setToken(token: string | undefined): void {
+    this.token = token;
+    this.clearCache(); // Clear cache when auth changes
+  }
+}
+
+export function createRegistryClient(
+  registryPath: string,
+  options?: RemoteRegistryOptions,
+): RegistryClientInterface {
+  // If it looks like a URL, use remote client
+  if (
+    registryPath.startsWith("http://") ||
+    registryPath.startsWith("https://")
+  ) {
+    return new RemoteRegistryClient({
+      baseUrl: registryPath,
+      ...options,
+    });
+  }
+  // Otherwise use local filesystem client
+  return new LocalRegistryClient(registryPath);
 }

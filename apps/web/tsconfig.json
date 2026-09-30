@@ -32,6 +32,24 @@
       ],
       "@defied-prism/core/*": [
         "../../packages/core/*"
+      ],
+      "@defied-prism/react": [
+        "../../packages/react"
+      ],
+      "@defied-prism/react/*": [
+        "../../packages/react/*"
+      ],
+      "@defied-prism/style-engine": [
+        "../../packages/style-engine"
+      ],
+      "@defied-prism/style-engine/*": [
+        "../../packages/style-engine/*"
+      ],
+      "@defied-prism/cli": [
+        "../../packages/cli"
+      ],
+      "@defied-prism/cli/*": [
+        "../../packages/cli/*"
       ]
     }
   },

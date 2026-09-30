@@ -60,6 +60,19 @@ export function lengthToTailwindScale(
     if (!isNaN(parsed)) {
       return parsed;
     }
+    
+    // Handle design tokens: spacing-N, color-*, etc.
+    if (length.startsWith("spacing-")) {
+      const num = parseInt(length.replace("spacing-", ""), 10);
+      if (!isNaN(num)) {
+        return num;
+      }
+    }
+    if (length.startsWith("color-")) {
+      // For colors, return the token to be handled by color handler
+      return `[var(--${length})]`;
+    }
+    
     if (length.endsWith("rem")) {
       const val = parseFloat(length);
       return val * SCALAR_SPACING_SCALE;

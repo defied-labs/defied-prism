@@ -10,7 +10,7 @@ export * from "./parser/StyleParser";
 
 export * from "./compiler/Compiler";
 
-export * from "./compiler/TailwindCompiler";
+export * from "./compiler/tailwind/TailwindCompiler";
 
 export * from "./types";
 export * from "./compiler/CSSModulesCompiler";

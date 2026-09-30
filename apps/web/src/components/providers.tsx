@@ -1,6 +1,5 @@
 "use client";
 
-import { StyleProvider } from "../../../../packages/react/src/styles";
 import { ThemeProvider } from "./theme-provider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -11,7 +10,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <StyleProvider engine="tailwind">{children}</StyleProvider>
+      {children}
     </ThemeProvider>
   );
 }

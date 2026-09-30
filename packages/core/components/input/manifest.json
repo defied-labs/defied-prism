@@ -1,1 +1,76 @@
-{"id": "input", "version": "0.1.0", "type": "primitive", "frameworks": ["react", "vue"], "accessibility": {"wcag": "AAA", "keyboard": true, "screenReader": true}, "core": {"machine": true, "stateDriven": true}}
+{
+  "metadata": {
+    "name": "input",
+    "displayName": "Input",
+    "description": "A versatile input component with state-driven interactions",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "stable",
+    "category": "forms",
+    "keywords": ["input", "form", "text", "field"]
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Input.tsx",
+            "destination": "Input.tsx",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/react/Input.module.css",
+            "destination": "Input.module.css",
+            "type": "style",
+            "editable": false
+          }
+        ]
+      }
+    ],
+    "styling": ["tailwind", "css-modules"],
+    "runtimeVersion": {
+      "package": "@defied-prism/react",
+      "version": "^0.1.0"
+    }
+  },
+  "dependencies": [
+    {
+      "package": "react",
+      "version": "^18.0.0",
+      "type": "peerDependency"
+    },
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    { "name": "color-bg", "required": true },
+    { "name": "color-border", "required": true },
+    { "name": "color-border-focus", "required": false },
+    { "name": "color-text", "required": true },
+    { "name": "color-placeholder", "required": false },
+    { "name": "radius-md", "required": true },
+    { "name": "spacing-2", "required": true },
+    { "name": "spacing-3", "required": true }
+  ],
+  "accessibility": {
+    "standard": "WCAG-AAA",
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": ["textbox", "invalid", "disabled"]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/input"
+}

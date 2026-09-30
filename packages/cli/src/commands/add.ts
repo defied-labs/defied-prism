@@ -4,7 +4,7 @@ import {
   saveConfig,
 } from "../config/loadConfig";
 
-import { LocalRegistryClient } from "../registry/RegistryClient";
+import { createRegistryClient } from "../registry/RegistryClient";
 
 import { createGenerator } from "../generators/GeneratorFactory";
 import type { Framework } from "../registry/ComponentManifest";
@@ -95,9 +95,6 @@ function compileStyle(
         styling,
         compiledBase: "styles.root",
         compiledVariants: "{}",
-        // Host-state selectors are emitted as standalone `.root:hover` /
-        // `.root::before` blocks in the CSS module file itself; nothing to
-        // inject into the JSX className.
         compiledHostStates: "",
         styleFile: fileResult.css,
         variantStyles: {},
@@ -119,7 +116,7 @@ export async function addCommand(component: string, options: AddOptions) {
     console.log(`✓ Updated prism.json styling -> ${options.style}`);
   }
 
-  const registry = new LocalRegistryClient(registryPath);
+  const registry = createRegistryClient(registryPath);
 
   const manifest = await registry.getManifest(component);
 
@@ -161,7 +158,7 @@ export async function regenerateComponent(
     componentsPath: string;
   },
 ) {
-  const registry = new LocalRegistryClient(context.registryPath);
+  const registry = createRegistryClient(context.registryPath);
 
   const manifest = await registry.getManifest(component);
 

@@ -1,5 +1,5 @@
 import { Machine } from "./Machine";
-import type { MachineDefinition } from "./types";
+import type { MachineDefinition, MachineEvent } from "./types";
 
 export function createMachine<
   TStatus extends string,

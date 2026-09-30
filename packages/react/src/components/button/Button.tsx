@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { useMachine } from "../../machine/useMachine";
 import { ButtonEvents, buttonMachineDefinition } from "@defied-prism/core";
@@ -47,7 +47,7 @@ export function Button({
   const isDisabled = disabled || loading;
   const dataState = loading
     ? "loading"
-    : state.status === "active" || isPressed
+    : state.status === "pressed" || isPressed
       ? "active"
       : "idle";
 
@@ -74,24 +74,24 @@ export function Button({
       data-variant={variant}
       aria-busy={loading || undefined}
       onFocus={(event) => {
-        send(ButtonEvents.focus);
+        send(ButtonEvents.focus());
         onFocus?.(event);
       }}
       onBlur={(event) => {
-        send(ButtonEvents.blur);
+        send(ButtonEvents.blur());
         onBlur?.(event);
       }}
       onMouseDown={(event) => {
         if (!isDisabled) {
           setIsPressed(true);
-          send(ButtonEvents.press);
+          send(ButtonEvents.press());
         }
         onMouseDown?.(event);
       }}
       onMouseUp={(event) => {
         if (!isDisabled) {
           setIsPressed(false);
-          send(ButtonEvents.release);
+          send(ButtonEvents.release());
         }
         onMouseUp?.(event);
       }}

@@ -4,7 +4,6 @@
   "componentsPath": "src/components/ui",
   "registryPath": "../../packages/core",
   "components": [
-    "button",
-    "input"
+    "button"
   ]
 }

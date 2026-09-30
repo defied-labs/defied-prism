@@ -1,15 +1,73 @@
 {
-  "id": "button",
-  "version": "0.1.0",
-  "type": "primitive",
-  "frameworks": ["react", "vue"],
-  "accessibility": {
-    "wcag": "AAA",
-    "keyboard": true,
-    "screenReader": true
+  "metadata": {
+    "name": "button",
+    "displayName": "Button",
+    "description": "A versatile button component with state-driven interactions",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "stable",
+    "category": "actions",
+    "keywords": ["button", "action", "interactive", "form"]
   },
-  "core": {
-    "machine": true,
-    "stateDriven": true
-  }
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Button.tsx",
+            "destination": "Button.tsx",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/react/Button.module.css",
+            "destination": "Button.module.css",
+            "type": "style",
+            "editable": false
+          }
+        ]
+      }
+    ],
+    "styling": ["tailwind", "css-modules"],
+    "runtimeVersion": {
+      "package": "@defied-prism/react",
+      "version": "^0.1.0"
+    }
+  },
+  "dependencies": [
+    {
+      "package": "react",
+      "version": "^18.0.0",
+      "type": "peerDependency"
+    },
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    { "name": "color-primary", "required": true },
+    { "name": "color-primary-hover", "required": false },
+    { "name": "radius-md", "required": true },
+    { "name": "spacing-2", "required": true },
+    { "name": "spacing-3", "required": true }
+  ],
+  "accessibility": {
+    "standard": "WCAG-AAA",
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": ["button", "disabled"]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/button"
 }

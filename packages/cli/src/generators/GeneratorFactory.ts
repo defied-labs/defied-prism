@@ -3,7 +3,6 @@ import type { ComponentManifest } from "../registry/ComponentManifest";
 import type { RegistryClient } from "../registry/RegistryClient";
 import type { Framework } from "../registry/ComponentManifest";
 import { ReactGenerator } from "./ReactGenerator";
-import { VueGenerator } from "./VueGenerator";
 import type { GeneratorOptions } from "./ReactGenerator";
 
 export function createGenerator(
@@ -31,8 +30,6 @@ export function createGenerator(
   switch (framework) {
     case "react":
       return new ReactGenerator(registry, options);
-    case "vue":
-      return new VueGenerator(registry);
     default: {
       const _exhaustive: string = framework;
       void _exhaustive;
