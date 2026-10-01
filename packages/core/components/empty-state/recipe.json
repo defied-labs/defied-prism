@@ -1,0 +1,82 @@
+{
+  "name": "empty-state",
+  "base": {
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "center",
+    "textAlign": "center",
+    "marginInline": "auto",
+    "fontFamily": "{font.sans}",
+    "color": "{color.fg}"
+  },
+  "slots": {
+    "icon": {
+      "display": "inline-flex",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "borderRadius": "{radius.full}",
+      "background": "{color.muted}",
+      "color": "{color.muted-fg}"
+    },
+    "title": {
+      "margin": "0",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": "{leading.tight}"
+    },
+    "description": {
+      "margin": "0",
+      "maxWidth": "36rem",
+      "color": "{color.muted-fg}",
+      "lineHeight": "{leading.normal}"
+    },
+    "actions": {
+      "display": "flex",
+      "flexWrap": "wrap",
+      "justifyContent": "center",
+      "gap": "{space.2}"
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "gap": "{space.2}",
+        "paddingBlock": "{space.6}",
+        "paddingInline": "{space.4}",
+        "slot:icon": {
+          "width": "{control.md}",
+          "height": "{control.md}"
+        },
+        "slot:title": {
+          "fontSize": "{text.md}"
+        },
+        "slot:description": {
+          "fontSize": "{text.sm}"
+        },
+        "slot:actions": {
+          "marginTop": "{space.2}"
+        }
+      },
+      "md": {
+        "gap": "{space.3}",
+        "paddingBlock": "{space.12}",
+        "paddingInline": "{space.6}",
+        "slot:icon": {
+          "width": "{space.12}",
+          "height": "{space.12}"
+        },
+        "slot:title": {
+          "fontSize": "{text.lg}"
+        },
+        "slot:description": {
+          "fontSize": "{text.md}"
+        },
+        "slot:actions": {
+          "marginTop": "{space.4}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "metadata": {
+    "name": "calendar",
+    "displayName": "Calendar",
+    "description": "A month calendar following the APG date grid pattern: roving focus, month/year keyboard navigation, min/max and disabled dates, locale-aware labels.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "forms",
+    "keywords": [
+      "calendar",
+      "date",
+      "date-picker",
+      "grid"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div",
+        "role": "group"
+      },
+      "header": {
+        "element": "div"
+      },
+      "heading": {
+        "element": "h2"
+      },
+      "navButton": {
+        "element": "button"
+      },
+      "grid": {
+        "element": "table",
+        "role": "grid"
+      },
+      "weekday": {
+        "element": "th"
+      },
+      "cell": {
+        "element": "td",
+        "role": "gridcell"
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md"
+        ],
+        "default": "md"
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "states": [],
+    "parts": [
+      "today",
+      "icon"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowLeft",
+          "ArrowRight"
+        ],
+        "action": "navigate",
+        "description": "Previous / next day"
+      },
+      {
+        "keys": [
+          "ArrowUp",
+          "ArrowDown"
+        ],
+        "action": "navigate",
+        "description": "Same day previous / next week"
+      },
+      {
+        "keys": [
+          "Home",
+          "End"
+        ],
+        "action": "navigate",
+        "description": "First / last day of the week"
+      },
+      {
+        "keys": [
+          "PageUp",
+          "PageDown"
+        ],
+        "action": "navigate",
+        "description": "Same day previous / next month"
+      },
+      {
+        "keys": [
+          "Shift+PageUp",
+          "Shift+PageDown"
+        ],
+        "action": "navigate",
+        "description": "Same day previous / next year"
+      },
+      {
+        "keys": [
+          "Enter",
+          " "
+        ],
+        "action": "select",
+        "description": "Select the focused date"
+      }
+    ],
+    "aria": {
+      "role": "group",
+      "attributes": [
+        "aria-disabled"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Calendar.tsx",
+            "destination": "Calendar.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/Calendar.vue",
+            "destination": "calendar/Calendar.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "calendar/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "icon-button"
+  ],
+  "tokens": [
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.ghost-hover",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.primary",
+      "required": true
+    },
+    {
+      "name": "color.primary-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "grid"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/calendar"
+}

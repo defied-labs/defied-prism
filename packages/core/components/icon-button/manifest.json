@@ -1,0 +1,324 @@
+{
+  "metadata": {
+    "name": "icon-button",
+    "displayName": "Icon Button",
+    "description": "A square, icon-only button that requires an accessible name, with loading and disabled states.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "actions",
+    "keywords": [
+      "button",
+      "icon",
+      "action"
+    ]
+  },
+  "contract": {
+    "element": "button",
+    "props": {
+      "variant": {
+        "type": "enum",
+        "values": [
+          "primary",
+          "secondary",
+          "outline",
+          "ghost",
+          "destructive"
+        ],
+        "default": "ghost"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl"
+        ],
+        "default": "md"
+      },
+      "loading": {
+        "type": "boolean",
+        "default": false,
+        "description": "Shows a spinner, sets aria-busy and aria-disabled, keeps focus, and ignores activation."
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "states": [
+      "idle",
+      "disabled",
+      "loading"
+    ],
+    "parts": [
+      "icon",
+      "spinner"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "activate"
+      },
+      {
+        "keys": [
+          " "
+        ],
+        "action": "activate",
+        "description": "Space"
+      }
+    ],
+    "aria": {
+      "role": "button",
+      "attributes": [
+        "aria-busy",
+        "aria-disabled"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/IconButton.tsx",
+            "destination": "IconButton.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/IconButton.vue",
+            "destination": "icon-button/IconButton.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "icon-button/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.border-strong",
+      "required": true
+    },
+    {
+      "name": "color.destructive",
+      "required": true
+    },
+    {
+      "name": "color.destructive-active",
+      "required": true
+    },
+    {
+      "name": "color.destructive-fg",
+      "required": true
+    },
+    {
+      "name": "color.destructive-hover",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.ghost-active",
+      "required": true
+    },
+    {
+      "name": "color.ghost-hover",
+      "required": true
+    },
+    {
+      "name": "color.primary",
+      "required": true
+    },
+    {
+      "name": "color.primary-active",
+      "required": true
+    },
+    {
+      "name": "color.primary-fg",
+      "required": true
+    },
+    {
+      "name": "color.primary-hover",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "color.secondary",
+      "required": true
+    },
+    {
+      "name": "color.secondary-active",
+      "required": true
+    },
+    {
+      "name": "color.secondary-fg",
+      "required": true
+    },
+    {
+      "name": "color.secondary-hover",
+      "required": true
+    },
+    {
+      "name": "control.lg",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "control.xl",
+      "required": true
+    },
+    {
+      "name": "control.xs",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xl",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "button"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/icon-button"
+}

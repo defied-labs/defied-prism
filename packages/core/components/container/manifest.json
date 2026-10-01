@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "name": "container",
+    "displayName": "Container",
+    "description": "Centered max-width wrapper with inline padding.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "layout",
+    "keywords": [
+      "container",
+      "layout"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg",
+          "xl",
+          "full"
+        ],
+        "default": "lg"
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "generic",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Container.tsx",
+            "destination": "Container.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "space.4",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/container"
+}

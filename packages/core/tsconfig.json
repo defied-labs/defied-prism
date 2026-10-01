@@ -1,0 +1,23 @@
+{
+  "extends": "@defied-prism/config/tsconfig.base.json",
+  "include": [
+    "index.ts",
+    "machine",
+    "components",
+    "lib",
+    "styles",
+    "scripts",
+    "test",
+    "vitest.config.ts",
+    "dom"
+  ],
+  "exclude": [
+    "components/*/templates"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM"
+    ]
+  }
+}

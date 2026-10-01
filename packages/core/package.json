@@ -1,0 +1,61 @@
+{
+  "name": "@defied-prism/core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./machine": "./machine/index.ts",
+    "./dom": "./dom/index.ts",
+    "./tailwind": "./tailwind.ts",
+    "./components/*": "./components/*/index.ts"
+  },
+  "devDependencies": {
+    "@defied-prism/style-engine": "workspace:*",
+    "@types/node": "catalog:",
+    "jsdom": "^29.1.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.8"
+  },
+  "scripts": {
+    "build:registry": "tsx scripts/build-registry.ts",
+    "check:registry": "tsx scripts/build-registry.ts --check",
+    "build": "tsup",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./machine": {
+        "types": "./dist/machine.d.ts",
+        "import": "./dist/machine.js"
+      },
+      "./dom": {
+        "types": "./dist/dom.d.ts",
+        "import": "./dist/dom.js"
+      },
+      "./tailwind": {
+        "types": "./dist/tailwind.d.ts",
+        "import": "./dist/tailwind.js"
+      },
+      "./components/*": {
+        "types": "./dist/components/*.d.ts",
+        "import": "./dist/components/*.js"
+      }
+    }
+  },
+  "dependencies": {
+    "@defied-prism/tokens": "workspace:^",
+    "tailwind-merge": "^3.6.0"
+  }
+}

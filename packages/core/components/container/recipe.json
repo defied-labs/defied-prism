@@ -1,0 +1,31 @@
+{
+  "name": "container",
+  "base": {
+    "boxSizing": "border-box",
+    "width": "100%",
+    "marginInline": "auto",
+    "paddingInline": "{space.4}"
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "maxWidth": "40rem"
+      },
+      "md": {
+        "maxWidth": "48rem"
+      },
+      "lg": {
+        "maxWidth": "64rem"
+      },
+      "xl": {
+        "maxWidth": "80rem"
+      },
+      "full": {
+        "maxWidth": "none"
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "lg"
+  }
+}

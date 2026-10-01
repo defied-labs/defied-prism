@@ -1,0 +1,61 @@
+{
+  "name": "link",
+  "base": {
+    "borderRadius": "{radius.sm}",
+    "textUnderlineOffset": "0.2em",
+    "cursor": "pointer",
+    "transition": "color {duration.fast} {easing.standard}",
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "{focus.ring-offset}"
+    },
+    "part:external-hint": {
+      "position": "absolute",
+      "width": "1px",
+      "height": "1px",
+      "padding": "0",
+      "margin": "-1px",
+      "overflow": "hidden",
+      "clipPath": "inset(50%)",
+      "whiteSpace": "nowrap",
+      "borderWidth": "0"
+    }
+  },
+  "variants": {
+    "tone": {
+      "primary": {
+        "color": "{color.link}",
+        "_hoverAny": {
+          "color": "{color.link-hover}"
+        }
+      },
+      "neutral": {
+        "color": "{color.fg}"
+      },
+      "muted": {
+        "color": "{color.muted-fg}"
+      }
+    },
+    "underline": {
+      "always": {
+        "textDecorationLine": "underline"
+      },
+      "hover": {
+        "textDecorationLine": "none",
+        "_hoverAny": {
+          "textDecorationLine": "underline"
+        },
+        "_focusVisible": {
+          "textDecorationLine": "underline"
+        }
+      },
+      "none": {
+        "textDecorationLine": "none"
+      }
+    }
+  },
+  "defaultVariants": {
+    "tone": "primary",
+    "underline": "always"
+  }
+}

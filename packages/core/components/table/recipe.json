@@ -1,0 +1,93 @@
+{
+  "name": "table",
+  "base": {
+    "width": "100%",
+    "borderCollapse": "collapse",
+    "captionSide": "bottom",
+    "fontFamily": "{font.sans}",
+    "fontSize": "{text.sm}",
+    "lineHeight": "{leading.normal}",
+    "color": "{color.fg}"
+  },
+  "slots": {
+    "scroll": {
+      "position": "relative",
+      "width": "100%",
+      "overflowX": "auto",
+      "borderRadius": "{radius.sm}",
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      }
+    },
+    "caption": {
+      "marginTop": "{space.3}",
+      "color": "{color.muted-fg}",
+      "textAlign": "start"
+    },
+    "header": {},
+    "body": {},
+    "footer": {
+      "background": "{color.bg-subtle}",
+      "fontWeight": "{weight.medium}"
+    },
+    "row": {
+      "transitionProperty": "background-color",
+      "transitionDuration": "{duration.fast}",
+      "transitionTimingFunction": "{easing.standard}",
+      "_even": {
+        "background": "var(--table-stripe, transparent)"
+      },
+      "_hoverAny": {
+        "background": "{color.muted}"
+      }
+    },
+    "head": {
+      "paddingBlock": "var(--table-pad-block)",
+      "paddingInline": "var(--table-pad-inline)",
+      "textAlign": "start",
+      "verticalAlign": "middle",
+      "borderBottomWidth": "1px",
+      "borderBottomStyle": "solid",
+      "borderBottomColor": "{color.border}",
+      "fontWeight": "{weight.semibold}",
+      "color": "{color.muted-fg}",
+      "whiteSpace": "nowrap"
+    },
+    "cell": {
+      "paddingBlock": "var(--table-pad-block)",
+      "paddingInline": "var(--table-pad-inline)",
+      "textAlign": "start",
+      "verticalAlign": "middle",
+      "borderBottomWidth": "1px",
+      "borderBottomStyle": "solid",
+      "borderBottomColor": "{color.border}"
+    }
+  },
+  "variants": {
+    "density": {
+      "compact": {
+        "--table-pad-block": "{space.1}",
+        "--table-pad-inline": "{space.2}"
+      },
+      "normal": {
+        "--table-pad-block": "{space.2}",
+        "--table-pad-inline": "{space.3}"
+      },
+      "relaxed": {
+        "--table-pad-block": "{space.3}",
+        "--table-pad-inline": "{space.4}"
+      }
+    },
+    "striped": {
+      "true": {
+        "slot:body": {
+          "--table-stripe": "{color.bg-subtle}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "density": "normal"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@defied-prism/vue",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@defied-prism/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@defied-prism/config": "workspace:*",
+    "@testing-library/jest-dom": "^6.10.0",
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "catalog:",
+    "jsdom": "^29.1.1",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.8",
+    "vue": "^3.5.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    }
+  },
+  "peerDependencies": {
+    "vue": ">=3.4"
+  }
+}

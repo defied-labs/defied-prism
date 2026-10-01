@@ -1,0 +1,301 @@
+{
+  "metadata": {
+    "name": "command-palette",
+    "displayName": "Command Palette",
+    "description": "A modal command palette: compound input, list, groups and items (registered through context) with filtering, keyboard navigation, an empty state and an optional global shortcut.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "overlays",
+    "keywords": [
+      "command",
+      "palette",
+      "cmdk",
+      "search",
+      "launcher"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "anchor": "content",
+    "slots": {
+      "overlay": {
+        "element": "div"
+      },
+      "content": {
+        "element": "div",
+        "role": "dialog"
+      },
+      "input": {
+        "element": "input",
+        "role": "combobox"
+      },
+      "listbox": {
+        "element": "div",
+        "role": "listbox"
+      },
+      "group": {
+        "element": "div",
+        "role": "group"
+      },
+      "groupLabel": {
+        "element": "div"
+      },
+      "item": {
+        "element": "div",
+        "role": "option"
+      },
+      "separator": {
+        "element": "div",
+        "optional": true
+      },
+      "empty": {
+        "element": "div",
+        "role": "status",
+        "optional": true
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      }
+    },
+    "states": [
+      "open"
+    ],
+    "parts": [],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowUp"
+        ],
+        "action": "navigate",
+        "description": "Highlight the next / previous command, wrapping"
+      },
+      {
+        "keys": [
+          "Home",
+          "End"
+        ],
+        "action": "navigate",
+        "description": "Highlight the first / last command"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "select",
+        "description": "Run the highlighted command"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss",
+        "description": "Close the palette"
+      }
+    ],
+    "aria": {
+      "role": "dialog",
+      "attributes": [
+        "aria-modal"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/CommandPalette.tsx",
+            "destination": "CommandPalette.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "react-dom",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.overlay",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.lg",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    },
+    {
+      "name": "z.modal",
+      "required": true
+    },
+    {
+      "name": "z.overlay",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "dialog-modal",
+      "combobox"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/command-palette"
+}

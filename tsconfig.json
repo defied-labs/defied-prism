@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+      "jsx": "react"
+  },
+  "extends": "@defied-prism/config/tsconfig.base.json"
+}

@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "name": "surface",
+    "displayName": "Surface",
+    "description": "Themed panel with background, border, radius and elevation.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "layout",
+    "keywords": [
+      "surface",
+      "layout"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "props": {
+      "variant": {
+        "type": "enum",
+        "values": [
+          "flat",
+          "raised",
+          "outlined",
+          "sunken"
+        ],
+        "default": "outlined"
+      },
+      "padding": {
+        "type": "enum",
+        "values": [
+          "none",
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "generic",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Surface.tsx",
+            "destination": "Surface.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.bg-subtle",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "shadow.md",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/surface"
+}

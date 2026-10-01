@@ -1,0 +1,189 @@
+{
+  "metadata": {
+    "name": "empty-state",
+    "displayName": "Empty State",
+    "description": "A placeholder for empty lists and searches: icon, heading, description and actions.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "feedback",
+    "keywords": [
+      "empty",
+      "empty-state",
+      "placeholder",
+      "zero-state"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div"
+      },
+      "icon": {
+        "element": "div",
+        "optional": true
+      },
+      "title": {
+        "element": "h3"
+      },
+      "description": {
+        "element": "p"
+      },
+      "actions": {
+        "element": "div",
+        "optional": true
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md"
+        ],
+        "default": "md"
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "generic",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/EmptyState.tsx",
+            "destination": "EmptyState.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "space.12",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/empty-state"
+}

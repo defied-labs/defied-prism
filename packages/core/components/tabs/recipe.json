@@ -1,0 +1,117 @@
+{
+  "name": "tabs",
+  "base": {
+    "display": "flex",
+    "gap": "{space.3}",
+    "fontFamily": "{font.sans}"
+  },
+  "slots": {
+    "list": {
+      "display": "flex",
+      "gap": "{space.1}"
+    },
+    "trigger": {
+      "display": "inline-flex",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "gap": "{space.2}",
+      "borderWidth": "0",
+      "background": "transparent",
+      "color": "{color.muted-fg}",
+      "fontFamily": "inherit",
+      "fontWeight": "{weight.medium}",
+      "lineHeight": "{leading.tight}",
+      "whiteSpace": "nowrap",
+      "cursor": "pointer",
+      "transition": "color {duration.fast} {easing.standard}, background-color {duration.fast} {easing.standard}, box-shadow {duration.fast} {easing.standard}",
+      "_hover": {
+        "color": "{color.fg}"
+      },
+      "_selected": {
+        "color": "{color.fg}"
+      },
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      },
+      "_disabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      }
+    },
+    "panel": {
+      "borderRadius": "{radius.sm}",
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      }
+    }
+  },
+  "variants": {
+    "orientation": {
+      "horizontal": {
+        "flexDirection": "column",
+        "slot:list": {
+          "flexDirection": "row"
+        },
+        "slot:trigger": {
+          "--prism-tabs-indicator": "inset 0 -2px 0 0"
+        }
+      },
+      "vertical": {
+        "flexDirection": "row",
+        "slot:list": {
+          "flexDirection": "column"
+        },
+        "slot:trigger": {
+          "--prism-tabs-indicator": "inset 2px 0 0 0"
+        }
+      }
+    },
+    "variant": {
+      "line": {
+        "slot:list": {
+          "boxShadow": "inset 0 -1px 0 0 {color.border}"
+        },
+        "slot:trigger": {
+          "borderRadius": "0",
+          "_selected": {
+            "boxShadow": "var(--prism-tabs-indicator) {color.primary}"
+          }
+        }
+      },
+      "pills": {
+        "slot:list": {
+          "boxShadow": "none"
+        },
+        "slot:trigger": {
+          "borderRadius": "{radius.md}",
+          "_selected": {
+            "background": "{color.muted}"
+          }
+        }
+      }
+    },
+    "size": {
+      "sm": {
+        "slot:trigger": {
+          "minHeight": "{control.sm}",
+          "paddingInline": "{space.3}",
+          "fontSize": "{text.sm}"
+        }
+      },
+      "md": {
+        "slot:trigger": {
+          "minHeight": "{control.md}",
+          "paddingInline": "{space.4}",
+          "fontSize": "{text.sm}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "orientation": "horizontal",
+    "variant": "line",
+    "size": "md"
+  }
+}

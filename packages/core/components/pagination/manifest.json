@@ -1,0 +1,216 @@
+{
+  "metadata": {
+    "name": "pagination",
+    "displayName": "Pagination",
+    "description": "Page navigation: a labelled nav landmark with previous/next controls, the current page marked, and ellipses collapsing long ranges.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "navigation",
+    "keywords": [
+      "pagination",
+      "pager",
+      "pages",
+      "navigation"
+    ]
+  },
+  "contract": {
+    "element": "nav",
+    "anchor": "root",
+    "slots": {
+      "root": {
+        "element": "nav"
+      },
+      "list": {
+        "element": "ul"
+      },
+      "item": {
+        "element": "li"
+      },
+      "link": {
+        "element": "button"
+      },
+      "ellipsis": {
+        "element": "span"
+      },
+      "previous": {
+        "element": "button"
+      },
+      "next": {
+        "element": "button"
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md"
+        ],
+        "default": "md"
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "navigation",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Pagination.tsx",
+            "destination": "Pagination.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg-subtle",
+      "required": true
+    },
+    {
+      "name": "color.border-strong",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.ghost-hover",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "landmark-navigation"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/pagination"
+}

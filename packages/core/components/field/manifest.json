@@ -1,0 +1,270 @@
+{
+  "metadata": {
+    "name": "field",
+    "displayName": "Field",
+    "description": "Connects a label, description and error message to any Prism form control; FieldGroup groups related fields in a fieldset.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "forms",
+    "keywords": [
+      "field",
+      "form",
+      "label",
+      "error",
+      "fieldset"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div"
+      },
+      "label": {
+        "element": "label"
+      },
+      "description": {
+        "element": "p"
+      },
+      "error": {
+        "element": "p"
+      },
+      "group": {
+        "element": "fieldset"
+      },
+      "legend": {
+        "element": "legend",
+        "optional": true
+      }
+    },
+    "props": {
+      "orientation": {
+        "type": "enum",
+        "values": [
+          "vertical",
+          "horizontal"
+        ],
+        "default": "vertical"
+      },
+      "invalid": {
+        "type": "boolean",
+        "default": false,
+        "description": "Marks the control invalid; a FieldError with content does this too."
+      },
+      "required": {
+        "type": "boolean",
+        "default": false,
+        "description": "Sets required on the control and shows the label's required indicator."
+      }
+    },
+    "states": [],
+    "parts": [
+      "required-indicator"
+    ],
+    "keyboard": [],
+    "aria": {
+      "role": "generic",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Field.tsx",
+            "destination": "Field.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "field/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "field/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Field.vue",
+            "destination": "field/Field.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/FieldLabel.vue",
+            "destination": "field/FieldLabel.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/FieldDescription.vue",
+            "destination": "field/FieldDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/FieldError.vue",
+            "destination": "field/FieldError.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/FieldGroup.vue",
+            "destination": "field/FieldGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "field/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.danger-fg",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.1-5",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/field"
+}

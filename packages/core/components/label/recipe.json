@@ -1,0 +1,34 @@
+{
+  "name": "label",
+  "base": {
+    "display": "inline-flex",
+    "alignItems": "baseline",
+    "gap": "{space.1}",
+    "fontFamily": "{font.sans}",
+    "fontWeight": "{weight.medium}",
+    "lineHeight": "{leading.tight}",
+    "color": "{color.fg}",
+    "part:required-indicator": {
+      "color": "{color.danger-fg}"
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "fontSize": "{text.xs}"
+      },
+      "md": {
+        "fontSize": "{text.sm}"
+      }
+    },
+    "dimmed": {
+      "true": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

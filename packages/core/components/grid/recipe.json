@@ -1,0 +1,56 @@
+{
+  "name": "grid",
+  "base": {
+    "display": "grid",
+    "minWidth": "0"
+  },
+  "variants": {
+    "columns": {
+      "one": {
+        "gridTemplateColumns": "repeat(1, minmax(0, 1fr))"
+      },
+      "two": {
+        "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+      },
+      "three": {
+        "gridTemplateColumns": "repeat(3, minmax(0, 1fr))"
+      },
+      "four": {
+        "gridTemplateColumns": "repeat(4, minmax(0, 1fr))"
+      },
+      "six": {
+        "gridTemplateColumns": "repeat(6, minmax(0, 1fr))"
+      },
+      "twelve": {
+        "gridTemplateColumns": "repeat(12, minmax(0, 1fr))"
+      },
+      "auto": {
+        "gridTemplateColumns": "repeat(auto-fit, minmax(min(16rem, 100%), 1fr))"
+      }
+    },
+    "gap": {
+      "none": {
+        "gap": "0"
+      },
+      "xs": {
+        "gap": "{space.1}"
+      },
+      "sm": {
+        "gap": "{space.2}"
+      },
+      "md": {
+        "gap": "{space.4}"
+      },
+      "lg": {
+        "gap": "{space.6}"
+      },
+      "xl": {
+        "gap": "{space.8}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "columns": "one",
+    "gap": "md"
+  }
+}

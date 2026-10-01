@@ -1,0 +1,20 @@
+{
+  "framework": "react",
+  "styling": "tailwind",
+  "componentsPath": "src/components/ui",
+  "registryPath": "../../packages/core",
+  "components": [
+    "button",
+    "select",
+    "dialog",
+    "field",
+    "toast",
+    "data-table",
+    "calendar",
+    "icon-button",
+    "input",
+    "tabs",
+    "badge",
+    "switch"
+  ]
+}

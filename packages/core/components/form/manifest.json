@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "name": "form",
+    "displayName": "Form",
+    "description": "A form that moves focus to the first invalid control after submit.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "forms",
+    "keywords": [
+      "form",
+      "validation"
+    ]
+  },
+  "contract": {
+    "element": "form",
+    "props": {},
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "form",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Form.tsx",
+            "destination": "Form.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/form"
+}

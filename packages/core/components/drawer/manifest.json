@@ -1,0 +1,260 @@
+{
+  "metadata": {
+    "name": "drawer",
+    "displayName": "Drawer",
+    "description": "A modal side sheet anchored to a viewport edge: focus trapped and restored, background inert, scroll locked, dismissable with Escape or an outside click.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "overlays",
+    "keywords": [
+      "drawer",
+      "sheet",
+      "side panel",
+      "modal",
+      "overlay"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "anchor": "content",
+    "slots": {
+      "overlay": {
+        "element": "div"
+      },
+      "content": {
+        "element": "div",
+        "role": "dialog"
+      },
+      "title": {
+        "element": "h2"
+      },
+      "description": {
+        "element": "p"
+      },
+      "footer": {
+        "element": "div"
+      }
+    },
+    "props": {
+      "side": {
+        "type": "enum",
+        "values": [
+          "left",
+          "right",
+          "top",
+          "bottom"
+        ],
+        "default": "right"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg",
+          "full"
+        ],
+        "default": "md"
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean",
+        "default": true
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "states": [
+      "open"
+    ],
+    "parts": [],
+    "keyboard": [
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "navigate",
+        "description": "Cycles through focusable elements inside the drawer only"
+      }
+    ],
+    "aria": {
+      "role": "dialog",
+      "attributes": [
+        "aria-modal",
+        "aria-labelledby",
+        "aria-describedby"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Drawer.tsx",
+            "destination": "Drawer.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "react-dom",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.overlay",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    },
+    {
+      "name": "z.modal",
+      "required": true
+    },
+    {
+      "name": "z.overlay",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "dialog-modal"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/drawer"
+}

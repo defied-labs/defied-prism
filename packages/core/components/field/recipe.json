@@ -1,0 +1,69 @@
+{
+  "name": "field",
+  "base": {
+    "display": "flex",
+    "gap": "{space.1-5}",
+    "fontFamily": "{font.sans}",
+    "minWidth": "0"
+  },
+  "slots": {
+    "label": {
+      "display": "inline-flex",
+      "alignItems": "baseline",
+      "gap": "{space.1}",
+      "fontSize": "{text.sm}",
+      "fontWeight": "{weight.medium}",
+      "lineHeight": "{leading.tight}",
+      "color": "{color.fg}",
+      "part:required-indicator": {
+        "color": "{color.danger-fg}"
+      }
+    },
+    "description": {
+      "margin": "0",
+      "fontSize": "{text.xs}",
+      "lineHeight": "{leading.normal}",
+      "color": "{color.muted-fg}"
+    },
+    "error": {
+      "margin": "0",
+      "fontSize": "{text.xs}",
+      "lineHeight": "{leading.normal}",
+      "color": "{color.danger-fg}"
+    },
+    "group": {
+      "display": "flex",
+      "flexDirection": "column",
+      "gap": "{space.4}",
+      "minWidth": "0",
+      "margin": "0",
+      "padding": "0",
+      "borderWidth": "0",
+      "fontFamily": "{font.sans}"
+    },
+    "legend": {
+      "padding": "0",
+      "marginBottom": "{space.2}",
+      "fontSize": "{text.md}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": "{leading.tight}",
+      "color": "{color.fg}"
+    }
+  },
+  "variants": {
+    "orientation": {
+      "vertical": {
+        "flexDirection": "column"
+      },
+      "horizontal": {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "alignItems": "center",
+        "columnGap": "{space.3}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "orientation": "vertical"
+  }
+}

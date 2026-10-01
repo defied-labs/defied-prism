@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "name": "tooltip",
+    "displayName": "Tooltip",
+    "description": "A short description shown on hover and focus. Hoverable, dismissable with Escape, and announced via aria-describedby.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "overlays",
+    "keywords": [
+      "tooltip",
+      "hint",
+      "describedby"
+    ]
+  },
+  "contract": {
+    "element": "span",
+    "anchor": "content",
+    "slots": {
+      "root": {
+        "element": "span"
+      },
+      "content": {
+        "element": "span",
+        "role": "tooltip"
+      }
+    },
+    "props": {
+      "side": {
+        "type": "enum",
+        "values": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ],
+        "default": "top"
+      }
+    },
+    "states": [
+      "open",
+      "closed"
+    ],
+    "parts": [],
+    "keyboard": [
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "show",
+        "description": "Focusing the trigger shows the tooltip immediately"
+      }
+    ],
+    "aria": {
+      "role": "tooltip",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Tooltip.tsx",
+            "destination": "Tooltip.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.inverse",
+      "required": true
+    },
+    {
+      "name": "color.inverse-fg",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.snug",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "shadow.md",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "z.tooltip",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "tooltip"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/tooltip"
+}

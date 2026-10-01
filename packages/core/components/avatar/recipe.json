@@ -1,0 +1,64 @@
+{
+  "name": "avatar",
+  "base": {
+    "position": "relative",
+    "display": "inline-flex",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "flexShrink": "0",
+    "overflow": "hidden",
+    "verticalAlign": "middle",
+    "background": "{color.muted}",
+    "color": "{color.muted-fg}",
+    "fontFamily": "{font.sans}",
+    "fontWeight": "{weight.medium}",
+    "lineHeight": "1",
+    "userSelect": "none"
+  },
+  "slots": {
+    "image": {
+      "width": "100%",
+      "height": "100%",
+      "objectFit": "cover"
+    },
+    "fallback": {
+      "textTransform": "uppercase"
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "width": "{control.xs}",
+        "height": "{control.xs}",
+        "fontSize": "{text.xs}"
+      },
+      "md": {
+        "width": "{control.md}",
+        "height": "{control.md}",
+        "fontSize": "{text.sm}"
+      },
+      "lg": {
+        "width": "{control.lg}",
+        "height": "{control.lg}",
+        "fontSize": "{text.md}"
+      },
+      "xl": {
+        "width": "{control.xl}",
+        "height": "{control.xl}",
+        "fontSize": "{text.lg}"
+      }
+    },
+    "shape": {
+      "circle": {
+        "borderRadius": "{radius.full}"
+      },
+      "square": {
+        "borderRadius": "{radius.md}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md",
+    "shape": "circle"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "dialog",
+  "base": {},
+  "slots": {
+    "overlay": {
+      "position": "fixed",
+      "inset": "0",
+      "zIndex": "{z.overlay}",
+      "background": "{color.overlay}",
+      "animation": "prism-fade-in {duration.normal} {easing.standard}"
+    },
+    "content": {
+      "position": "fixed",
+      "zIndex": "{z.modal}",
+      "top": "50%",
+      "left": "50%",
+      "transform": "translate(-50%, -50%)",
+      "boxSizing": "border-box",
+      "width": "calc(100vw - 2 * {space.4})",
+      "maxHeight": "calc(100dvh - 2 * {space.4})",
+      "overflowY": "auto",
+      "display": "flex",
+      "flexDirection": "column",
+      "gap": "{space.4}",
+      "padding": "{space.6}",
+      "borderRadius": "{radius.lg}",
+      "borderWidth": "1px",
+      "borderStyle": "solid",
+      "borderColor": "{color.border}",
+      "background": "{color.bg}",
+      "color": "{color.fg}",
+      "boxShadow": "{shadow.lg}",
+      "fontFamily": "{font.sans}",
+      "animation": "prism-scale-in {duration.normal} {easing.emphasized}",
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      }
+    },
+    "title": {
+      "margin": "0",
+      "fontSize": "{text.lg}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": "{leading.tight}"
+    },
+    "description": {
+      "margin": "0",
+      "color": "{color.muted-fg}",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}"
+    },
+    "footer": {
+      "display": "flex",
+      "flexWrap": "wrap",
+      "justifyContent": "flex-end",
+      "gap": "{space.2}"
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "slot:content": {
+          "maxWidth": "24rem"
+        }
+      },
+      "md": {
+        "slot:content": {
+          "maxWidth": "32rem"
+        }
+      },
+      "lg": {
+        "slot:content": {
+          "maxWidth": "42rem"
+        }
+      },
+      "xl": {
+        "slot:content": {
+          "maxWidth": "56rem"
+        }
+      },
+      "full": {
+        "slot:content": {
+          "maxWidth": "none"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

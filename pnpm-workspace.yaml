@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  '@types/node': ^26.1.1
+  dotenv: ^17.4.2
+  zod: ^4.4.3

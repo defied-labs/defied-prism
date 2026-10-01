@@ -1,0 +1,40 @@
+{
+  "name": "box",
+  "base": {
+    "boxSizing": "border-box",
+    "minWidth": "0"
+  },
+  "variants": {
+    "padding": {
+      "none": {
+        "padding": "0"
+      },
+      "sm": {
+        "padding": "{space.2}"
+      },
+      "md": {
+        "padding": "{space.4}"
+      },
+      "lg": {
+        "padding": "{space.6}"
+      }
+    },
+    "background": {
+      "none": {
+        "background": "transparent"
+      },
+      "subtle": {
+        "background": "{color.bg-subtle}",
+        "color": "{color.fg}"
+      },
+      "muted": {
+        "background": "{color.muted}",
+        "color": "{color.fg}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "padding": "none",
+    "background": "none"
+  }
+}

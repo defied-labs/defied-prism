@@ -1,0 +1,258 @@
+{
+  "metadata": {
+    "name": "input",
+    "displayName": "Input",
+    "description": "A versatile input component with state-driven interactions",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "stable",
+    "category": "forms",
+    "keywords": [
+      "input",
+      "form",
+      "text",
+      "field"
+    ]
+  },
+  "contract": {
+    "element": "input",
+    "props": {
+      "variant": {
+        "type": "enum",
+        "values": [
+          "outlined",
+          "filled"
+        ],
+        "default": "outlined"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      },
+      "fullWidth": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "states": [
+      "empty",
+      "focusedEmpty",
+      "filled",
+      "focusedFilled",
+      "disabled"
+    ],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "textbox",
+      "attributes": [
+        "aria-invalid",
+        "aria-describedby"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Input.tsx",
+            "destination": "Input.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/Input.vue",
+            "destination": "input/Input.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "input/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border-strong",
+      "required": true
+    },
+    {
+      "name": "color.danger-solid",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.lg",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "textbox",
+      "invalid",
+      "disabled"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/input"
+}

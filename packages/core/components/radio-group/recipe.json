@@ -1,0 +1,100 @@
+{
+  "name": "radio-group",
+  "base": {
+    "display": "flex",
+    "gap": "{space.3}",
+    "fontFamily": "{font.sans}"
+  },
+  "slots": {
+    "item": {
+      "display": "inline-flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "color": "{color.fg}",
+      "lineHeight": "{leading.tight}"
+    },
+    "control": {
+      "position": "relative",
+      "display": "inline-flex",
+      "flexShrink": "0",
+      "part:indicator": {
+        "position": "absolute",
+        "inset": "0",
+        "borderRadius": "{radius.full}",
+        "background": "{color.primary-fg}",
+        "boxShadow": "inset 0 0 0 0.3em {color.primary}",
+        "pointerEvents": "none",
+        "animation": "prism-scale-in {duration.fast} {easing.standard}"
+      }
+    },
+    "radio": {
+      "appearance": "none",
+      "boxSizing": "border-box",
+      "display": "block",
+      "margin": "0",
+      "borderWidth": "1px",
+      "borderStyle": "solid",
+      "borderColor": "{color.border-strong}",
+      "borderRadius": "{radius.full}",
+      "background": "{color.bg}",
+      "cursor": "pointer",
+      "transition": "border-color {duration.fast} {easing.standard}",
+      "_hover": {
+        "borderColor": "{color.fg}"
+      },
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      },
+      "_invalid": {
+        "borderColor": "{color.danger-solid}"
+      },
+      "_disabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      }
+    }
+  },
+  "variants": {
+    "orientation": {
+      "horizontal": {
+        "flexDirection": "row",
+        "flexWrap": "wrap"
+      },
+      "vertical": {
+        "flexDirection": "column",
+        "flexWrap": "nowrap"
+      }
+    },
+    "size": {
+      "sm": {
+        "slot:item": {
+          "fontSize": "{text.sm}"
+        },
+        "slot:control": {
+          "fontSize": "{text.sm}"
+        },
+        "slot:radio": {
+          "width": "1rem",
+          "height": "1rem"
+        }
+      },
+      "md": {
+        "slot:item": {
+          "fontSize": "{text.md}"
+        },
+        "slot:control": {
+          "fontSize": "{text.md}"
+        },
+        "slot:radio": {
+          "width": "1.25rem",
+          "height": "1.25rem"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "orientation": "vertical",
+    "size": "md"
+  }
+}

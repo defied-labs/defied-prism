@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "name": "alert",
+    "displayName": "Alert",
+    "description": "An inline status message with optional title, icon, action and dismiss button. role=status by default; urgent alerts use role=alert.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "feedback",
+    "keywords": [
+      "alert",
+      "callout",
+      "banner",
+      "status"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div",
+        "role": "status"
+      },
+      "icon": {
+        "element": "span",
+        "optional": true
+      },
+      "content": {
+        "element": "div"
+      },
+      "title": {
+        "element": "div"
+      },
+      "description": {
+        "element": "div"
+      },
+      "action": {
+        "element": "div",
+        "optional": true
+      },
+      "close": {
+        "element": "button",
+        "optional": true
+      }
+    },
+    "props": {
+      "status": {
+        "type": "enum",
+        "values": [
+          "neutral",
+          "info",
+          "success",
+          "warning",
+          "danger"
+        ],
+        "default": "neutral"
+      },
+      "urgent": {
+        "type": "boolean",
+        "default": false,
+        "description": "Use role=alert (assertive) for important, time-sensitive messages. Default role=status (polite)."
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "status",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Alert.tsx",
+            "destination": "Alert.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "icon-button"
+  ],
+  "tokens": [
+    {
+      "name": "color.danger-bg",
+      "required": true
+    },
+    {
+      "name": "color.danger-border",
+      "required": true
+    },
+    {
+      "name": "color.danger-fg",
+      "required": true
+    },
+    {
+      "name": "color.info-bg",
+      "required": true
+    },
+    {
+      "name": "color.info-border",
+      "required": true
+    },
+    {
+      "name": "color.info-fg",
+      "required": true
+    },
+    {
+      "name": "color.neutral-bg",
+      "required": true
+    },
+    {
+      "name": "color.neutral-border",
+      "required": true
+    },
+    {
+      "name": "color.neutral-fg",
+      "required": true
+    },
+    {
+      "name": "color.success-bg",
+      "required": true
+    },
+    {
+      "name": "color.success-border",
+      "required": true
+    },
+    {
+      "name": "color.success-fg",
+      "required": true
+    },
+    {
+      "name": "color.warning-bg",
+      "required": true
+    },
+    {
+      "name": "color.warning-border",
+      "required": true
+    },
+    {
+      "name": "color.warning-fg",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "alert"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/alert"
+}

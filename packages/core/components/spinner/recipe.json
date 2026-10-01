@@ -1,0 +1,61 @@
+{
+  "name": "spinner",
+  "base": {
+    "display": "inline-flex",
+    "alignItems": "center",
+    "justifyContent": "center"
+  },
+  "slots": {
+    "indicator": {
+      "display": "inline-block",
+      "flexShrink": "0",
+      "borderRadius": "{radius.full}",
+      "borderWidth": "2px",
+      "borderStyle": "solid",
+      "borderColor": "currentColor transparent currentColor currentColor",
+      "animation": "prism-spin 0.7s linear infinite"
+    },
+    "label": {
+      "position": "absolute",
+      "width": "1px",
+      "height": "1px",
+      "padding": "0",
+      "margin": "-1px",
+      "overflow": "hidden",
+      "clip": "rect(0, 0, 0, 0)",
+      "whiteSpace": "nowrap",
+      "borderWidth": "0"
+    }
+  },
+  "variants": {
+    "size": {
+      "xs": {
+        "slot:indicator": {
+          "width": "0.75rem",
+          "height": "0.75rem"
+        }
+      },
+      "sm": {
+        "slot:indicator": {
+          "width": "1rem",
+          "height": "1rem"
+        }
+      },
+      "md": {
+        "slot:indicator": {
+          "width": "1.5rem",
+          "height": "1.5rem"
+        }
+      },
+      "lg": {
+        "slot:indicator": {
+          "width": "2rem",
+          "height": "2rem"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

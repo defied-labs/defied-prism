@@ -1,0 +1,63 @@
+{
+  "name": "stack",
+  "base": {
+    "display": "flex",
+    "flexDirection": "column",
+    "minWidth": "0"
+  },
+  "variants": {
+    "gap": {
+      "none": {
+        "gap": "0"
+      },
+      "xs": {
+        "gap": "{space.1}"
+      },
+      "sm": {
+        "gap": "{space.2}"
+      },
+      "md": {
+        "gap": "{space.4}"
+      },
+      "lg": {
+        "gap": "{space.6}"
+      },
+      "xl": {
+        "gap": "{space.8}"
+      }
+    },
+    "align": {
+      "start": {
+        "alignItems": "flex-start"
+      },
+      "center": {
+        "alignItems": "center"
+      },
+      "end": {
+        "alignItems": "flex-end"
+      },
+      "stretch": {
+        "alignItems": "stretch"
+      }
+    },
+    "justify": {
+      "start": {
+        "justifyContent": "flex-start"
+      },
+      "center": {
+        "justifyContent": "center"
+      },
+      "end": {
+        "justifyContent": "flex-end"
+      },
+      "between": {
+        "justifyContent": "space-between"
+      }
+    }
+  },
+  "defaultVariants": {
+    "gap": "md",
+    "align": "stretch",
+    "justify": "start"
+  }
+}

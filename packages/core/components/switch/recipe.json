@@ -1,0 +1,80 @@
+{
+  "name": "switch",
+  "base": {
+    "display": "inline-flex",
+    "alignItems": "center",
+    "gap": "{space.2}",
+    "padding": "0",
+    "borderWidth": "0",
+    "borderRadius": "{radius.full}",
+    "background": "transparent",
+    "color": "{color.fg}",
+    "fontFamily": "{font.sans}",
+    "lineHeight": "{leading.tight}",
+    "cursor": "pointer",
+    "--prism-switch-on": "0",
+    "_checked": {
+      "--prism-switch-on": "1"
+    },
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "{focus.ring-offset}"
+    },
+    "_disabled": {
+      "opacity": "{opacity.disabled}",
+      "cursor": "not-allowed"
+    }
+  },
+  "slots": {
+    "track": {
+      "position": "relative",
+      "display": "inline-flex",
+      "alignItems": "center",
+      "flexShrink": "0",
+      "boxSizing": "border-box",
+      "padding": "2px",
+      "borderRadius": "{radius.full}",
+      "background": "color-mix(in srgb, {color.primary} calc(var(--prism-switch-on, 0) * 100%), {color.border-strong})",
+      "transition": "background-color {duration.fast} {easing.standard}"
+    },
+    "thumb": {
+      "display": "block",
+      "borderRadius": "{radius.full}",
+      "background": "{color.bg}",
+      "boxShadow": "{shadow.sm}",
+      "transform": "translateX(calc(var(--prism-switch-on, 0) * var(--prism-switch-travel)))",
+      "transition": "transform {duration.fast} {easing.standard}"
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "fontSize": "{text.sm}",
+        "slot:track": {
+          "width": "2rem",
+          "height": "1.125rem"
+        },
+        "slot:thumb": {
+          "width": "0.875rem",
+          "height": "0.875rem",
+          "--prism-switch-travel": "0.875rem"
+        }
+      },
+      "md": {
+        "fontSize": "{text.md}",
+        "slot:track": {
+          "width": "2.75rem",
+          "height": "1.5rem"
+        },
+        "slot:thumb": {
+          "width": "1.25rem",
+          "height": "1.25rem",
+          "--prism-switch-travel": "1.25rem"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "metadata": {
+    "name": "skeleton",
+    "displayName": "Skeleton",
+    "description": "Placeholder shapes for loading content. The group is a busy status region with a hidden label; shapes are aria-hidden.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "feedback",
+    "keywords": [
+      "skeleton",
+      "placeholder",
+      "loading",
+      "shimmer"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div",
+        "role": "status"
+      },
+      "label": {
+        "element": "span"
+      },
+      "shape": {
+        "element": "span"
+      }
+    },
+    "props": {
+      "variant": {
+        "type": "enum",
+        "values": [
+          "text",
+          "rect",
+          "circle"
+        ],
+        "default": "text"
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "status",
+      "attributes": [
+        "aria-busy"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Skeleton.tsx",
+            "destination": "Skeleton.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "duration.slow",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/skeleton"
+}

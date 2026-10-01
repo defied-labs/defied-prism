@@ -1,0 +1,13 @@
+{
+  "name": "code",
+  "base": {
+    "fontFamily": "{font.mono}",
+    "fontSize": "0.875em",
+    "color": "{color.fg}",
+    "background": "{color.muted}",
+    "borderRadius": "{radius.sm}",
+    "paddingBlock": "0.125em",
+    "paddingInline": "0.3em",
+    "overflowWrap": "break-word"
+  }
+}

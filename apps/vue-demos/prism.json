@@ -1,0 +1,17 @@
+{
+  "framework": "vue",
+  "styling": "css-modules",
+  "componentsPath": "src/components/ui",
+  "registryPath": "../../packages/core",
+  "components": [
+    "button",
+    "icon-button",
+    "input",
+    "field",
+    "select",
+    "dialog",
+    "toast",
+    "calendar",
+    "data-table"
+  ]
+}

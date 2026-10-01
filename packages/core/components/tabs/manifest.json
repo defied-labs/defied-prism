@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "name": "tabs",
+    "displayName": "Tabs",
+    "description": "Tabbed panels with roving focus, automatic or manual activation, and horizontal or vertical orientation.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "navigation",
+    "keywords": [
+      "tabs",
+      "tablist",
+      "tabpanel",
+      "navigation"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "anchor": "list",
+    "slots": {
+      "root": {
+        "element": "div"
+      },
+      "list": {
+        "element": "div",
+        "role": "tablist"
+      },
+      "trigger": {
+        "element": "button",
+        "role": "tab"
+      },
+      "panel": {
+        "element": "div",
+        "role": "tabpanel"
+      }
+    },
+    "props": {
+      "orientation": {
+        "type": "enum",
+        "values": [
+          "horizontal",
+          "vertical"
+        ],
+        "default": "horizontal"
+      },
+      "variant": {
+        "type": "enum",
+        "values": [
+          "line",
+          "pills"
+        ],
+        "default": "line"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md"
+        ],
+        "default": "md"
+      },
+      "activationMode": {
+        "type": "enum",
+        "values": [
+          "automatic",
+          "manual"
+        ],
+        "default": "automatic",
+        "visual": false,
+        "description": "automatic: arrow keys select the focused tab. manual: arrow keys move focus; Enter or Space selects."
+      }
+    },
+    "states": [],
+    "parts": [],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowRight",
+          "ArrowLeft"
+        ],
+        "action": "navigate",
+        "description": "Horizontal: next / previous tab, wrapping"
+      },
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowUp"
+        ],
+        "action": "navigate",
+        "description": "Vertical: next / previous tab, wrapping"
+      },
+      {
+        "keys": [
+          "Home",
+          "End"
+        ],
+        "action": "navigate",
+        "description": "First / last enabled tab"
+      },
+      {
+        "keys": [
+          "Enter",
+          " "
+        ],
+        "action": "select",
+        "description": "Select the focused tab (manual activation)"
+      }
+    ],
+    "aria": {
+      "role": "tablist",
+      "attributes": [
+        "aria-orientation"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Tabs.tsx",
+            "destination": "Tabs.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.primary",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "tabs"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/tabs"
+}

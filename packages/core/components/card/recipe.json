@@ -1,0 +1,95 @@
+{
+  "name": "card",
+  "base": {
+    "display": "flex",
+    "flexDirection": "column",
+    "boxSizing": "border-box",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderRadius": "{radius.lg}",
+    "background": "{color.bg}",
+    "color": "{color.fg}",
+    "fontFamily": "{font.sans}",
+    "overflow": "hidden"
+  },
+  "slots": {
+    "header": {
+      "display": "flex",
+      "flexDirection": "column",
+      "gap": "{space.1-5}",
+      "paddingInline": "{space.6}",
+      "paddingTop": "{space.6}"
+    },
+    "title": {
+      "margin": "0",
+      "fontSize": "{text.lg}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": "{leading.tight}"
+    },
+    "description": {
+      "margin": "0",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}",
+      "color": "{color.muted-fg}"
+    },
+    "content": {
+      "paddingInline": "{space.6}",
+      "paddingBlock": "{space.4}",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}"
+    },
+    "footer": {
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "paddingInline": "{space.6}",
+      "paddingBottom": "{space.6}"
+    },
+    "link": {
+      "color": "inherit",
+      "textDecoration": "none",
+      "borderRadius": "{radius.sm}",
+      "_hoverAny": {
+        "textDecoration": "underline"
+      },
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      }
+    }
+  },
+  "variants": {
+    "variant": {
+      "flat": {
+        "borderColor": "transparent",
+        "boxShadow": "none"
+      },
+      "raised": {
+        "borderColor": "{color.border}",
+        "boxShadow": "{shadow.md}"
+      },
+      "outlined": {
+        "borderColor": "{color.border}",
+        "boxShadow": "none"
+      }
+    },
+    "interactive": {
+      "true": {
+        "cursor": "pointer",
+        "transitionProperty": "border-color, box-shadow",
+        "transitionDuration": "{duration.fast}",
+        "transitionTimingFunction": "{easing.standard}",
+        "_hoverAny": {
+          "outline": "1px solid {color.border-strong}"
+        },
+        "_focusWithin": {
+          "outline": "{focus.ring-width} solid {color.ring}",
+          "outlineOffset": "{focus.ring-offset}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "variant": "outlined"
+  }
+}

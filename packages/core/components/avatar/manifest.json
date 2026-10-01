@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "name": "avatar",
+    "displayName": "Avatar",
+    "description": "User image with an initials fallback while the image loads or when it fails. Named (role=img) or decorative (alt=\"\").",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "data-display",
+    "keywords": [
+      "avatar",
+      "user",
+      "profile",
+      "image"
+    ]
+  },
+  "contract": {
+    "element": "span",
+    "slots": {
+      "root": {
+        "element": "span",
+        "role": "img"
+      },
+      "image": {
+        "element": "img",
+        "optional": true
+      },
+      "fallback": {
+        "element": "span",
+        "optional": true
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg",
+          "xl"
+        ],
+        "default": "md"
+      },
+      "shape": {
+        "type": "enum",
+        "values": [
+          "circle",
+          "square"
+        ],
+        "default": "circle"
+      }
+    },
+    "states": [
+      "loading",
+      "loaded",
+      "fallback"
+    ],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "img",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Avatar.tsx",
+            "destination": "Avatar.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "control.lg",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.xl",
+      "required": true
+    },
+    {
+      "name": "control.xs",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "img"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/avatar"
+}

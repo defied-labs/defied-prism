@@ -1,0 +1,351 @@
+{
+  "metadata": {
+    "name": "dialog",
+    "displayName": "Dialog",
+    "description": "A modal dialog: focus trapped and restored, background inert, scroll locked, dismissable with Escape or an outside click. Supports alertdialog.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "overlays",
+    "keywords": [
+      "dialog",
+      "modal",
+      "alertdialog",
+      "overlay"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "anchor": "content",
+    "slots": {
+      "overlay": {
+        "element": "div"
+      },
+      "content": {
+        "element": "div",
+        "role": "dialog"
+      },
+      "title": {
+        "element": "h2"
+      },
+      "description": {
+        "element": "p"
+      },
+      "footer": {
+        "element": "div"
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg",
+          "xl",
+          "full"
+        ],
+        "default": "md"
+      },
+      "role": {
+        "type": "enum",
+        "values": [
+          "dialog",
+          "alertdialog"
+        ],
+        "default": "dialog",
+        "visual": false,
+        "description": "alertdialog also disables closing on outside click by default."
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean",
+        "default": true
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "states": [
+      "open"
+    ],
+    "parts": [],
+    "keyboard": [
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "navigate",
+        "description": "Cycles through focusable elements inside the dialog only"
+      }
+    ],
+    "aria": {
+      "role": "dialog",
+      "attributes": [
+        "aria-modal",
+        "aria-labelledby",
+        "aria-describedby"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Dialog.tsx",
+            "destination": "Dialog.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "react-dom",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "dialog/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Dialog.vue",
+            "destination": "dialog/Dialog.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogTrigger.vue",
+            "destination": "dialog/DialogTrigger.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogContent.vue",
+            "destination": "dialog/DialogContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogTitle.vue",
+            "destination": "dialog/DialogTitle.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogDescription.vue",
+            "destination": "dialog/DialogDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogFooter.vue",
+            "destination": "dialog/DialogFooter.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DialogClose.vue",
+            "destination": "dialog/DialogClose.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "dialog/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "dialog/styles.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.overlay",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    },
+    {
+      "name": "z.modal",
+      "required": true
+    },
+    {
+      "name": "z.overlay",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "dialog-modal",
+      "alertdialog"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/dialog"
+}

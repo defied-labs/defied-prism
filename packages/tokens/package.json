@@ -1,0 +1,36 @@
+{
+  "name": "@defied-prism/tokens",
+  "version": "0.1.0",
+  "description": "Defied Prism design tokens: CSS variables, Tailwind theme and JSON from one source.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "files": ["dist"],
+  "sideEffects": ["*.css"],
+  "scripts": {
+    "build": "tsup && tsx scripts/build.ts",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+      "./tokens.css": "./dist/tokens.css",
+      "./tailwind.css": "./dist/tailwind.css",
+      "./tokens.json": "./dist/tokens.json"
+    }
+  },
+  "devDependencies": {
+    "@defied-prism/config": "workspace:*",
+    "@types/node": "catalog:",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.8"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "text",
+  "base": {
+    "margin": "0",
+    "fontFamily": "{font.sans}"
+  },
+  "variants": {
+    "size": {
+      "lg": {
+        "fontSize": "{text.lg}"
+      },
+      "md": {
+        "fontSize": "{text.md}"
+      },
+      "sm": {
+        "fontSize": "{text.sm}"
+      },
+      "xs": {
+        "fontSize": "{text.xs}"
+      }
+    },
+    "tone": {
+      "body": {
+        "color": "{color.fg}",
+        "lineHeight": "{leading.normal}"
+      },
+      "lead": {
+        "color": "{color.muted-fg}",
+        "lineHeight": "1.625"
+      },
+      "muted": {
+        "color": "{color.muted-fg}",
+        "lineHeight": "{leading.normal}"
+      },
+      "success": {
+        "color": "{color.success-fg}",
+        "lineHeight": "{leading.normal}"
+      },
+      "warning": {
+        "color": "{color.warning-fg}",
+        "lineHeight": "{leading.normal}"
+      },
+      "danger": {
+        "color": "{color.danger-fg}",
+        "lineHeight": "{leading.normal}"
+      }
+    },
+    "weight": {
+      "regular": {
+        "fontWeight": "{weight.regular}"
+      },
+      "medium": {
+        "fontWeight": "{weight.medium}"
+      },
+      "semibold": {
+        "fontWeight": "{weight.semibold}"
+      },
+      "bold": {
+        "fontWeight": "{weight.bold}"
+      }
+    },
+    "truncate": {
+      "true": {
+        "overflow": "hidden",
+        "textOverflow": "ellipsis",
+        "whiteSpace": "nowrap"
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md",
+    "tone": "body",
+    "weight": "regular"
+  }
+}

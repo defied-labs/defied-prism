@@ -1,0 +1,141 @@
+{
+  "name": "icon-button",
+  "base": {
+    "position": "relative",
+    "display": "inline-flex",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "flexShrink": "0",
+    "boxSizing": "border-box",
+    "padding": "0",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "lineHeight": "1",
+    "userSelect": "none",
+    "cursor": "pointer",
+    "transition": "background-color {duration.fast} {easing.standard}, border-color {duration.fast} {easing.standard}, color {duration.fast} {easing.standard}, box-shadow {duration.fast} {easing.standard}",
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "{focus.ring-offset}"
+    },
+    "_disabled": {
+      "opacity": "{opacity.disabled}",
+      "cursor": "not-allowed"
+    },
+    "_loading": {
+      "cursor": "wait"
+    },
+    "part:icon": {
+      "display": "inline-flex",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "width": "1.25em",
+      "height": "1.25em"
+    },
+    "part:spinner": {
+      "display": "inline-block",
+      "width": "1em",
+      "height": "1em",
+      "borderRadius": "{radius.full}",
+      "borderWidth": "2px",
+      "borderStyle": "solid",
+      "borderColor": "currentColor transparent currentColor currentColor",
+      "animation": "prism-spin 0.7s linear infinite"
+    }
+  },
+  "variants": {
+    "variant": {
+      "primary": {
+        "background": "{color.primary}",
+        "color": "{color.primary-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.primary-hover}"
+        },
+        "_active": {
+          "background": "{color.primary-active}"
+        }
+      },
+      "secondary": {
+        "background": "{color.secondary}",
+        "color": "{color.secondary-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.secondary-hover}"
+        },
+        "_active": {
+          "background": "{color.secondary-active}"
+        }
+      },
+      "destructive": {
+        "background": "{color.destructive}",
+        "color": "{color.destructive-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.destructive-hover}"
+        },
+        "_active": {
+          "background": "{color.destructive-active}"
+        }
+      },
+      "outline": {
+        "background": "transparent",
+        "color": "{color.fg}",
+        "borderColor": "{color.border-strong}",
+        "_hover": {
+          "background": "{color.ghost-hover}"
+        },
+        "_active": {
+          "background": "{color.ghost-active}"
+        }
+      },
+      "ghost": {
+        "background": "transparent",
+        "color": "inherit",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.ghost-hover}"
+        },
+        "_active": {
+          "background": "{color.ghost-active}"
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "width": "{control.xs}",
+        "height": "{control.xs}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.sm}"
+      },
+      "sm": {
+        "width": "{control.sm}",
+        "height": "{control.sm}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.md}"
+      },
+      "md": {
+        "width": "{control.md}",
+        "height": "{control.md}",
+        "fontSize": "{text.md}",
+        "borderRadius": "{radius.md}"
+      },
+      "lg": {
+        "width": "{control.lg}",
+        "height": "{control.lg}",
+        "fontSize": "{text.lg}",
+        "borderRadius": "{radius.lg}"
+      },
+      "xl": {
+        "width": "{control.xl}",
+        "height": "{control.xl}",
+        "fontSize": "{text.xl}",
+        "borderRadius": "{radius.lg}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "variant": "ghost",
+    "size": "md"
+  }
+}

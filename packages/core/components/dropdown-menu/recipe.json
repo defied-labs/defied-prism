@@ -1,0 +1,149 @@
+{
+  "name": "dropdown-menu",
+  "base": {
+    "position": "relative",
+    "display": "inline-flex"
+  },
+  "slots": {
+    "content": {
+      "position": "absolute",
+      "zIndex": "{z.dropdown}",
+      "top": "100%",
+      "marginTop": "{space.1}",
+      "boxSizing": "border-box",
+      "minWidth": "10rem",
+      "padding": "{space.1}",
+      "borderRadius": "{radius.md}",
+      "borderWidth": "1px",
+      "borderStyle": "solid",
+      "borderColor": "{color.border}",
+      "background": "{color.bg}",
+      "color": "{color.fg}",
+      "boxShadow": "{shadow.lg}",
+      "fontFamily": "{font.sans}",
+      "animation": "prism-fade-in {duration.fast} {easing.standard}",
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      }
+    },
+    "item": {
+      "position": "relative",
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "paddingBlock": "{space.1-5}",
+      "paddingInlineEnd": "{space.2}",
+      "borderRadius": "{radius.sm}",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}",
+      "cursor": "pointer",
+      "userSelect": "none",
+      "outline": "none",
+      "_highlighted": {
+        "background": "{color.muted}"
+      },
+      "_focusVisible": {
+        "boxShadow": "inset 0 0 0 {focus.ring-width} {color.ring}"
+      },
+      "_ariaDisabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      },
+      "paddingInlineStart": "{space.2}"
+    },
+    "checkboxItem": {
+      "position": "relative",
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "paddingBlock": "{space.1-5}",
+      "paddingInlineEnd": "{space.2}",
+      "borderRadius": "{radius.sm}",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}",
+      "cursor": "pointer",
+      "userSelect": "none",
+      "outline": "none",
+      "_highlighted": {
+        "background": "{color.muted}"
+      },
+      "_focusVisible": {
+        "boxShadow": "inset 0 0 0 {focus.ring-width} {color.ring}"
+      },
+      "_ariaDisabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      },
+      "paddingInlineStart": "{space.6}",
+      "part:indicator": {
+        "position": "absolute",
+        "left": "{space.1-5}",
+        "display": "inline-flex",
+        "fontSize": "{text.xs}"
+      }
+    },
+    "radioItem": {
+      "position": "relative",
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "paddingBlock": "{space.1-5}",
+      "paddingInlineEnd": "{space.2}",
+      "borderRadius": "{radius.sm}",
+      "fontSize": "{text.sm}",
+      "lineHeight": "{leading.normal}",
+      "cursor": "pointer",
+      "userSelect": "none",
+      "outline": "none",
+      "_highlighted": {
+        "background": "{color.muted}"
+      },
+      "_focusVisible": {
+        "boxShadow": "inset 0 0 0 {focus.ring-width} {color.ring}"
+      },
+      "_ariaDisabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed"
+      },
+      "paddingInlineStart": "{space.6}",
+      "part:indicator": {
+        "position": "absolute",
+        "left": "{space.1-5}",
+        "display": "inline-flex",
+        "fontSize": "{text.xs}"
+      }
+    },
+    "group": {},
+    "label": {
+      "paddingBlock": "{space.1-5}",
+      "paddingInline": "{space.2}",
+      "color": "{color.muted-fg}",
+      "fontSize": "{text.xs}",
+      "fontWeight": "{weight.semibold}"
+    },
+    "separator": {
+      "height": "1px",
+      "marginBlock": "{space.1}",
+      "marginInline": "calc(-1 * {space.1})",
+      "background": "{color.border}"
+    }
+  },
+  "variants": {
+    "align": {
+      "start": {
+        "slot:content": {
+          "left": "0"
+        }
+      },
+      "end": {
+        "slot:content": {
+          "right": "0"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "align": "start"
+  }
+}

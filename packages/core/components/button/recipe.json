@@ -1,0 +1,157 @@
+{
+  "name": "button",
+  "base": {
+    "position": "relative",
+    "display": "inline-flex",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "gap": "{space.2}",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "fontFamily": "{font.sans}",
+    "fontWeight": "{weight.medium}",
+    "lineHeight": "{leading.tight}",
+    "whiteSpace": "nowrap",
+    "userSelect": "none",
+    "cursor": "pointer",
+    "transition": "background-color {duration.fast} {easing.standard}, border-color {duration.fast} {easing.standard}, color {duration.fast} {easing.standard}, box-shadow {duration.fast} {easing.standard}",
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "{focus.ring-offset}"
+    },
+    "_disabled": {
+      "opacity": "{opacity.disabled}",
+      "cursor": "not-allowed"
+    },
+    "_loading": {
+      "cursor": "wait"
+    },
+    "part:icon": {
+      "display": "inline-flex",
+      "flexShrink": "0",
+      "width": "1em",
+      "height": "1em"
+    },
+    "part:spinner": {
+      "display": "inline-block",
+      "flexShrink": "0",
+      "width": "1em",
+      "height": "1em",
+      "borderRadius": "{radius.full}",
+      "borderWidth": "2px",
+      "borderStyle": "solid",
+      "borderColor": "currentColor transparent currentColor currentColor",
+      "animation": "prism-spin 0.7s linear infinite"
+    }
+  },
+  "variants": {
+    "variant": {
+      "primary": {
+        "background": "{color.primary}",
+        "color": "{color.primary-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.primary-hover}"
+        },
+        "_active": {
+          "background": "{color.primary-active}"
+        }
+      },
+      "secondary": {
+        "background": "{color.secondary}",
+        "color": "{color.secondary-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.secondary-hover}"
+        },
+        "_active": {
+          "background": "{color.secondary-active}"
+        }
+      },
+      "destructive": {
+        "background": "{color.destructive}",
+        "color": "{color.destructive-fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.destructive-hover}"
+        },
+        "_active": {
+          "background": "{color.destructive-active}"
+        }
+      },
+      "outline": {
+        "background": "transparent",
+        "color": "{color.fg}",
+        "borderColor": "{color.border-strong}",
+        "_hover": {
+          "background": "{color.ghost-hover}"
+        },
+        "_active": {
+          "background": "{color.ghost-active}"
+        }
+      },
+      "ghost": {
+        "background": "transparent",
+        "color": "{color.fg}",
+        "borderColor": "transparent",
+        "_hover": {
+          "background": "{color.ghost-hover}"
+        },
+        "_active": {
+          "background": "{color.ghost-active}"
+        }
+      },
+      "link": {
+        "background": "transparent",
+        "color": "{color.link}",
+        "borderColor": "transparent",
+        "textDecorationLine": "underline",
+        "textUnderlineOffset": "0.25em",
+        "_hover": {
+          "color": "{color.link-hover}"
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "minHeight": "{control.xs}",
+        "paddingInline": "{space.2}",
+        "fontSize": "{text.xs}",
+        "borderRadius": "{radius.sm}"
+      },
+      "sm": {
+        "minHeight": "{control.sm}",
+        "paddingInline": "{space.3}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.md}"
+      },
+      "md": {
+        "minHeight": "{control.md}",
+        "paddingInline": "{space.4}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.md}"
+      },
+      "lg": {
+        "minHeight": "{control.lg}",
+        "paddingInline": "{space.5}",
+        "fontSize": "{text.md}",
+        "borderRadius": "{radius.lg}"
+      },
+      "xl": {
+        "minHeight": "{control.xl}",
+        "paddingInline": "{space.6}",
+        "fontSize": "{text.lg}",
+        "borderRadius": "{radius.lg}"
+      }
+    },
+    "fullWidth": {
+      "true": {
+        "width": "100%"
+      }
+    }
+  },
+  "defaultVariants": {
+    "variant": "primary",
+    "size": "md"
+  }
+}

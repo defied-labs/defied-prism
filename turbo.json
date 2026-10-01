@@ -1,0 +1,45 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "check-types": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {},
+    "@defied-prism/cli#test": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "web#test": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "web#check-types": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  }
+}

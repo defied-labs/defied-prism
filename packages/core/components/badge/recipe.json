@@ -1,0 +1,90 @@
+{
+  "name": "badge",
+  "base": {
+    "display": "inline-flex",
+    "alignItems": "center",
+    "gap": "{space.1}",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderRadius": "{radius.full}",
+    "fontFamily": "{font.sans}",
+    "fontWeight": "{weight.medium}",
+    "lineHeight": "{leading.tight}",
+    "whiteSpace": "nowrap",
+    "verticalAlign": "middle",
+    "part:icon": {
+      "display": "inline-flex",
+      "flexShrink": "0",
+      "width": "1em",
+      "height": "1em"
+    }
+  },
+  "variants": {
+    "status": {
+      "neutral": {
+        "--badge-bg": "{color.neutral-bg}",
+        "--badge-fg": "{color.neutral-fg}",
+        "--badge-border": "{color.neutral-border}",
+        "--badge-solid": "{color.neutral-solid}"
+      },
+      "info": {
+        "--badge-bg": "{color.info-bg}",
+        "--badge-fg": "{color.info-fg}",
+        "--badge-border": "{color.info-border}",
+        "--badge-solid": "{color.info-solid}"
+      },
+      "success": {
+        "--badge-bg": "{color.success-bg}",
+        "--badge-fg": "{color.success-fg}",
+        "--badge-border": "{color.success-border}",
+        "--badge-solid": "{color.success-solid}"
+      },
+      "warning": {
+        "--badge-bg": "{color.warning-bg}",
+        "--badge-fg": "{color.warning-fg}",
+        "--badge-border": "{color.warning-border}",
+        "--badge-solid": "{color.warning-solid}"
+      },
+      "danger": {
+        "--badge-bg": "{color.danger-bg}",
+        "--badge-fg": "{color.danger-fg}",
+        "--badge-border": "{color.danger-border}",
+        "--badge-solid": "{color.danger-solid}"
+      }
+    },
+    "variant": {
+      "subtle": {
+        "background": "var(--badge-bg)",
+        "color": "var(--badge-fg)",
+        "borderColor": "var(--badge-border)"
+      },
+      "solid": {
+        "background": "var(--badge-solid)",
+        "color": "{color.solid-fg}",
+        "borderColor": "transparent"
+      },
+      "outline": {
+        "background": "transparent",
+        "color": "var(--badge-fg)",
+        "borderColor": "var(--badge-border)"
+      }
+    },
+    "size": {
+      "sm": {
+        "fontSize": "{text.xs}",
+        "paddingInline": "{space.1-5}",
+        "minHeight": "1.25rem"
+      },
+      "md": {
+        "fontSize": "{text.sm}",
+        "paddingInline": "{space.2}",
+        "minHeight": "1.5rem"
+      }
+    }
+  },
+  "defaultVariants": {
+    "status": "neutral",
+    "variant": "subtle",
+    "size": "md"
+  }
+}

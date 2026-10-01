@@ -1,0 +1,79 @@
+{
+  "name": "checkbox",
+  "base": {
+    "appearance": "none",
+    "boxSizing": "border-box",
+    "display": "block",
+    "flexShrink": "0",
+    "margin": "0",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "{color.border-strong}",
+    "borderRadius": "{radius.sm}",
+    "background": "{color.bg}",
+    "cursor": "pointer",
+    "transition": "border-color {duration.fast} {easing.standard}",
+    "_hover": {
+      "borderColor": "{color.fg}"
+    },
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "{focus.ring-offset}"
+    },
+    "_invalid": {
+      "borderColor": "{color.danger-solid}"
+    },
+    "_disabled": {
+      "opacity": "{opacity.disabled}",
+      "cursor": "not-allowed"
+    }
+  },
+  "slots": {
+    "label": {
+      "display": "inline-flex",
+      "alignItems": "center",
+      "gap": "{space.2}",
+      "color": "{color.fg}",
+      "fontFamily": "{font.sans}",
+      "lineHeight": "{leading.tight}"
+    },
+    "control": {
+      "position": "relative",
+      "display": "inline-flex",
+      "flexShrink": "0",
+      "part:indicator": {
+        "position": "absolute",
+        "inset": "0",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "borderRadius": "{radius.sm}",
+        "background": "{color.primary}",
+        "color": "{color.primary-fg}",
+        "pointerEvents": "none",
+        "animation": "prism-scale-in {duration.fast} {easing.standard}"
+      }
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "width": "1rem",
+        "height": "1rem",
+        "slot:label": {
+          "fontSize": "{text.sm}"
+        }
+      },
+      "md": {
+        "width": "1.25rem",
+        "height": "1.25rem",
+        "slot:label": {
+          "fontSize": "{text.md}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}

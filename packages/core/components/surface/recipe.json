@@ -1,0 +1,52 @@
+{
+  "name": "surface",
+  "base": {
+    "boxSizing": "border-box",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderRadius": "{radius.lg}",
+    "color": "{color.fg}"
+  },
+  "variants": {
+    "variant": {
+      "flat": {
+        "background": "{color.bg}",
+        "borderColor": "transparent",
+        "boxShadow": "none"
+      },
+      "raised": {
+        "background": "{color.bg}",
+        "borderColor": "{color.border}",
+        "boxShadow": "{shadow.md}"
+      },
+      "outlined": {
+        "background": "{color.bg}",
+        "borderColor": "{color.border}",
+        "boxShadow": "none"
+      },
+      "sunken": {
+        "background": "{color.bg-subtle}",
+        "borderColor": "{color.border}",
+        "boxShadow": "inset 0 1px 2px 0 rgb(0 0 0 / 0.05)"
+      }
+    },
+    "padding": {
+      "none": {
+        "padding": "0"
+      },
+      "sm": {
+        "padding": "{space.3}"
+      },
+      "md": {
+        "padding": "{space.4}"
+      },
+      "lg": {
+        "padding": "{space.6}"
+      }
+    }
+  },
+  "defaultVariants": {
+    "variant": "outlined",
+    "padding": "md"
+  }
+}

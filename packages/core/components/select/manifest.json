@@ -1,0 +1,433 @@
+{
+  "metadata": {
+    "name": "select",
+    "displayName": "Select",
+    "description": "A select-only combobox (not a native select), composed from parts: a button-like SelectTrigger showing SelectValue, and a SelectContent listbox of SelectItem options, optionally in labelled SelectGroups. Items register through context. Typeahead, form submission via a hidden input, and Field integration.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "overlays",
+    "keywords": [
+      "select",
+      "combobox",
+      "listbox",
+      "dropdown",
+      "picker",
+      "form"
+    ]
+  },
+  "contract": {
+    "element": "button",
+    "anchor": "trigger",
+    "slots": {
+      "root": {
+        "element": "div"
+      },
+      "trigger": {
+        "element": "button",
+        "role": "combobox"
+      },
+      "value": {
+        "element": "span"
+      },
+      "listbox": {
+        "element": "div",
+        "role": "listbox"
+      },
+      "option": {
+        "element": "div",
+        "role": "option"
+      },
+      "group": {
+        "element": "div",
+        "role": "group",
+        "optional": true
+      },
+      "label": {
+        "element": "div",
+        "role": "presentation",
+        "optional": true
+      },
+      "separator": {
+        "element": "div",
+        "optional": true
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      },
+      "required": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "states": [
+      "open",
+      "closed"
+    ],
+    "parts": [
+      "placeholder",
+      "icon"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowUp",
+          "Enter",
+          " "
+        ],
+        "action": "open",
+        "description": "When closed: open, highlighting the selected (or first) option"
+      },
+      {
+        "keys": [
+          "Home",
+          "End"
+        ],
+        "action": "navigate",
+        "description": "Open on / highlight the first / last option"
+      },
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowUp"
+        ],
+        "action": "navigate",
+        "description": "When open: move the highlight (no wrapping), skipping disabled options"
+      },
+      {
+        "keys": [
+          "Enter",
+          " "
+        ],
+        "action": "select",
+        "description": "When open: select the highlighted option and close"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "select",
+        "description": "When open: select the highlighted option, close, and move focus on"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss",
+        "description": "Close without changing the selection"
+      },
+      {
+        "keys": [
+          "a-z"
+        ],
+        "action": "navigate",
+        "description": "Typeahead: closed, selects the matching option; open, highlights it"
+      }
+    ],
+    "aria": {
+      "role": "combobox",
+      "attributes": [
+        "aria-haspopup",
+        "aria-expanded",
+        "aria-controls",
+        "aria-activedescendant",
+        "aria-required",
+        "aria-invalid",
+        "aria-describedby"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Select.tsx",
+            "destination": "Select.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "select/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "select/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "select/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Select.vue",
+            "destination": "select/Select.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectTrigger.vue",
+            "destination": "select/SelectTrigger.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectValue.vue",
+            "destination": "select/SelectValue.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectContent.vue",
+            "destination": "select/SelectContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectItem.vue",
+            "destination": "select/SelectItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectGroup.vue",
+            "destination": "select/SelectGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectLabel.vue",
+            "destination": "select/SelectLabel.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/SelectSeparator.vue",
+            "destination": "select/SelectSeparator.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.border-strong",
+      "required": true
+    },
+    {
+      "name": "color.danger-solid",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "control.lg",
+      "required": true
+    },
+    {
+      "name": "control.md",
+      "required": true
+    },
+    {
+      "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.1-5",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    },
+    {
+      "name": "z.dropdown",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "combobox-select-only",
+      "listbox"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/select"
+}

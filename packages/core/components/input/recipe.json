@@ -1,0 +1,70 @@
+{
+  "name": "input",
+  "base": {
+    "display": "block",
+    "boxSizing": "border-box",
+    "color": "{color.fg}",
+    "fontFamily": "{font.sans}",
+    "lineHeight": "{leading.normal}",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "{color.border-strong}",
+    "transition": "border-color {duration.fast} {easing.standard}",
+    "_placeholder": {
+      "color": "{color.muted-fg}"
+    },
+    "_hover": {
+      "borderColor": "{color.fg}"
+    },
+    "_focusVisible": {
+      "outline": "{focus.ring-width} solid {color.ring}",
+      "outlineOffset": "0"
+    },
+    "_invalid": {
+      "borderColor": "{color.danger-solid}"
+    },
+    "_disabled": {
+      "opacity": "{opacity.disabled}",
+      "cursor": "not-allowed"
+    }
+  },
+  "variants": {
+    "variant": {
+      "outlined": {
+        "background": "{color.bg}"
+      },
+      "filled": {
+        "background": "{color.muted}"
+      }
+    },
+    "size": {
+      "sm": {
+        "minHeight": "{control.sm}",
+        "paddingInline": "{space.2}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.md}"
+      },
+      "md": {
+        "minHeight": "{control.md}",
+        "paddingInline": "{space.3}",
+        "fontSize": "{text.sm}",
+        "borderRadius": "{radius.md}"
+      },
+      "lg": {
+        "minHeight": "{control.lg}",
+        "paddingInline": "{space.4}",
+        "fontSize": "{text.md}",
+        "borderRadius": "{radius.lg}"
+      }
+    },
+    "fullWidth": {
+      "true": {
+        "width": "100%"
+      }
+    }
+  },
+  "defaultVariants": {
+    "variant": "outlined",
+    "size": "md"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "heading",
+  "base": {
+    "margin": "0",
+    "fontFamily": "{font.sans}",
+    "color": "{color.fg}",
+    "textWrap": "balance"
+  },
+  "variants": {
+    "size": {
+      "display": {
+        "fontSize": "{text.display}",
+        "lineHeight": "{leading.tight}",
+        "fontWeight": "{weight.bold}",
+        "letterSpacing": "-0.025em"
+      },
+      "xl": {
+        "fontSize": "{text.3xl}",
+        "lineHeight": "{leading.tight}",
+        "fontWeight": "{weight.bold}",
+        "letterSpacing": "-0.02em"
+      },
+      "lg": {
+        "fontSize": "{text.2xl}",
+        "lineHeight": "{leading.tight}",
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": "-0.015em"
+      },
+      "md": {
+        "fontSize": "{text.xl}",
+        "lineHeight": "{leading.snug}",
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": "-0.01em"
+      },
+      "sm": {
+        "fontSize": "{text.lg}",
+        "lineHeight": "{leading.snug}",
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": "0"
+      },
+      "xs": {
+        "fontSize": "{text.md}",
+        "lineHeight": "{leading.snug}",
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": "0"
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "lg"
+  }
+}

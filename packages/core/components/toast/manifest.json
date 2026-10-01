@@ -1,0 +1,352 @@
+{
+  "metadata": {
+    "name": "toast",
+    "displayName": "Toast",
+    "description": "Transient notifications: a Toaster region plus an imperative toast() API. Auto-dismiss pauses on hover and focus; Escape dismisses the focused toast.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "feedback",
+    "keywords": [
+      "toast",
+      "notification",
+      "snackbar",
+      "toaster"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div",
+        "role": "region"
+      },
+      "toast": {
+        "element": "div",
+        "role": "status",
+        "optional": true
+      },
+      "content": {
+        "element": "div",
+        "optional": true
+      },
+      "title": {
+        "element": "div",
+        "optional": true
+      },
+      "description": {
+        "element": "div",
+        "optional": true
+      },
+      "action": {
+        "element": "button",
+        "optional": true
+      },
+      "close": {
+        "element": "button",
+        "optional": true
+      }
+    },
+    "props": {
+      "position": {
+        "type": "enum",
+        "values": [
+          "top-start",
+          "top-center",
+          "top-end",
+          "bottom-start",
+          "bottom-center",
+          "bottom-end"
+        ],
+        "default": "bottom-end"
+      },
+      "status": {
+        "type": "enum",
+        "values": [
+          "neutral",
+          "info",
+          "success",
+          "warning",
+          "danger"
+        ],
+        "default": "neutral",
+        "visual": false,
+        "description": "Per toast, passed to toast(); danger toasts use role=alert."
+      }
+    },
+    "states": [],
+    "parts": [
+      "icon"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss",
+        "description": "Dismisses the focused toast"
+      }
+    ],
+    "aria": {
+      "role": "region",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Toast.tsx",
+            "destination": "Toast.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "toast/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "toast/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "toast/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/toast.ts",
+            "destination": "toast/toast.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Toaster.vue",
+            "destination": "toast/Toaster.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ToastItem.vue",
+            "destination": "toast/ToastItem.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "button",
+    "icon-button"
+  ],
+  "tokens": [
+    {
+      "name": "color.danger-bg",
+      "required": true
+    },
+    {
+      "name": "color.danger-border",
+      "required": true
+    },
+    {
+      "name": "color.danger-fg",
+      "required": true
+    },
+    {
+      "name": "color.info-bg",
+      "required": true
+    },
+    {
+      "name": "color.info-border",
+      "required": true
+    },
+    {
+      "name": "color.info-fg",
+      "required": true
+    },
+    {
+      "name": "color.neutral-bg",
+      "required": true
+    },
+    {
+      "name": "color.neutral-border",
+      "required": true
+    },
+    {
+      "name": "color.neutral-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "color.success-bg",
+      "required": true
+    },
+    {
+      "name": "color.success-border",
+      "required": true
+    },
+    {
+      "name": "color.success-fg",
+      "required": true
+    },
+    {
+      "name": "color.warning-bg",
+      "required": true
+    },
+    {
+      "name": "color.warning-border",
+      "required": true
+    },
+    {
+      "name": "color.warning-fg",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "radius.lg",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    },
+    {
+      "name": "z.toast",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "alert"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/toast"
+}

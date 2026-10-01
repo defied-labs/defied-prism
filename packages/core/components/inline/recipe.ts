@@ -1,0 +1,34 @@
+import { defineRecipe, token as t } from "@defied-prism/style-engine";
+
+export default defineRecipe({
+  name: "inline",
+  base: { display: "flex", flexDirection: "row", minWidth: "0" },
+  variants: {
+    gap: {
+      none: { gap: "0" },
+      xs: { gap: t("space.1") },
+      sm: { gap: t("space.2") },
+      md: { gap: t("space.4") },
+      lg: { gap: t("space.6") },
+      xl: { gap: t("space.8") },
+    },
+    align: {
+      start: { alignItems: "flex-start" },
+      center: { alignItems: "center" },
+      end: { alignItems: "flex-end" },
+      baseline: { alignItems: "baseline" },
+      stretch: { alignItems: "stretch" },
+    },
+    justify: {
+      start: { justifyContent: "flex-start" },
+      center: { justifyContent: "center" },
+      end: { justifyContent: "flex-end" },
+      between: { justifyContent: "space-between" },
+    },
+    wrap: {
+      wrap: { flexWrap: "wrap" },
+      nowrap: { flexWrap: "nowrap" },
+    },
+  },
+  defaultVariants: { gap: "sm", align: "center", justify: "start", wrap: "wrap" },
+});

@@ -1,0 +1,164 @@
+{
+  "metadata": {
+    "name": "link",
+    "displayName": "Link",
+    "description": "Anchor with tone and underline styles, external-link handling and asChild for router links.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "navigation",
+    "keywords": [
+      "link",
+      "navigation"
+    ]
+  },
+  "contract": {
+    "element": "a",
+    "props": {
+      "tone": {
+        "type": "enum",
+        "values": [
+          "primary",
+          "neutral",
+          "muted"
+        ],
+        "default": "primary"
+      },
+      "underline": {
+        "type": "enum",
+        "values": [
+          "always",
+          "hover",
+          "none"
+        ],
+        "default": "always"
+      },
+      "external": {
+        "type": "boolean",
+        "default": false,
+        "description": "Opens in a new tab with rel=noopener noreferrer and announces it."
+      }
+    },
+    "states": [],
+    "parts": [
+      "external-hint"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "activate"
+      }
+    ],
+    "aria": {
+      "role": "link",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Link.tsx",
+            "destination": "Link.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.link",
+      "required": true
+    },
+    {
+      "name": "color.link-hover",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": []
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/link"
+}

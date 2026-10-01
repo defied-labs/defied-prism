@@ -1,0 +1,9 @@
+{
+  "name": "form",
+  "base": {
+    "display": "flex",
+    "flexDirection": "column",
+    "gap": "{space.6}",
+    "fontFamily": "{font.sans}"
+  }
+}

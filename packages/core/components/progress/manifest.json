@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "name": "progress",
+    "displayName": "Progress",
+    "description": "A linear progress bar (role=progressbar) with clamped values and an indeterminate mode.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "primitive",
+    "status": "beta",
+    "category": "feedback",
+    "keywords": [
+      "progress",
+      "progressbar",
+      "meter",
+      "loading"
+    ]
+  },
+  "contract": {
+    "element": "div",
+    "slots": {
+      "root": {
+        "element": "div",
+        "role": "progressbar"
+      },
+      "indicator": {
+        "element": "div"
+      }
+    },
+    "props": {
+      "status": {
+        "type": "enum",
+        "values": [
+          "neutral",
+          "info",
+          "success",
+          "warning",
+          "danger"
+        ],
+        "default": "info"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      },
+      "indeterminate": {
+        "type": "boolean",
+        "default": false,
+        "description": "Unknown progress: no aria-valuenow. Also implied by value={null}."
+      }
+    },
+    "states": [
+      "determinate",
+      "indeterminate",
+      "complete"
+    ],
+    "parts": [],
+    "keyboard": [],
+    "aria": {
+      "role": "progressbar",
+      "attributes": [
+        "aria-valuemin",
+        "aria-valuemax",
+        "aria-valuenow",
+        "aria-valuetext"
+      ]
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Progress.tsx",
+            "destination": "Progress.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.danger-solid",
+      "required": true
+    },
+    {
+      "name": "color.info-solid",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.neutral-solid",
+      "required": true
+    },
+    {
+      "name": "color.success-solid",
+      "required": true
+    },
+    {
+      "name": "color.warning-solid",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "duration.slow",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "radius.full",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": false,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "progressbar"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/progress"
+}

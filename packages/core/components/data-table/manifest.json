@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "name": "data-table",
+    "displayName": "DataTable",
+    "description": "A data table with column definitions, sortable headers (aria-sort) and optional row selection with a select-all checkbox.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "data-display",
+    "keywords": [
+      "table",
+      "data-table",
+      "sort",
+      "selection"
+    ]
+  },
+  "contract": {
+    "element": "table",
+    "slots": {
+      "scroll": {
+        "element": "div"
+      },
+      "root": {
+        "element": "table"
+      },
+      "caption": {
+        "element": "caption",
+        "optional": true
+      },
+      "headerCell": {
+        "element": "th"
+      },
+      "sortButton": {
+        "element": "button",
+        "optional": true
+      },
+      "row": {
+        "element": "tr"
+      },
+      "cell": {
+        "element": "td"
+      },
+      "rowHeader": {
+        "element": "th",
+        "optional": true
+      },
+      "checkbox": {
+        "element": "input",
+        "optional": true
+      }
+    },
+    "props": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md"
+        ],
+        "default": "md"
+      }
+    },
+    "states": [],
+    "parts": [
+      "sort-icon"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          " "
+        ],
+        "action": "sort",
+        "description": "On a sort button: cycle ascending / descending / unsorted"
+      },
+      {
+        "keys": [
+          " "
+        ],
+        "action": "toggle",
+        "description": "On a checkbox: select or deselect the row (or all rows)"
+      }
+    ],
+    "aria": {
+      "role": "table",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/DataTable.tsx",
+            "destination": "DataTable.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/DataTable.vue",
+            "destination": "data-table/DataTable.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/types.ts",
+            "destination": "data-table/types.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "data-table/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied-prism/core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied-prism/tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "color.bg-subtle",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.border-strong",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.primary",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "opacity.disabled",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.1-5",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xs",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "table"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/data-table"
+}

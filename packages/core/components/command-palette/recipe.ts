@@ -1,0 +1,107 @@
+import { defineRecipe, token as t } from "@defied-prism/style-engine";
+
+const maxWidth = (width: string) => ({ "slot:content": { maxWidth: width } });
+
+export default defineRecipe({
+  name: "command-palette",
+  // The root is a context provider and renders no element
+  base: {},
+  slots: {
+    overlay: {
+      position: "fixed",
+      inset: "0",
+      zIndex: t("z.overlay"),
+      background: t("color.overlay"),
+      animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
+    },
+    content: {
+      position: "fixed",
+      zIndex: t("z.modal"),
+      top: "15vh",
+      left: "50%",
+      transform: "translateX(-50%)",
+      boxSizing: "border-box",
+      width: `calc(100vw - 2 * ${t("space.4")})`,
+      maxHeight: "70vh",
+      display: "flex",
+      flexDirection: "column",
+      overflow: "hidden",
+      borderRadius: t("radius.lg"),
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: t("color.border"),
+      background: t("color.bg"),
+      color: t("color.fg"),
+      boxShadow: t("shadow.lg"),
+      fontFamily: t("font.sans"),
+      animation: `prism-scale-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _focusVisible: {
+        outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
+        outlineOffset: t("focus.ring-offset"),
+      },
+    },
+    input: {
+      boxSizing: "border-box",
+      width: "100%",
+      minHeight: t("control.lg"),
+      paddingInline: t("space.4"),
+      borderWidth: "0 0 1px 0",
+      borderStyle: "solid",
+      borderColor: t("color.border"),
+      background: "transparent",
+      color: t("color.fg"),
+      fontFamily: "inherit",
+      fontSize: t("text.md"),
+      lineHeight: t("leading.normal"),
+      _placeholder: { color: t("color.muted-fg") },
+      _focusVisible: { outline: "none" },
+    },
+    listbox: {
+      overflowY: "auto",
+      padding: t("space.1"),
+    },
+    group: {
+      paddingBlock: t("space.1"),
+    },
+    groupLabel: {
+      paddingBlock: t("space.1"),
+      paddingInline: t("space.2"),
+      color: t("color.muted-fg"),
+      fontSize: t("text.xs"),
+      fontWeight: t("weight.medium"),
+    },
+    item: {
+      display: "flex",
+      alignItems: "center",
+      gap: t("space.2"),
+      paddingBlock: t("space.2"),
+      paddingInline: t("space.2"),
+      borderRadius: t("radius.sm"),
+      fontSize: t("text.sm"),
+      cursor: "pointer",
+      userSelect: "none",
+      _highlighted: { background: t("color.muted") },
+      _ariaDisabled: { opacity: t("opacity.disabled"), cursor: "not-allowed" },
+    },
+    separator: {
+      height: "1px",
+      marginBlock: t("space.1"),
+      marginInline: `calc(-1 * ${t("space.1")})`,
+      background: t("color.border"),
+    },
+    empty: {
+      padding: t("space.6"),
+      textAlign: "center",
+      color: t("color.muted-fg"),
+      fontSize: t("text.sm"),
+    },
+  },
+  variants: {
+    size: {
+      sm: maxWidth("28rem"),
+      md: maxWidth("36rem"),
+      lg: maxWidth("48rem"),
+    },
+  },
+  defaultVariants: { size: "md" },
+});

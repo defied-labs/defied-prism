@@ -1,0 +1,91 @@
+{
+  "name": "calendar",
+  "base": {
+    "display": "inline-flex",
+    "flexDirection": "column",
+    "gap": "{space.2}",
+    "fontFamily": "{font.sans}",
+    "color": "{color.fg}",
+    "_ariaDisabled": {
+      "opacity": "{opacity.disabled}"
+    }
+  },
+  "slots": {
+    "header": {
+      "display": "flex",
+      "alignItems": "center",
+      "justifyContent": "space-between",
+      "gap": "{space.2}"
+    },
+    "heading": {
+      "fontSize": "{text.sm}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": "{leading.tight}"
+    },
+    "navButton": {
+      "flexShrink": "0"
+    },
+    "grid": {
+      "borderCollapse": "collapse"
+    },
+    "weekday": {
+      "fontSize": "{text.xs}",
+      "fontWeight": "{weight.medium}",
+      "color": "{color.muted-fg}",
+      "textAlign": "center"
+    },
+    "cell": {
+      "position": "relative",
+      "textAlign": "center",
+      "borderRadius": "{radius.md}",
+      "cursor": "pointer",
+      "_hoverAny": {
+        "background": "{color.ghost-hover}"
+      },
+      "_focusVisible": {
+        "outline": "{focus.ring-width} solid {color.ring}",
+        "outlineOffset": "{focus.ring-offset}"
+      },
+      "_selected": {
+        "background": "{color.primary}",
+        "color": "{color.primary-fg}"
+      },
+      "_ariaDisabled": {
+        "opacity": "{opacity.disabled}",
+        "cursor": "not-allowed",
+        "textDecoration": "line-through"
+      },
+      "part:today": {
+        "position": "absolute",
+        "insetInline": "0",
+        "bottom": "2px",
+        "marginInline": "auto",
+        "width": "4px",
+        "height": "4px",
+        "borderRadius": "{radius.full}",
+        "background": "currentColor"
+      }
+    }
+  },
+  "variants": {
+    "size": {
+      "sm": {
+        "slot:cell": {
+          "width": "{control.sm}",
+          "height": "{control.sm}",
+          "fontSize": "{text.xs}"
+        }
+      },
+      "md": {
+        "slot:cell": {
+          "width": "{control.md}",
+          "height": "{control.md}",
+          "fontSize": "{text.sm}"
+        }
+      }
+    }
+  },
+  "defaultVariants": {
+    "size": "md"
+  }
+}
