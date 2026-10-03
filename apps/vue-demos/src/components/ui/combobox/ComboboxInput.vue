@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs, useId, watchEffect } from "vue";
-import { mergeFieldControlProps, useField } from "@defied-prism/vue";
-import { nextIndex, slotClass, variantData } from "@defied-prism/core";
-import { ComboboxEvents } from "@defied-prism/core/components/combobox";
+import { mergeFieldControlProps, useField } from "@defied/prism-vue";
+import { nextIndex, slotClass, variantData } from "@defied/prism-core";
+import { ComboboxEvents } from "@defied/prism-core/components/combobox";
 import { useComboboxContext } from "./context";
 import { slots } from "./styles";
 

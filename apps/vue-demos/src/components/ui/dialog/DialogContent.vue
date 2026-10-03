@@ -8,8 +8,8 @@ import {
   trapFocus,
   variantData,
   zoomOriginVars,
-} from "@defied-prism/core";
-import { usePresence } from "@defied-prism/vue";
+} from "@defied/prism-core";
+import { usePresence } from "@defied/prism-vue";
 import { slots } from "./styles";
 import { useDialog } from "./context";
 

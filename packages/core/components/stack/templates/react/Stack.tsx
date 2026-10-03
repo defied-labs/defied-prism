@@ -1,5 +1,5 @@
 import { forwardRef, type ElementType, type HTMLAttributes } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export type StackElement = "div" | "section" | "article" | "aside" | "header" | "footer" | "nav" | "ul" | "ol";
 

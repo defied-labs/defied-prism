@@ -27,15 +27,15 @@ import {
   useFieldControlProps,
   type Collection,
   type CollectionRecord,
-} from "@defied-prism/react";
-import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+} from "@defied/prism-react";
+import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   TYPEAHEAD_TIMEOUT,
   selectKeyAction,
   typeaheadIndex,
   type SelectItemRecord,
-} from "@defied-prism/core/components/select";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+} from "@defied/prism-core/components/select";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

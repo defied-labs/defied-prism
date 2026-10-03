@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 const focusRing = {
   outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,

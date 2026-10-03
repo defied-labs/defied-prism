@@ -6,7 +6,7 @@ import { defineComponent, h, nextTick, onMounted, ref, type PropType } from "vue
 import { cleanup, fireEvent, render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { provideField, useFieldState, type FieldOptions } from "@defied-prism/vue";
+import { provideField, useFieldState, type FieldOptions } from "@defied/prism-vue";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

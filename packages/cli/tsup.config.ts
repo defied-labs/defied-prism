@@ -10,7 +10,7 @@ export default defineConfig({
   format: ["esm"],
   dts: false,
   clean: true,
-  noExternal: ["@defied-prism/style-engine", "@defied-prism/tokens"],
+  noExternal: ["@defied/prism-style-engine", "@defied/prism-tokens"],
   // Ship the registry as data only: manifests, compiled style.json and templates.
   async onSuccess() {
     const entries = await readdir(registrySource, { withFileTypes: true });

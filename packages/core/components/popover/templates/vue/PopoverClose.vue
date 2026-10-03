@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAttrs } from "vue";
-import { Slot } from "@defied-prism/vue";
+import { Slot } from "@defied/prism-vue";
 import { Button } from "../button";
 import { usePopover, type PopoverButtonProps } from "./context";
 

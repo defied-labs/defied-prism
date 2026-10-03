@@ -10,14 +10,14 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@defied-prism/core": path.resolve(__dirname, "../../packages/core"),
-      "@defied-prism/react": path.resolve(__dirname, "../../packages/react"),
-      "@defied-prism/style-engine": path.resolve(
+      "@defied/prism-core": path.resolve(__dirname, "../../packages/core"),
+      "@defied/prism-react": path.resolve(__dirname, "../../packages/react"),
+      "@defied/prism-style-engine": path.resolve(
         __dirname,
         "../../packages/style-engine",
       ),
-      "@defied-prism/env": path.resolve(__dirname, "../../packages/env"),
-      "@defied-prism/cli": path.resolve(__dirname, "../../packages/cli"),
+      "@defied/prism-env": path.resolve(__dirname, "../../packages/env"),
+      "@defied/prism-cli": path.resolve(__dirname, "../../packages/cli"),
     },
   },
 });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, provide, ref, useAttrs, useId } from "vue";
-import { useOverflow } from "@defied-prism/vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { useOverflow } from "@defied/prism-vue";
+import { slotClass, variantData } from "@defied/prism-core";
 import { slots } from "./styles";
 import { TableKey, type TableVariants } from "./context";
 

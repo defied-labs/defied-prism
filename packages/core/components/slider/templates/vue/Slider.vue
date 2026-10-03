@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, normalizeStyle, ref, useAttrs } from "vue";
-import { mergeFieldControlProps, useControllableState, useField } from "@defied-prism/vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { mergeFieldControlProps, useControllableState, useField } from "@defied/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   clamp,
   fractionToValue,
@@ -9,7 +9,7 @@ import {
   pointerFraction,
   snapToStep,
   valueToPercent,
-} from "@defied-prism/core/components/slider";
+} from "@defied/prism-core/components/slider";
 
 export interface SliderProps {
   /** Current value (v-model). */

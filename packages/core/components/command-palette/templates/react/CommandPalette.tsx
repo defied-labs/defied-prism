@@ -24,7 +24,7 @@ import {
   usePresence,
   type Collection,
   type CollectionRecord,
-} from "@defied-prism/react";
+} from "@defied/prism-react";
 import {
   hideOthers,
   lockScroll,
@@ -34,7 +34,7 @@ import {
   trapFocus,
   variantData,
   type StyleSlots,
-} from "@defied-prism/core";
+} from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -44,7 +44,7 @@ import {
   isTypingShortcut,
   parseShortcut,
   type CommandItem as CommandItemData,
-} from "@defied-prism/core/components/command-palette";
+} from "@defied/prism-core/components/command-palette";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};
@@ -309,7 +309,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
 );
 CommandPalette.displayName = "CommandPalette";
 
-export interface CommandInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "defaultValue" | "size"> {}
+export type CommandInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "defaultValue" | "size">;
 
 export const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>(
   ({ placeholder = "Type a command or search…", className, onChange, onKeyDown, ...props }, ref) => {
@@ -347,7 +347,7 @@ export const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>(
 );
 CommandInput.displayName = "CommandInput";
 
-export interface CommandListProps extends HTMLAttributes<HTMLDivElement> {}
+export type CommandListProps = HTMLAttributes<HTMLDivElement>;
 
 /** The listbox. Stays mounted when nothing matches so `aria-controls` stays valid. */
 export const CommandList = forwardRef<HTMLDivElement, CommandListProps>(({ className, ...props }, ref) => {
@@ -367,7 +367,7 @@ export const CommandList = forwardRef<HTMLDivElement, CommandListProps>(({ class
 });
 CommandList.displayName = "CommandList";
 
-export interface CommandEmptyProps extends HTMLAttributes<HTMLDivElement> {}
+export type CommandEmptyProps = HTMLAttributes<HTMLDivElement>;
 
 /** Shown (as a live status) only when nothing matches. Place it next to `CommandList`, not inside. */
 export const CommandEmpty = forwardRef<HTMLDivElement, CommandEmptyProps>(
@@ -496,7 +496,7 @@ export const CommandItem = forwardRef<HTMLDivElement, CommandItemProps>(
 );
 CommandItem.displayName = "CommandItem";
 
-export interface CommandSeparatorProps extends HTMLAttributes<HTMLDivElement> {}
+export type CommandSeparatorProps = HTMLAttributes<HTMLDivElement>;
 
 /** Decorative divider; hidden while searching. */
 export const CommandSeparator = forwardRef<HTMLDivElement, CommandSeparatorProps>(({ className, ...props }, ref) => {

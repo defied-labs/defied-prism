@@ -1,12 +1,36 @@
 {
-  "name": "@defied-prism/cli",
+  "name": "@defied/prism-cli",
   "version": "0.1.0",
+  "description": "Defied Prism CLI: add accessible React and Vue components to your project as source you own, styled with Tailwind CSS, CSS Modules or plain CSS.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defied-labs/defied-prism.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/defied-labs/defied-prism#readme",
+  "bugs": {
+    "url": "https://github.com/defied-labs/defied-prism/issues"
+  },
+  "keywords": [
+    "defied-prism",
+    "cli",
+    "components",
+    "react",
+    "vue",
+    "tailwind",
+    "design-system",
+    "registry"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "bin": {
     "prism": "./dist/index.js"
   },
   "scripts": {
-    "build": "pnpm --filter @defied-prism/core check:registry && tsup",
+    "build": "pnpm --filter @defied/prism-core check:registry && tsup",
     "check-types": "tsc --noEmit",
     "test": "vitest run"
   },
@@ -16,12 +40,12 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@defied-prism/config": "workspace:*",
-    "@defied-prism/core": "workspace:*",
-    "@defied-prism/react": "workspace:*",
-    "@defied-prism/style-engine": "workspace:*",
-    "@defied-prism/tokens": "workspace:*",
-    "@defied-prism/vue": "workspace:*",
+    "@defied/prism-config": "workspace:*",
+    "@defied/prism-core": "workspace:*",
+    "@defied/prism-react": "workspace:*",
+    "@defied/prism-style-engine": "workspace:*",
+    "@defied/prism-tokens": "workspace:*",
+    "@defied/prism-vue": "workspace:*",
     "@tailwindcss/node": "4.3.3",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.10.0",
@@ -44,7 +68,9 @@
     "vue-tsc": "^3.0.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "publishConfig": {
     "access": "public"

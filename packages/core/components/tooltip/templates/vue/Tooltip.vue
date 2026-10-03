@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, normalizeClass, onBeforeUnmount, onMounted, provide, useAttrs, useId, watch } from "vue";
-import { useMachine } from "@defied-prism/vue";
-import { isTooltipOpen, onDismiss, slotClass } from "@defied-prism/core";
-import { TooltipEvents, tooltipMachineDefinition } from "@defied-prism/core/components/tooltip";
+import { useMachine } from "@defied/prism-vue";
+import { isTooltipOpen, onDismiss, slotClass } from "@defied/prism-core";
+import { TooltipEvents, tooltipMachineDefinition } from "@defied/prism-core/components/tooltip";
 import { slots } from "./styles";
 import { TooltipKey } from "./context";
 

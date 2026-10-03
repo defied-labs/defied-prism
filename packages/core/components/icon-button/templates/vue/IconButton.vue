@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 /**
  * Pass `aria-label`: an icon-only button has no visible text to name it.

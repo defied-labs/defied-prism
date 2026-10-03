@@ -28,12 +28,12 @@ export async function initCommand(options: InitOptions = {}) {
   console.log(`
 Next steps:
   1. Install the runtime:
-       npm install @defied-prism/tokens @defied-prism/${framework} @defied-prism/core
+       npm install @defied/prism-tokens @defied/prism-${framework} @defied/prism-core
   2. Load the design tokens once, in your global stylesheet or entry file:
-       @import "@defied-prism/tokens/tokens.css";
+       @import "@defied/prism-tokens/tokens.css";
      With Tailwind styling (the default), also expose them as theme values,
      after @import "tailwindcss" (components use bg-primary, px-4…):
-       @import "@defied-prism/tokens/tailwind.css";
+       @import "@defied/prism-tokens/tailwind.css";
   3. Use your brand colors (optional):
        npx prism theme --primary "#0d9488"
   4. Add components:

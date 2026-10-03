@@ -1,5 +1,5 @@
 import { defineComponent, h } from "vue";
-import { useFieldControlProps, type FieldControlProps } from "@defied-prism/vue";
+import { useFieldControlProps, type FieldControlProps } from "@defied/prism-vue";
 import type { VueFixture } from "../support/fixture-vue";
 
 // A native input wired to the Field the way every Prism control is

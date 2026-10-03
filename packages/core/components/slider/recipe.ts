@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 // The template sets --prism-slider-fraction (0-1) on the root.
 const f = "var(--prism-slider-fraction, 0)";

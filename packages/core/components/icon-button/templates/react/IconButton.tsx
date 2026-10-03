@@ -1,5 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes, type MouseEvent } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Required: an icon-only button has no visible text to name it. */

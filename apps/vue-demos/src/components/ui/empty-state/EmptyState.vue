@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, provide, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { slotClass, variantData } from "@defied/prism-core";
 import { slots } from "./styles";
 import { EmptyStateKey, type HeadingLevel } from "./context";
 

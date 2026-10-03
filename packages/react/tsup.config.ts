@@ -5,5 +5,5 @@ export default defineConfig({
   format: ["esm"],
   dts: true,
   clean: true,
-  external: ["react", "@defied-prism/core"],
+  external: ["react", "@defied/prism-core"],
 });

@@ -1,6 +1,6 @@
 import { forwardRef, type AnchorHTMLAttributes, type ReactElement } from "react";
-import { Slot } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { Slot } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   tone?: "primary" | "neutral" | "muted";

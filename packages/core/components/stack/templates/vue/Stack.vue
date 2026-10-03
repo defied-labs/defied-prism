@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 /** Vertical flex layout. */
 export type StackElement = "div" | "section" | "article" | "aside" | "header" | "footer" | "nav" | "ul" | "ol";

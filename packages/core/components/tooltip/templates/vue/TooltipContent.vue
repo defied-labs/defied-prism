@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { normalizeClass, ref, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
-import { usePresence } from "@defied-prism/vue";
-import { TooltipEvents } from "@defied-prism/core/components/tooltip";
+import { slotClass, variantData } from "@defied/prism-core";
+import { usePresence } from "@defied/prism-vue";
+import { TooltipEvents } from "@defied/prism-core/components/tooltip";
 import { slots } from "./styles";
 import { compose, useTooltip } from "./context";
 

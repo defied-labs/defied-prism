@@ -25,12 +25,12 @@ async function cssFiles(dir: string, depth = 0): Promise<string[]> {
  */
 export async function missingStylesheetImports(styling: PrismConfig["styling"], cwd = process.cwd()): Promise<string[]> {
   const sources = await Promise.all((await cssFiles(cwd)).map((file) => fs.readFile(file, "utf8")));
-  const imports = (name: string) => sources.some((css) => css.includes(`@defied-prism/tokens/${name}`));
+  const imports = (name: string) => sources.some((css) => css.includes(`@defied/prism-tokens/${name}`));
 
   const missing: string[] = [];
-  if (!imports("tokens.css")) missing.push(`@import "@defied-prism/tokens/tokens.css";`);
+  if (!imports("tokens.css")) missing.push(`@import "@defied/prism-tokens/tokens.css";`);
   if (styling === "tailwind" && !imports("tailwind.css")) {
-    missing.push(`@import "@defied-prism/tokens/tailwind.css";   (after @import "tailwindcss")`);
+    missing.push(`@import "@defied/prism-tokens/tailwind.css";   (after @import "tailwindcss")`);
   }
   return missing;
 }

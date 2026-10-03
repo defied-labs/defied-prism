@@ -21,7 +21,7 @@ afterEach(() => {
 
 describe("missingStylesheetImports", () => {
   it("tailwind needs both tokens.css and tailwind.css", async () => {
-    const cwd = project({ "src/index.css": '@import "tailwindcss";\n@import "@defied-prism/tokens/tokens.css";' });
+    const cwd = project({ "src/index.css": '@import "tailwindcss";\n@import "@defied/prism-tokens/tokens.css";' });
     const missing = await missingStylesheetImports("tailwind", cwd);
     expect(missing).toHaveLength(1);
     expect(missing[0]).toContain("tailwind.css");
@@ -30,11 +30,11 @@ describe("missingStylesheetImports", () => {
 
   it("finds imports anywhere in the project, but not in node_modules", async () => {
     const cwd = project({
-      "app/styles/globals.css": '@import "@defied-prism/tokens/tokens.css";\n@import "@defied-prism/tokens/tailwind.css";',
+      "app/styles/globals.css": '@import "@defied/prism-tokens/tokens.css";\n@import "@defied/prism-tokens/tailwind.css";',
       "node_modules/x/a.css": "",
     });
     expect(await missingStylesheetImports("tailwind", cwd)).toEqual([]);
-    const bare = project({ "node_modules/x/a.css": '@import "@defied-prism/tokens/tokens.css";' });
+    const bare = project({ "node_modules/x/a.css": '@import "@defied/prism-tokens/tokens.css";' });
     expect(await missingStylesheetImports("css", bare)).toHaveLength(1);
   });
 });

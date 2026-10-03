@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 /** Horizontal flex layout that wraps. */
 export type InlineElement = "div" | "span" | "section" | "header" | "footer" | "nav" | "ul" | "ol";

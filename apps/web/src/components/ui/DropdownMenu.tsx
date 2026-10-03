@@ -14,15 +14,15 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
-import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
-import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied/prism-react";
+import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   TYPEAHEAD_TIMEOUT,
   isTypeaheadKey,
   typeaheadIndex,
-} from "@defied-prism/core/components/dropdown-menu";
+} from "@defied/prism-core/components/dropdown-menu";
 import { Button, type ButtonProps } from "./Button";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

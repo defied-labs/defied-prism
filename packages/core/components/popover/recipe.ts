@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 const gap = t("space.2");
 // `align` sets these; `side` reads them (cross-dimension styling, see tabs)

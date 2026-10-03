@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, onUpdated, ref, useAttrs } from "vue";
-import { Slot } from "@defied-prism/vue";
+import { Slot } from "@defied/prism-vue";
 import { Button } from "../button";
 import { elementOf, usePopover, type PopoverButtonProps } from "./context";
 

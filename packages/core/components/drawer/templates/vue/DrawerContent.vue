@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
-import { hideOthers, lockScroll, onDismiss, slotClass, trapFocus, variantData } from "@defied-prism/core";
-import { usePresence } from "@defied-prism/vue";
+import { hideOthers, lockScroll, onDismiss, slotClass, trapFocus, variantData } from "@defied/prism-core";
+import { usePresence } from "@defied/prism-vue";
 import { slots } from "./styles";
 import { useDrawer } from "./context";
 

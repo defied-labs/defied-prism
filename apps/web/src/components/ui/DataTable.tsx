@@ -10,8 +10,8 @@ import {
   type ReactNode,
   type TableHTMLAttributes,
 } from "react";
-import { useControllableState, useOverflow } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { useControllableState, useOverflow } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   ariaSort,
   nextSort,
@@ -21,8 +21,8 @@ import {
   toggleRow,
   type RowKey,
   type SortState,
-} from "@defied-prism/core/components/data-table";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+} from "@defied/prism-core/components/data-table";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export type { RowKey, SortState };
 

@@ -14,11 +14,11 @@
     "dev:web": "turbo -F web dev",
     "test": "turbo test",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@defied-prism/config": "workspace:*",
+    "@defied/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "turbo": "^2.10.0",
     "typescript": "^6.0.3"

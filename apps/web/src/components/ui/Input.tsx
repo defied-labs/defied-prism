@@ -5,13 +5,13 @@ import {
   type FocusEvent,
   type InputHTMLAttributes,
 } from "react";
-import { useFieldControlProps, useMachine } from "@defied-prism/react";
+import { useFieldControlProps, useMachine } from "@defied/prism-react";
 import {
   inputMachineDefinition,
   InputEvents,
-} from "@defied-prism/core/components/input";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+} from "@defied/prism-core/components/input";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "aria-invalid"> {

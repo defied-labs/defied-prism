@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { slotClass, variantData } from "@defied/prism-core";
 import { slots } from "./styles";
 import { useBreadcrumb } from "./context";
 

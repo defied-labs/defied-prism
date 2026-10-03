@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { inject, normalizeClass, ref, useAttrs, useId } from "vue";
-import { useCollectionItem } from "@defied-prism/vue";
-import { slotClass, variantData } from "@defied-prism/core";
-import { ComboboxEvents } from "@defied-prism/core/components/combobox";
+import { useCollectionItem } from "@defied/prism-vue";
+import { slotClass, variantData } from "@defied/prism-core";
+import { ComboboxEvents } from "@defied/prism-core/components/combobox";
 import { GroupContext, useComboboxContext } from "./context";
 import { slots } from "./styles";
 

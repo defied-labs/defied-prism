@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useControllableState } from "@defied-prism/vue";
+import { useControllableState } from "@defied/prism-vue";
 import MenuItemImpl from "./MenuItemImpl.vue";
 import type { DropdownMenuItemProps } from "./context";
 

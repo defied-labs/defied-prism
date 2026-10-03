@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 // density sets custom properties on the table; head and cell read them.
 const density = (block: "1" | "2" | "3", inline: "2" | "3" | "4") => ({

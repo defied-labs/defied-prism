@@ -38,7 +38,7 @@ export function Gallery({ vueReady }: { vueReady: string[] }) {
             <div className="grid min-h-32 flex-1 place-items-center overflow-x-auto rounded-lg bg-background p-4">
               <Demo />
             </div>
-            <Command>{`npx @defied-prism/cli add ${names.join(" && npx @defied-prism/cli add ")}`}</Command>
+            <Command>{`npx @defied/prism-cli add ${names.join(" && npx @defied/prism-cli add ")}`}</Command>
           </li>
         );
       })}

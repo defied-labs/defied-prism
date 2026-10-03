@@ -1,7 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactElement } from "react";
-import { Slot } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+import { Slot } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export interface VisuallyHiddenProps extends HTMLAttributes<HTMLElement> {
   /**

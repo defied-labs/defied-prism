@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { slotClass, variantData } from "@defied/prism-core";
 import { slots } from "./styles";
 import { SkeletonKey, type SkeletonVariant } from "./context";
 

@@ -9,18 +9,18 @@ import {
   type HTMLAttributes,
   type RefObject,
 } from "react";
-import { onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { usePresence } from "@defied-prism/react";
+import { onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { usePresence } from "@defied/prism-react";
 import {
   createToastStore,
   withLeaving,
   type Toast as ToastData,
   type ToastOptions,
   type ToastStore,
-} from "@defied-prism/core/components/toast";
+} from "@defied/prism-core/components/toast";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

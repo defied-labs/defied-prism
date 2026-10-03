@@ -1,15 +1,33 @@
 {
-  "name": "@defied-prism/vue",
+  "name": "@defied/prism-vue",
   "version": "0.1.0",
+  "description": "Defied Prism Vue runtime: composables and primitives used by generated Vue components.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defied-labs/defied-prism.git",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/defied-labs/defied-prism#readme",
+  "bugs": {
+    "url": "https://github.com/defied-labs/defied-prism/issues"
+  },
+  "keywords": [
+    "defied-prism",
+    "vue",
+    "components",
+    "composables",
+    "design-system"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@defied-prism/core": "workspace:^"
+    "@defied/prism-core": "workspace:^"
   },
   "devDependencies": {
-    "@defied-prism/config": "workspace:*",
+    "@defied/prism-config": "workspace:*",
     "@testing-library/jest-dom": "^6.10.0",
     "@testing-library/vue": "^8.1.0",
     "@types/node": "catalog:",
@@ -20,7 +38,9 @@
     "vue": "^3.5.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "sideEffects": false,
   "scripts": {

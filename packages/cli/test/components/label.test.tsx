@@ -4,7 +4,7 @@ import path from "node:path";
 import { createElement as h, type ReactNode } from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
-import { FieldContext, useField, useFieldState } from "@defied-prism/react";
+import { FieldContext, useField, useFieldState } from "@defied/prism-react";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

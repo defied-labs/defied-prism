@@ -4,7 +4,7 @@ import {
   type ToastOptions,
   type ToastSnapshot,
   type ToastStore,
-} from "@defied-prism/core/components/toast";
+} from "@defied/prism-core/components/toast";
 
 /** The app-wide store behind `toast()` and the default `<Toaster>`. */
 export const toastStore: ToastStore = createToastStore();

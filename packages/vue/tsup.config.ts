@@ -5,5 +5,5 @@ export default defineConfig({
   format: ["esm"],
   dts: true,
   clean: true,
-  external: ["vue", "@defied-prism/core"],
+  external: ["vue", "@defied/prism-core"],
 });

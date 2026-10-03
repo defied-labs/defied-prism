@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
-import { getFocusable, onDismiss, slotClass, variantData } from "@defied-prism/core";
-import { usePresence } from "@defied-prism/vue";
+import { getFocusable, onDismiss, slotClass, variantData } from "@defied/prism-core";
+import { usePresence } from "@defied/prism-vue";
 import { slots } from "./styles";
 import { usePopover } from "./context";
 

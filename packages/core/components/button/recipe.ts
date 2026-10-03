@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 const tone = (name: "primary" | "secondary" | "destructive") => ({
   background: t(`color.${name}`),

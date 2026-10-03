@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { useControllableState } from "@defied-prism/vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { clampPage, paginationRange } from "@defied-prism/core/components/pagination";
+import { useControllableState } from "@defied/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { clampPage, paginationRange } from "@defied/prism-core/components/pagination";
 
 export interface PaginationProps {
   /** Total number of pages. */

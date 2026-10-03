@@ -4,7 +4,7 @@ Defied Prism is a multi-framework component engine and state machine architectur
 
 ## Features
 
-- **Multi-Framework Generators**: Code generation for React (every component) and Vue (button, icon-button, input, field, select, dialog, toast, calendar, data-table; more as each passes the same contract tests). `prism init --framework vue` sets a project up for Vue.
+- **Multi-Framework Generators**: Code generation for React and Vue, every component on both, each passing the same contract tests. `prism init --framework vue` sets a project up for Vue.
 - **Three Styling Targets**: One `defineRecipe` per component compiles to **Tailwind CSS**, **CSS Modules** or **plain CSS**.
 - **State Machine Core**: Headless, state-driven UI logic using per-mount machine definition instances.
 - **CLI Registry**: Command-line generator with built-in TypeScript transpilation (via Sucrase) for dynamic registry style evaluation.
@@ -44,3 +44,7 @@ Check types across workspace:
 ```bash
 pnpm run check-types
 ```
+
+## License
+
+MIT

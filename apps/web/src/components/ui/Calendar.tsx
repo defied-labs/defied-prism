@@ -9,8 +9,8 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
-import { useControllableState } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { useControllableState } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import { IconButton } from "./IconButton";
 import {
   addMonths,
@@ -31,8 +31,8 @@ import {
   weekdayNames,
   type CalendarDate,
   type Weekday,
-} from "@defied-prism/core/components/calendar";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+} from "@defied/prism-core/components/calendar";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export interface CalendarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange" | "role"> {

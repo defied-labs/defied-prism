@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAttrs, type ComponentPublicInstance } from "vue";
-import { Slot } from "@defied-prism/vue";
+import { Slot } from "@defied/prism-vue";
 import { Button } from "../button";
 import { useMenu, type DropdownMenuTriggerProps } from "./context";
 

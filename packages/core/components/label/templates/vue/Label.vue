@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { useField } from "@defied-prism/vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { useField } from "@defied/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export interface LabelProps {
   size?: "sm" | "md";

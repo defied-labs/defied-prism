@@ -1,5 +1,5 @@
 import { forwardRef, type HTMLAttributes, type Ref } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export interface DividerProps extends HTMLAttributes<HTMLElement> {
   orientation?: "horizontal" | "vertical";

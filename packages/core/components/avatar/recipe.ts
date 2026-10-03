@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 const size = (box: "sm" | "md" | "lg" | "xl" | "xs", text: "xs" | "sm" | "md" | "lg") => ({
   width: t(`control.${box}`),

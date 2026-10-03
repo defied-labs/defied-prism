@@ -1,4 +1,4 @@
-import { resolveTokenRefs, type TokenPath } from "@defied-prism/tokens";
+import { resolveTokenRefs, type TokenPath } from "@defied/prism-tokens";
 
 import { tailwindUtility } from "./tailwind-utilities";
 import {

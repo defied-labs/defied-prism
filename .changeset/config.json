@@ -2,13 +2,20 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.1/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [],
-  "linked": [
-    ["@defied-prism/cli", "@defied-prism/core", "@defied-prism/react"],
-    ["@defied-prism/style-engine", "@defied-prism/core"]
+  "fixed": [
+    [
+      "@defied/prism-cli",
+      "@defied/prism-core",
+      "@defied/prism-react",
+      "@defied/prism-vue",
+      "@defied/prism-tokens"
+    ]
   ],
+  "linked": [],
   "access": "public",
-  "baseBranch": "main",
+  "baseBranch": "master",
   "updateInternalDependencies": "patch",
-  "ignore": ["@defied-prism/config"]
+  "ignore": [
+    "@defied/prism-config"
+  ]
 }

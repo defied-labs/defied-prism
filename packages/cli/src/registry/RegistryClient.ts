@@ -3,7 +3,7 @@ import path from "node:path";
 import type { ComponentManifest } from "./ComponentManifest";
 import { ManifestValidator } from "./ManifestValidator";
 import { RecipeValidator } from "./RecipeValidator";
-import type { Recipe } from "@defied-prism/style-engine";
+import type { Recipe } from "@defied/prism-style-engine";
 
 export type RegistryClient = RegistryClientInterface;
 

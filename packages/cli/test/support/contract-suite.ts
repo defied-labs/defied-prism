@@ -11,7 +11,7 @@ import axe from "axe-core";
 import { within } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { compileRecipeTailwind } from "@defied-prism/style-engine";
+import { compileRecipeTailwind } from "@defied/prism-style-engine";
 
 import type { PrismConfig } from "../../src/config/types";
 import { STYLINGS, dataSlot, kebab, readRegistryComponent } from "./generated";

@@ -1,5 +1,5 @@
 import { inject, normalizeClass, useAttrs, type InjectionKey } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { slotClass, variantData } from "@defied/prism-core";
 import { slots } from "./styles";
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;

@@ -5,8 +5,8 @@
  */
 import path from "node:path";
 import { compile } from "@tailwindcss/node";
-import { compileRecipeTailwind } from "@defied-prism/style-engine";
-import { buildTailwindCss } from "@defied-prism/tokens";
+import { compileRecipeTailwind } from "@defied/prism-style-engine";
+import { buildTailwindCss } from "@defied/prism-tokens";
 import { expect, it } from "vitest";
 
 import { readRegistryComponent, selectedComponents } from "./support/generated";

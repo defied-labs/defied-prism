@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, normalizeClass, provide, ref, useAttrs, useId } from "vue";
-import { mergeFieldControlProps, useControllableState, useField } from "@defied-prism/vue";
-import { slotClass, variantData } from "@defied-prism/core";
+import { mergeFieldControlProps, useControllableState, useField } from "@defied/prism-vue";
+import { slotClass, variantData } from "@defied/prism-core";
 import { RadioGroupContext, type Variants } from "./context";
 import { slots } from "./styles";
 

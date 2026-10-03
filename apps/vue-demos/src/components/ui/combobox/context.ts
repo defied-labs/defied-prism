@@ -1,6 +1,6 @@
 import { inject, type ComputedRef, type InjectionKey, type Ref } from "vue";
-import type { Collection, CollectionRecord } from "@defied-prism/vue";
-import type { ComboboxEvent } from "@defied-prism/core/components/combobox";
+import type { Collection, CollectionRecord } from "@defied/prism-vue";
+import type { ComboboxEvent } from "@defied/prism-core/components/combobox";
 
 export type Size = "sm" | "md" | "lg";
 

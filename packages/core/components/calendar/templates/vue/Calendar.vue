@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, normalizeClass, ref, useAttrs, useId, watch } from "vue";
-import { useControllableState } from "@defied-prism/vue";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { useControllableState } from "@defied/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import { IconButton } from "../icon-button";
 import {
   addMonths,
@@ -22,7 +22,7 @@ import {
   weekdayNames,
   type CalendarDate,
   type Weekday,
-} from "@defied-prism/core/components/calendar";
+} from "@defied/prism-core/components/calendar";
 
 export interface CalendarProps {
   /** Selected date as "YYYY-MM-DD" (v-model); `null` = none. */

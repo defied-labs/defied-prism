@@ -3,8 +3,8 @@ import {
   type ButtonHTMLAttributes,
   type MouseEvent,
 } from "react";
-import { useControllableState, useFieldControlProps } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { useControllableState, useFieldControlProps } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export interface SwitchProps
   extends Omit<

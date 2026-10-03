@@ -1,5 +1,5 @@
 import { inject, type ComputedRef, type InjectionKey } from "vue";
-import type { TooltipEvent } from "@defied-prism/core/components/tooltip";
+import type { TooltipEvent } from "@defied/prism-core/components/tooltip";
 
 export interface TooltipContext {
   open: ComputedRef<boolean>;

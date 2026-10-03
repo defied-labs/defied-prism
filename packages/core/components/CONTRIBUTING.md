@@ -26,13 +26,13 @@ packages/cli/test/components/<name>.test.tsx   behavior tests
 
 `index.ts` is only for logic a Vue/Svelte/Web Component adapter would reuse
 (state machines, filtering, date math). It is published automatically as
-`@defied-prism/core/components/<name>`. Do not add it to
+`@defied/prism-core/components/<name>`. Do not add it to
 `components/index.ts` or `package.json`; subpath exports are automatic.
 
 ## 1. Recipe (`recipe.ts`)
 
 ```ts
-import { defineRecipe, token as t } from "@defied-prism/style-engine";
+import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
 export default defineRecipe({
   name: "switch",
@@ -79,7 +79,7 @@ Rules the compiler enforces (it will fail the build otherwise):
   which collapse under reduced motion.
 - Don't set `display` on an element that uses the `hidden` attribute.
 
-Build: `pnpm --filter @defied-prism/core build:registry <name>` validates the
+Build: `pnpm --filter @defied/prism-core build:registry <name>` validates the
 recipe and writes `recipe.json` and the manifest's `tokens`.
 
 ## 2. Manifest (`manifest.json`)
@@ -109,7 +109,7 @@ anchors must set `aria-disabled="true"`.
 ## 3. Template (`templates/react/<Name>.tsx`)
 
 ```tsx
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};
@@ -120,8 +120,8 @@ const slots: StyleSlots = {{STYLE_SLOTS}};
   - `data-slot="<name>"` for the root, `data-slot="<name>-<kebab-slot>"` otherwise
   - `{...variantData(variants)}` (variant data attributes; CSS targets select on them)
   - `className={slotClass(slots, "<slot>", variants, className)}`
-- Import only from `react`, `react-dom` (portals), `@defied-prism/react`,
-  `@defied-prism/core`, `@defied-prism/core/components/<name>`, and other
+- Import only from `react`, `react-dom` (portals), `@defied/prism-react`,
+  `@defied/prism-core`, `@defied/prism-core/components/<name>`, and other
   registry components as siblings (`import { Button } from "./Button"`).
   Every sibling must be listed in the manifest's `registryDependencies`
   (`["button"]`); `prism add` installs them first. A test enforces both
@@ -140,18 +140,18 @@ const slots: StyleSlots = {{STYLE_SLOTS}};
   handlers (call theirs, respect `event.defaultPrevented`) rather than
   overwriting them.
 - Controlled + uncontrolled state: `useControllableState` from
-  `@defied-prism/react` (`value`/`defaultValue`/`onValueChange`,
+  `@defied/prism-react` (`value`/`defaultValue`/`onValueChange`,
   `open`/`defaultOpen`/`onOpenChange`, `checked`/`defaultChecked`/`onCheckedChange`).
-- `asChild` triggers: `Slot` from `@defied-prism/react`.
+- `asChild` triggers: `Slot` from `@defied/prism-react`.
 - Form controls: wrap your control's props with `useFieldControlProps`
-  from `@defied-prism/react` so they work inside `Field` (id, describedby,
+  from `@defied/prism-react` so they work inside `Field` (id, describedby,
   invalid, disabled, required).
-- Behavior primitives in `@defied-prism/core` (framework-agnostic, reuse
+- Behavior primitives in `@defied/prism-core` (framework-agnostic, reuse
   them, don't reimplement): `trapFocus`, `onDismiss` (Escape/outside click,
   layered: only the topmost layer closes), `lockScroll`, `hideOthers`
   (makes the page inert behind modals), `nextIndex` (arrow/Home/End
   navigation with disabled skipping), `getFocusable`.
-- A state machine (`@defied-prism/core` `Machine`, `useMachine`) earns its
+- A state machine (`@defied/prism-core` `Machine`, `useMachine`) earns its
   place when there are real states with timing or ordering (tooltip,
   combobox). Plain state is fine otherwise. Machines are pure: timers live
   in the adapter.
@@ -199,7 +199,7 @@ Use `@testing-library/user-event`; for timers, use fake timers with
 
 Tailwind classes are generated from the recipe: tokens become Prism's
 namespaced utilities (`bg-prism-primary`, `px-prism-4`,
-`rounded-prism-md`, from `@defied-prism/tokens/tailwind.css`), common
+`rounded-prism-md`, from `@defied/prism-tokens/tailwind.css`), common
 literals become plain utilities (`flex`, `items-center`), anything else an
 arbitrary property. `slotClass` merges consumer classes with
 tailwind-merge, so `className="bg-red-500"` always wins.
@@ -208,7 +208,7 @@ tailwind-merge, so `className="bg-red-500"` always wins.
 ## Commands
 
 ```sh
-pnpm --filter @defied-prism/core build:registry <name>        # compile recipe, derive tokens
+pnpm --filter @defied/prism-core build:registry <name>        # compile recipe, derive tokens
 cd packages/cli
 PRISM_COMPONENTS=<name> npx vitest run test/contract.test.tsx  # contract, all CSS targets
 npx vitest run test/components/<name>.test.tsx                 # behavior

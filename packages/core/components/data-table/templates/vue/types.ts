@@ -1,5 +1,5 @@
 import type { VNodeChild } from "vue";
-import type { RowKey, SortState } from "@defied-prism/core/components/data-table";
+import type { RowKey, SortState } from "@defied/prism-core/components/data-table";
 
 export type { RowKey, SortState };
 

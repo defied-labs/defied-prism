@@ -10,8 +10,8 @@ import {
   useControllableState,
   useField,
   useFieldControlProps,
-} from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+} from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   clamp,
   fractionToValue,
@@ -19,8 +19,8 @@ import {
   pointerFraction,
   snapToStep,
   valueToPercent,
-} from "@defied-prism/core/components/slider";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+} from "@defied/prism-core/components/slider";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export interface SliderProps
   extends Omit<

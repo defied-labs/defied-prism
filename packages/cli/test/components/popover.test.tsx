@@ -5,7 +5,7 @@ import { createElement as h, useState } from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { onDismiss } from "@defied-prism/core";
+import { onDismiss } from "@defied/prism-core";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

@@ -13,7 +13,7 @@ function VueDemo({ id }: { id: string }) {
   useEffect(() => {
     let cancelled = false;
     let unmount: (() => void) | undefined;
-    import("@defied-prism/vue-demos")
+    import("@defied/prism-vue-demos")
       .then(({ mountDoc }) => {
         if (!cancelled && host.current) unmount = mountDoc(host.current, id).unmount;
       })

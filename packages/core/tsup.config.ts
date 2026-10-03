@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { defineConfig } from "tsup";
 
 // Every component with framework-agnostic logic (an index.ts) gets its own
-// entry, published as @defied-prism/core/components/<name>.
+// entry, published as @defied/prism-core/components/<name>.
 const componentEntries = Object.fromEntries(
   readdirSync("components", { withFileTypes: true })
     .filter((d) => d.isDirectory() && existsSync(`components/${d.name}/index.ts`))

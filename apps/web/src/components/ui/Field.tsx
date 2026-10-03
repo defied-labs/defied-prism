@@ -8,9 +8,9 @@ import {
   type LabelHTMLAttributes,
   type ReactNode,
 } from "react";
-import { FieldContext, useField, useFieldState } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+import { FieldContext, useField, useFieldState } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

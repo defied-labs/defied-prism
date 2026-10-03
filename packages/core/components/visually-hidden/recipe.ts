@@ -1,4 +1,4 @@
-import { defineRecipe } from "@defied-prism/style-engine";
+import { defineRecipe } from "@defied/prism-style-engine";
 
 export default defineRecipe({
   name: "visually-hidden",

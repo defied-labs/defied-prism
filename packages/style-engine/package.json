@@ -1,5 +1,6 @@
 {
-  "name": "@defied-prism/style-engine",
+  "name": "@defied/prism-style-engine",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "exports": {
@@ -12,10 +13,10 @@
   },
   "dependencies": {
     "zod": "catalog:",
-    "@defied-prism/tokens": "workspace:^"
+    "@defied/prism-tokens": "workspace:^"
   },
   "devDependencies": {
-    "@defied-prism/config": "workspace:*",
+    "@defied/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",

@@ -9,8 +9,8 @@ import {
   watch,
   watchEffect,
 } from "vue";
-import { slotClass, variantData } from "@defied-prism/core";
-import { withLeaving, type Toast, type ToastStore } from "@defied-prism/core/components/toast";
+import { slotClass, variantData } from "@defied/prism-core";
+import { withLeaving, type Toast, type ToastStore } from "@defied/prism-core/components/toast";
 import { slots } from "./styles";
 import { toastStore, useToasts } from "./toast";
 import type { Position, ReturnFocus } from "./context";

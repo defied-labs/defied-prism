@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs, watch } from "vue";
-import { useMachine } from "@defied-prism/vue";
+import { useMachine } from "@defied/prism-vue";
 import {
   buttonMachineDefinition,
   ButtonEvents,
-} from "@defied-prism/core/components/button";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+} from "@defied/prism-core/components/button";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import styles from "./Button.module.css";
 
 export interface ButtonProps {

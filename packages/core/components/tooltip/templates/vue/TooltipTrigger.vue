@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAttrs } from "vue";
-import { Slot } from "@defied-prism/vue";
-import { TooltipEvents } from "@defied-prism/core/components/tooltip";
+import { Slot } from "@defied/prism-vue";
+import { TooltipEvents } from "@defied/prism-core/components/tooltip";
 import { compose, useTooltip } from "./context";
 
 export interface TooltipTriggerProps {

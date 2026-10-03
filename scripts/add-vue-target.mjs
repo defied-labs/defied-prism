@@ -17,10 +17,10 @@ const target = {
     type: "component",
     editable: true,
   })),
-  runtimeVersion: { package: "@defied-prism/vue", version: "^0.1.0" },
+  runtimeVersion: { package: "@defied/prism-vue", version: "^0.1.0" },
   dependencies: [
     { package: "vue", version: ">=3.4.0", type: "peerDependency" },
-    { package: "@defied-prism/vue", version: "^0.1.0", type: "dependency" },
+    { package: "@defied/prism-vue", version: "^0.1.0", type: "dependency" },
   ],
 };
 

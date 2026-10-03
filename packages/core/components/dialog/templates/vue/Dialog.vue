@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, ref, useId } from "vue";
-import { useControllableState } from "@defied-prism/vue";
+import { useControllableState } from "@defied/prism-vue";
 import { DialogKey } from "./context";
 
 export interface DialogProps {

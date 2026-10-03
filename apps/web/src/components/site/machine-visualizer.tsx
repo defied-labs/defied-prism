@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { buttonMachineDefinition } from "@defied-prism/core/components/button";
+import { buttonMachineDefinition } from "@defied/prism-core/components/button";
 
 import { Button } from "@/components/ui/Button";
 import { Switch } from "@/components/ui/Switch";

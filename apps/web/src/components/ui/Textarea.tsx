@@ -6,9 +6,9 @@ import {
   type ChangeEvent,
   type TextareaHTMLAttributes,
 } from "react";
-import { useComposedRefs, useFieldControlProps } from "@defied-prism/react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
-import { tailwindSlots } from "@defied-prism/core/tailwind";
+import { useComposedRefs, useFieldControlProps } from "@defied/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 export interface TextareaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "aria-invalid"> {

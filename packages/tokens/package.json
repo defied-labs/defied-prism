@@ -1,7 +1,24 @@
 {
-  "name": "@defied-prism/tokens",
+  "name": "@defied/prism-tokens",
   "version": "0.1.0",
   "description": "Defied Prism design tokens: CSS variables, Tailwind theme and JSON from one source.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defied-labs/defied-prism.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/defied-labs/defied-prism#readme",
+  "bugs": {
+    "url": "https://github.com/defied-labs/defied-prism/issues"
+  },
+  "keywords": [
+    "defied-prism",
+    "design-tokens",
+    "css-variables",
+    "tailwind",
+    "design-system"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -9,8 +26,14 @@
     "./tailwind.css": "./dist/tailwind.css",
     "./tokens.json": "./dist/tokens.json"
   },
-  "files": ["dist"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsup && tsx scripts/build.ts",
     "check-types": "tsc --noEmit",
@@ -19,14 +42,17 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
       "./tokens.css": "./dist/tokens.css",
       "./tailwind.css": "./dist/tailwind.css",
       "./tokens.json": "./dist/tokens.json"
     }
   },
   "devDependencies": {
-    "@defied-prism/config": "workspace:*",
+    "@defied/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "tsup": "^8.5.1",
     "tsx": "^4.23.15",

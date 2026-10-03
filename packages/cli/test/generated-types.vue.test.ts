@@ -57,9 +57,9 @@ describe("generated Vue components", () => {
           types: [],
           typeRoots: [path.join(__dirname, "../node_modules/@types")],
           paths: {
-            "@defied-prism/core": [path.join(packages, "core/index.ts")],
-            "@defied-prism/core/*": [path.join(packages, "core/*/index.ts")],
-            "@defied-prism/vue": [path.join(packages, "vue/src/index.ts")],
+            "@defied/prism-core": [path.join(packages, "core/index.ts")],
+            "@defied/prism-core/*": [path.join(packages, "core/*/index.ts")],
+            "@defied/prism-vue": [path.join(packages, "vue/src/index.ts")],
           },
         },
         include: ["**/*.ts", "**/*.vue"],

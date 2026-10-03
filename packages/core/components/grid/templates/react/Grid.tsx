@@ -1,5 +1,5 @@
 import { forwardRef, type ElementType, type HTMLAttributes } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 
 export type GridElement = "div" | "section" | "ul" | "ol";
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, provide, ref, useAttrs, useId } from "vue";
-import { useControllableState } from "@defied-prism/vue";
-import { slotClass } from "@defied-prism/core";
+import { useControllableState } from "@defied/prism-vue";
+import { slotClass } from "@defied/prism-core";
 import { slots } from "./styles";
 import { PopoverKey } from "./context";
 

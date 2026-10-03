@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { flattenRecipe } from "@defied-prism/style-engine";
+import { flattenRecipe } from "@defied/prism-style-engine";
 
 const componentsDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -55,7 +55,7 @@ for (const entry of await readdir(componentsDir, { withFileTypes: true })) {
 
 if (stale.length > 0) {
   console.error(
-    `Stale registry output (run \`pnpm --filter @defied-prism/core build:registry\`):\n  ${stale.join("\n  ")}`,
+    `Stale registry output (run \`pnpm --filter @defied/prism-core build:registry\`):\n  ${stale.join("\n  ")}`,
   );
   process.exit(1);
 }

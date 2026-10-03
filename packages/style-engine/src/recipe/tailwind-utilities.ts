@@ -1,4 +1,4 @@
-import { cssVarName, TAILWIND_NAMESPACE, TOKEN_PREFIX, type TokenPath } from "@defied-prism/tokens";
+import { cssVarName, TAILWIND_NAMESPACE, TOKEN_PREFIX, type TokenPath } from "@defied/prism-tokens";
 
 /**
  * CSS property -> Tailwind utility prefix, per token group. A declaration

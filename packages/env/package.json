@@ -1,5 +1,5 @@
 {
-  "name": "@defied-prism/env",
+  "name": "@defied/prism-env",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@defied-prism/config": "workspace:*",
+    "@defied/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "^6.0.3"
   }

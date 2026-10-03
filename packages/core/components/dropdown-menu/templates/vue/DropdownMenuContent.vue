@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { normalizeClass, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
-import { nextIndex, onDismiss, slotClass, variantData } from "@defied-prism/core";
-import { usePresence } from "@defied-prism/vue";
+import { nextIndex, onDismiss, slotClass, variantData } from "@defied/prism-core";
+import { usePresence } from "@defied/prism-vue";
 import {
   TYPEAHEAD_TIMEOUT,
   isTypeaheadKey,
   typeaheadIndex,
-} from "@defied-prism/core/components/dropdown-menu";
+} from "@defied/prism-core/components/dropdown-menu";
 import { useMenu } from "./context";
 import { slots } from "./styles";
 

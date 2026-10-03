@@ -1,6 +1,6 @@
 import { inject, type ComputedRef, type InjectionKey, type Ref } from "vue";
-import type { Collection, CollectionRecord } from "@defied-prism/vue";
-import type { SelectItemRecord } from "@defied-prism/core/components/select";
+import type { Collection, CollectionRecord } from "@defied/prism-vue";
+import type { SelectItemRecord } from "@defied/prism-core/components/select";
 
 export type Size = "sm" | "md" | "lg";
 

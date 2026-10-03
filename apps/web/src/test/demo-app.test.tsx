@@ -76,6 +76,6 @@ describe("Showcase page", () => {
     expect(within(matrix).getByRole("button", { name: "React" })).toHaveAttribute("aria-pressed", "true");
     expect(within(matrix).getByText("Running in React, styled with Tailwind")).toBeInTheDocument();
     expect(await within(matrix).findByRole("tab", { name: "Button.tsx" })).toBeInTheDocument();
-    expect(within(matrix).getByLabelText("Button.tsx source")).toHaveTextContent('from "@defied-prism/react"');
+    expect(within(matrix).getByLabelText("Button.tsx source")).toHaveTextContent('from "@defied/prism-react"');
   });
 });
