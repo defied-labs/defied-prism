@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check-types": "pnpm snippets && tsc --noEmit",
+    "check-types": "pnpm snippets && next typegen && tsc --noEmit",
     "lint": "eslint .",
     "dev": "pnpm snippets && pnpm --filter @defied/prism-vue-demos build && next dev --port 3001",
     "build": "pnpm snippets && next build",
