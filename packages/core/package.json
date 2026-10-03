@@ -1,6 +1,6 @@
 {
   "name": "@defied/prism-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Defied Prism core: framework-agnostic state machines, DOM primitives and styling helpers used by generated components.",
   "license": "MIT",
   "repository": {

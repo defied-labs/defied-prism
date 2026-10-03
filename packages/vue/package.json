@@ -1,6 +1,6 @@
 {
   "name": "@defied/prism-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Defied Prism Vue runtime: composables and primitives used by generated Vue components.",
   "license": "MIT",
   "repository": {

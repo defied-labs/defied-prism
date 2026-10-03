@@ -1,6 +1,6 @@
 {
   "name": "@defied/prism-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Defied Prism React runtime: hooks and primitives used by generated React components.",
   "license": "MIT",
   "repository": {
