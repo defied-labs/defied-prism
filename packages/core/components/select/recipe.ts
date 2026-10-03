@@ -69,7 +69,13 @@ export default defineRecipe({
       borderColor: t("color.border"),
       background: t("color.bg"),
       boxShadow: t("shadow.lg"),
-      animation: `prism-fade-in ${t("duration.fast")} ${t("easing.standard")}`,
+      // Unrolls down from the trigger; rolls back up on close
+      transformOrigin: "top",
+      animation: `prism-roll-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        pointerEvents: "none",
+        animation: `prism-roll-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+      },
     },
     option: {
       display: "flex",

@@ -1,0 +1,32 @@
+---
+title: Button
+description: A native button with variants, sizes and a loading state.
+---
+
+<Demo id="button/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add button
+```
+
+## Usage
+
+`Button` renders a `<button>` with `type="button"` by default, so it never submits a form by accident; pass `type="submit"` when it should. `variant` sets the emphasis. Use `destructive` for irreversible actions, and `link` for an action that should look like text (for navigation, use a real link).
+
+## Sizes and icons
+
+`size` goes from `xs` to `xl`; `fullWidth` stretches the button to its container. Wrap an icon in `ButtonIcon` to size it to the text and hide it from assistive technology.
+
+<Demo id="button/sizes" />
+
+## Loading and disabled
+
+`loading` shows a spinner and ignores clicks, but keeps the button focusable (`aria-disabled` and `aria-busy`), so focus isn't lost while the action runs. `disabled` uses the native attribute and takes the button out of the tab order.
+
+<Demo id="button/loading" />
+
+## API reference
+
+<ApiReference component="button" />

@@ -1,0 +1,26 @@
+---
+title: Progress
+description: A progress bar for a task with a known or unknown amount of work left.
+---
+
+<Demo id="progress/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add progress
+```
+
+## Usage
+
+Pass `value` (clamped to `min`–`max`, 0–100 by default) and name the bar with `aria-label` or `aria-labelledby`. Screen readers announce the percentage unless you give `valueText`, either a string or a function of the value and percentage. When you can't measure progress, set `indeterminate` (or pass `value={null}`): the bar animates and `aria-valuenow` is left out.
+
+## Status and size
+
+`status` colors the bar (`neutral`, `info`, `success`, `warning`, `danger`; default `info`) and `size` sets its height (`sm`, `md`, `lg`).
+
+<Demo id="progress/status" />
+
+## API reference
+
+<ApiReference component="progress" />

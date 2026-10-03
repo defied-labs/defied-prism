@@ -13,7 +13,22 @@
     "fontFamily": "{font.sans}"
   },
   "slots": {
+    "item": {
+      "display": "grid",
+      "gridTemplateRows": "1fr",
+      "animation": "prism-slide-in {duration.normal} {easing.emphasized}",
+      "transition": "grid-template-rows {duration.normal} {easing.exit}, margin {duration.normal} {easing.exit}",
+      "_closed": {
+        "gridTemplateRows": "0fr",
+        "marginBlockStart": "calc(-1 * {space.2})",
+        "--prism-toast-events": "none",
+        "animation": "prism-slide-out {duration.normal} {easing.exit} forwards, prism-fade-out {duration.normal} {easing.exit} forwards"
+      }
+    },
     "toast": {
+      "position": "relative",
+      "overflow": "hidden",
+      "minHeight": "0",
       "display": "flex",
       "alignItems": "flex-start",
       "gap": "{space.3}",
@@ -27,7 +42,7 @@
       "boxShadow": "{shadow.lg}",
       "fontSize": "{text.sm}",
       "lineHeight": "{leading.normal}",
-      "pointerEvents": "auto",
+      "pointerEvents": "var(--prism-toast-events, auto)",
       "animation": "prism-scale-in {duration.normal} {easing.emphasized}",
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",
@@ -48,6 +63,19 @@
     "description": {
       "color": "inherit"
     },
+    "progress": {
+      "position": "absolute",
+      "insetInlineStart": "0",
+      "insetInlineEnd": "0",
+      "bottom": "0",
+      "height": "2px",
+      "background": "currentColor",
+      "opacity": "0.4",
+      "transformOrigin": "left",
+      "animationName": "prism-countdown",
+      "animationTimingFunction": "linear",
+      "animationFillMode": "forwards"
+    },
     "action": {
       "flexShrink": "0"
     },
@@ -63,7 +91,11 @@
         "insetInlineStart": "{space.4}",
         "insetInlineEnd": "auto",
         "transform": "none",
-        "flexDirection": "column-reverse"
+        "flexDirection": "column-reverse",
+        "slot:item": {
+          "--prism-slide-x": "calc(-100% - 1rem)",
+          "--prism-slide-y": "0"
+        }
       },
       "top-center": {
         "top": "{space.4}",
@@ -71,7 +103,11 @@
         "insetInlineStart": "50%",
         "insetInlineEnd": "auto",
         "transform": "translateX(-50%)",
-        "flexDirection": "column-reverse"
+        "flexDirection": "column-reverse",
+        "slot:item": {
+          "--prism-slide-x": "0",
+          "--prism-slide-y": "calc(-100% - 1rem)"
+        }
       },
       "top-end": {
         "top": "{space.4}",
@@ -79,7 +115,11 @@
         "insetInlineStart": "auto",
         "insetInlineEnd": "{space.4}",
         "transform": "none",
-        "flexDirection": "column-reverse"
+        "flexDirection": "column-reverse",
+        "slot:item": {
+          "--prism-slide-x": "calc(100% + 1rem)",
+          "--prism-slide-y": "0"
+        }
       },
       "bottom-start": {
         "top": "auto",
@@ -87,7 +127,11 @@
         "insetInlineStart": "{space.4}",
         "insetInlineEnd": "auto",
         "transform": "none",
-        "flexDirection": "column"
+        "flexDirection": "column",
+        "slot:item": {
+          "--prism-slide-x": "calc(-100% - 1rem)",
+          "--prism-slide-y": "0"
+        }
       },
       "bottom-center": {
         "top": "auto",
@@ -95,7 +139,11 @@
         "insetInlineStart": "50%",
         "insetInlineEnd": "auto",
         "transform": "translateX(-50%)",
-        "flexDirection": "column"
+        "flexDirection": "column",
+        "slot:item": {
+          "--prism-slide-x": "0",
+          "--prism-slide-y": "calc(100% + 1rem)"
+        }
       },
       "bottom-end": {
         "top": "auto",
@@ -103,7 +151,11 @@
         "insetInlineStart": "auto",
         "insetInlineEnd": "{space.4}",
         "transform": "none",
-        "flexDirection": "column"
+        "flexDirection": "column",
+        "slot:item": {
+          "--prism-slide-x": "calc(100% + 1rem)",
+          "--prism-slide-y": "0"
+        }
       }
     },
     "status": {

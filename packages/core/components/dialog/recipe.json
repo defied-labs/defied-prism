@@ -7,14 +7,17 @@
       "inset": "0",
       "zIndex": "{z.overlay}",
       "background": "{color.overlay}",
-      "animation": "prism-fade-in {duration.normal} {easing.standard}"
+      "animation": "prism-fade-in {duration.normal} {easing.standard}",
+      "_closed": {
+        "animation": "prism-fade-out {duration.fast} {easing.exit} forwards"
+      }
     },
     "content": {
       "position": "fixed",
       "zIndex": "{z.modal}",
-      "top": "50%",
-      "left": "50%",
-      "transform": "translate(-50%, -50%)",
+      "inset": "0",
+      "margin": "auto",
+      "height": "fit-content",
       "boxSizing": "border-box",
       "width": "calc(100vw - 2 * {space.4})",
       "maxHeight": "calc(100dvh - 2 * {space.4})",
@@ -31,7 +34,11 @@
       "color": "{color.fg}",
       "boxShadow": "{shadow.lg}",
       "fontFamily": "{font.sans}",
-      "animation": "prism-scale-in {duration.normal} {easing.emphasized}",
+      "animation": "prism-zoom-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "animation": "prism-zoom-out {duration.fast} {easing.exit} forwards",
+        "pointerEvents": "none"
+      },
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",
         "outlineOffset": "{focus.ring-offset}"

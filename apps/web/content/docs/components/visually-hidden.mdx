@@ -1,0 +1,28 @@
+---
+title: Visually Hidden
+description: Content that screen readers announce but that isn't shown on screen.
+---
+
+<Demo id="visually-hidden/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add visually-hidden
+```
+
+## Usage
+
+Wrap text in `VisuallyHidden` to keep it in the accessibility tree while hiding it visually. The button above shows only an icon, but its accessible name is "Close notifications". To check, inspect it in your browser's accessibility tree or tab to it with a screen reader on.
+
+Use it for text that sighted users get from context, such as the name of an icon-only control. Don't use it to hide content from everyone; use `hidden` for that.
+
+## Skip links
+
+`focusable` shows the content while it has focus. Combine it with `asChild` (`as-child` in Vue) so the props merge onto the focusable element itself rather than a wrapping `<span>`. The usual case is a "Skip to content" link at the top of the page.
+
+<Demo id="visually-hidden/skip-link" />
+
+## API reference
+
+<ApiReference component="visually-hidden" />

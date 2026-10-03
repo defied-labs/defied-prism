@@ -78,7 +78,13 @@
   border-color: var(--prism-color-border);
   background: var(--prism-color-bg);
   box-shadow: var(--prism-shadow-lg);
-  animation: prism-fade-in var(--prism-duration-fast) var(--prism-easing-standard);
+  transform-origin: top;
+  animation: prism-roll-in var(--prism-duration-normal) var(--prism-easing-emphasized);
+}
+
+.listbox[data-state="closed"] {
+  pointer-events: none;
+  animation: prism-roll-out var(--prism-duration-fast) var(--prism-easing-exit) forwards;
 }
 
 .option {

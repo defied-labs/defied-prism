@@ -11,6 +11,7 @@ import {
   type HTMLAttributes,
   type InputHTMLAttributes,
   type KeyboardEvent,
+  type MouseEvent,
   type RefObject,
 } from "react";
 import {
@@ -21,6 +22,7 @@ import {
   useFieldControlProps,
   useIsomorphicLayoutEffect,
   useMachine,
+  usePresence,
   type Collection,
   type CollectionRecord,
 } from "@defied-prism/react";
@@ -294,6 +296,8 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
       onChange,
       onKeyDown,
       onBlur,
+      onFocus,
+      onClick,
       "aria-describedby": describedByProp,
       "aria-invalid": invalidProp,
       ...props
@@ -324,9 +328,14 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
 
     const move = (key: string) => {
       const current = highlightedItem ? visible.indexOf(highlightedItem) : -1;
+      // Nothing highlighted yet (opened on focus): start at the selection or an end
+      const start =
+        key === "ArrowDown"
+          ? (enabled.find((item) => item.value === selected) ?? enabled[0])
+          : enabled[enabled.length - 1];
       const next =
         current === -1
-          ? visible.findIndex((item) => !item.disabled) // first enabled
+          ? (start ? visible.indexOf(start) : -1)
           : nextIndex(key, current, visible.length, {
               orientation: "vertical",
               isDisabled: (i) => visible[i]!.disabled,
@@ -348,7 +357,7 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
                 ? (enabled.find((item) => item.value === selected) ?? enabled[0])?.value
                 : enabled[enabled.length - 1]?.value;
             send(ComboboxEvents.open(initial ?? null));
-          } else {
+          } else if (!event.altKey) {
             move(event.key);
           }
           break;
@@ -361,6 +370,11 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
           break;
         }
       }
+    };
+
+    // Show every option as soon as the input is focused or clicked
+    const openList = () => {
+      if (!open && !control.disabled) send(ComboboxEvents.open(null));
     };
 
     const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
@@ -396,6 +410,14 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
           ctx.type(event.target.value);
         }}
         onKeyDown={handleKeyDown}
+        onFocus={(event) => {
+          onFocus?.(event);
+          if (!event.defaultPrevented) openList();
+        }}
+        onClick={(event: MouseEvent<HTMLInputElement>) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) openList();
+        }}
         onBlur={handleBlur}
       />
     );
@@ -405,10 +427,16 @@ ComboboxInput.displayName = "ComboboxInput";
 
 export type ComboboxContentProps = HTMLAttributes<HTMLDivElement>;
 
-/** The listbox. Always mounted (hidden while closed or empty) so items can register. */
+/**
+ * The listbox. Always mounted (hidden while closed or empty) so items can
+ * register; stays visible with data-state="closed" while it rolls up.
+ */
 export const ComboboxContent = forwardRef<HTMLDivElement, ComboboxContentProps>(
   ({ className, children, ...props }, ref) => {
     const { showList, listboxId, labelling, variants } = useComboboxContext("ComboboxContent");
+    const nodeRef = useRef<HTMLDivElement>(null);
+    const composedRef = useComposedRefs(ref, nodeRef);
+    const { present, state } = usePresence(showList, nodeRef);
     const field = useField();
     const labelledBy =
       labelling.labelledBy ?? (field && !labelling.label ? field.labelId : undefined);
@@ -417,11 +445,11 @@ export const ComboboxContent = forwardRef<HTMLDivElement, ComboboxContentProps>(
         aria-labelledby={labelledBy}
         aria-label={labelledBy ? undefined : labelling.label}
         {...props}
-        ref={ref}
+        ref={composedRef}
         id={listboxId}
         role="listbox"
-        hidden={!showList}
-        data-state={showList ? "open" : "closed"}
+        hidden={!present}
+        data-state={state}
         data-slot="combobox-listbox"
         {...variantData(variants)}
         className={slotClass(slots, "listbox", variants, className)}

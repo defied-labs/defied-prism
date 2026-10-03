@@ -1,0 +1,28 @@
+---
+title: Alert
+description: An inline message with a status color, announced to screen readers through a live region.
+---
+
+<Demo id="alert/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add alert
+```
+
+`icon-button` is installed with it: the dismiss button is an `IconButton`.
+
+## Usage
+
+`Alert` sets the `status` color and the live region; `AlertIcon`, `AlertContent` (holding `AlertTitle` and `AlertDescription`) and `AlertAction` lay out inside it. An alert is `role="status"` (polite) by default. Set `urgent` only for time-sensitive messages: it switches to `role="alert"`, which interrupts the screen reader. `AlertIcon` is decorative and hidden from assistive technology, so the text must carry the meaning.
+
+## Dismissible
+
+Handling dismissal renders a close button after the content; you remove the alert yourself. In React pass `onDismiss`; in Vue listen to `@dismiss`. Rename the button with `dismissLabel` (default "Dismiss").
+
+<Demo id="alert/dismissible" />
+
+## API reference
+
+<ApiReference component="alert" />

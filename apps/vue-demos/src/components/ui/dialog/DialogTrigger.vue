@@ -19,7 +19,9 @@ const dialog = useDialog("DialogTrigger");
 
 function onClick(event: MouseEvent) {
   emit("click", event);
-  if (!event.defaultPrevented) dialog.open.value = !dialog.open.value;
+  if (event.defaultPrevented) return;
+  if (!dialog.open.value) dialog.trigger.current = event.currentTarget as HTMLElement;
+  dialog.open.value = !dialog.open.value;
 }
 
 // Read in the render, so state changes re-render the trigger

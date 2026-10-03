@@ -1,0 +1,30 @@
+---
+title: Dropdown Menu
+description: A button that opens a list of actions, with arrow-key navigation, typeahead, and checkbox and radio items.
+---
+
+<Demo id="dropdown-menu/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add dropdown-menu
+```
+
+`button` is installed with it: `DropdownMenuTrigger` renders a `Button`.
+
+## Usage
+
+`DropdownMenu` holds the open state and positions the menu, `DropdownMenuTrigger` toggles it, and `DropdownMenuContent` holds the items. Handle a choice on the item itself: in React pass `onSelect`; in Vue listen for `@select`. Selecting an item closes the menu and returns focus to the trigger. Put a `DropdownMenuLabel` inside a `DropdownMenuGroup` and it names that group for screen readers.
+
+Enter, Space and ArrowDown open the menu on the first item, ArrowUp on the last. Typing jumps to the matching item, and Escape or an outside click closes it.
+
+## Checkbox and radio items
+
+`DropdownMenuCheckboxItem` toggles a setting and `DropdownMenuRadioItem`s inside a `DropdownMenuRadioGroup` pick one value. In React pass `checked`/`onCheckedChange` and `value`/`onValueChange`; in Vue bind `v-model:checked` and `v-model`. Pressing Space on a checkable item keeps the menu open so several settings can be changed in a row.
+
+<Demo id="dropdown-menu/checkable" />
+
+## API reference
+
+<ApiReference component="dropdown-menu" />

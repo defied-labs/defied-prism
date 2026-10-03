@@ -2,7 +2,7 @@
   "metadata": {
     "name": "toast",
     "displayName": "Toast",
-    "description": "Transient notifications: a Toaster region plus an imperative toast() API. Auto-dismiss pauses on hover and focus; Escape dismisses the focused toast.",
+    "description": "Transient notifications: a Toaster region plus an imperative toast() API. Auto-dismiss (shown as an emptying progress bar) pauses on hover and focus; Escape dismisses the focused toast.",
     "version": "0.1.0",
     "manifestVersion": "1.0",
     "type": "compound",
@@ -21,6 +21,10 @@
       "root": {
         "element": "div",
         "role": "region"
+      },
+      "item": {
+        "element": "div",
+        "optional": true
       },
       "toast": {
         "element": "div",
@@ -45,6 +49,10 @@
       },
       "close": {
         "element": "button",
+        "optional": true
+      },
+      "progress": {
+        "element": "div",
         "optional": true
       }
     },
@@ -275,6 +283,10 @@
     },
     {
       "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
       "required": true
     },
     {

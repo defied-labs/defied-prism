@@ -71,7 +71,12 @@
       "borderColor": "{color.border}",
       "background": "{color.bg}",
       "boxShadow": "{shadow.lg}",
-      "animation": "prism-fade-in {duration.fast} {easing.standard}"
+      "transformOrigin": "top",
+      "animation": "prism-roll-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "pointerEvents": "none",
+        "animation": "prism-roll-out {duration.fast} {easing.exit} forwards"
+      }
     },
     "option": {
       "display": "flex",

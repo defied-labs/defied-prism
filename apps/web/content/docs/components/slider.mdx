@@ -1,0 +1,26 @@
+---
+title: Slider
+description: A draggable thumb for picking a number from a range.
+---
+
+<Demo id="slider/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add slider
+```
+
+## Usage
+
+Set the range with `min`, `max` and `step` (0–100 in steps of 1 by default). Arrow keys move one step, PageUp and PageDown move `largeStep` (10 steps by default), and Home and End jump to the ends. Put it in a `Field` with a `FieldLabel`, or give it an `aria-label`, and use `getValueText` when the number alone doesn't say enough, such as a unit. Read and set the value with `value` and `onValueChange` in React, or `v-model` in Vue; an uncontrolled slider starts at `defaultValue`, or `min`.
+
+## Committing a value
+
+The change callback fires on every step of a drag. To act only on the final value, such as saving it, use `onValueCommit` in React or `@value-commit` in Vue: it fires when a drag ends or a key changes the value.
+
+<Demo id="slider/commit" />
+
+## API reference
+
+<ApiReference component="slider" />

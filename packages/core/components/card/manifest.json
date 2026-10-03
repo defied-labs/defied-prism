@@ -93,6 +93,88 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/Card.vue",
+            "destination": "card/Card.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardContent.vue",
+            "destination": "card/CardContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardDescription.vue",
+            "destination": "card/CardDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardFooter.vue",
+            "destination": "card/CardFooter.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardHeader.vue",
+            "destination": "card/CardHeader.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardLink.vue",
+            "destination": "card/CardLink.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CardTitle.vue",
+            "destination": "card/CardTitle.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "card/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "card/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "card/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [

@@ -1,0 +1,26 @@
+---
+title: Inline
+description: A horizontal flex row that spaces its children with a token gap and wraps when it runs out of room.
+---
+
+<Demo id="inline/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add inline
+```
+
+## Usage
+
+Wrap the items in `Inline`. Defaults are `gap="sm"`, `align="center"`, `justify="start"` and `wrap="wrap"`; set `wrap="nowrap"` to keep everything on one line. Use `as` to render a list (`ul`, `ol`) or a landmark (`nav`, `header`, `footer`, `section`) instead of a `div`.
+
+## Spreading items
+
+`justify="between"` pushes the first and last children to the edges, which suits toolbars and footers. Inlines nest: the inner one groups the buttons.
+
+<Demo id="inline/justify" />
+
+## API reference
+
+<ApiReference component="inline" />

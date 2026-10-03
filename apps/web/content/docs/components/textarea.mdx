@@ -1,0 +1,26 @@
+---
+title: Textarea
+description: A multi-line text field that can grow with its content.
+---
+
+<Demo id="textarea/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add textarea
+```
+
+## Usage
+
+`Textarea` renders a native `<textarea>` and passes other attributes through, so `name`, `rows` and `placeholder` work as usual. Give it a label: wrap it in a `<label>`, or put it inside a `Field`, which supplies its `id`, description, error and `disabled`/`required` state.
+
+## Auto-resize
+
+With `autoResize` the height follows the content as the user types and when the value changes from outside. Pair it with `resize="none"` so the user can't drag it to a fixed size. In React control the value with `value` and `onChange`; in Vue bind `v-model`.
+
+<Demo id="textarea/auto-resize" />
+
+## API reference
+
+<ApiReference component="textarea" />

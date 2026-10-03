@@ -1,0 +1,26 @@
+---
+title: Label
+description: A form label that connects itself to the control of the surrounding Field.
+---
+
+<Demo id="label/field" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add label
+```
+
+## Usage
+
+Inside a `Field`, `Label` takes the Field's label id and points at its control, so no ids are needed. It follows the Field's `required` (showing an asterisk) and `disabled` (dimming); set `required` or `disabled` on the label to override either. The asterisk is visual only and hidden from screen readers: put `required` on the Field or the control so it is announced.
+
+## Without a Field
+
+Outside a Field, connect the label yourself: `htmlFor` in React, `for` in Vue.
+
+<Demo id="label/standalone" />
+
+## API reference
+
+<ApiReference component="label" />

@@ -19,12 +19,11 @@
       "flexShrink": "0",
       "part:indicator": {
         "position": "absolute",
-        "inset": "0",
+        "inset": "0.3em",
         "borderRadius": "{radius.full}",
         "background": "{color.primary-fg}",
-        "boxShadow": "inset 0 0 0 0.3em {color.primary}",
         "pointerEvents": "none",
-        "animation": "prism-scale-in {duration.fast} {easing.standard}"
+        "animation": "prism-pop-in {duration.normal} {easing.emphasized}"
       }
     },
     "radio": {
@@ -38,9 +37,13 @@
       "borderRadius": "{radius.full}",
       "background": "{color.bg}",
       "cursor": "pointer",
-      "transition": "border-color {duration.fast} {easing.standard}",
+      "transition": "border-color {duration.normal} {easing.standard}, background-color {duration.normal} {easing.standard}",
       "_hover": {
         "borderColor": "{color.fg}"
+      },
+      "_checked": {
+        "borderColor": "{color.primary}",
+        "background": "{color.primary}"
       },
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",

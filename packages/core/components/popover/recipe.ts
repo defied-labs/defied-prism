@@ -30,7 +30,12 @@ export default defineRecipe({
       fontFamily: t("font.sans"),
       fontSize: t("text.sm"),
       lineHeight: t("leading.normal"),
-      animation: `prism-fade-in ${t("duration.fast")} ${t("easing.standard")}`,
+      // Unrolls from the edge nearest the trigger (`side` sets the origin)
+      animation: `prism-roll-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        pointerEvents: "none",
+        animation: `prism-roll-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+      },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: t("focus.ring-offset"),
@@ -44,8 +49,13 @@ export default defineRecipe({
           bottom: "100%",
           left: start,
           right: end,
-          transform: `translateX(${shift})`,
+          translate: `${shift} 0`,
           marginBottom: gap,
+          // Above the trigger: roll up from the bottom edge
+          transformOrigin: "bottom",
+          "--prism-roll-y": "1",
+          "--prism-roll-top": "100%",
+          "--prism-roll-bottom": "0",
         },
       },
       bottom: {
@@ -53,8 +63,9 @@ export default defineRecipe({
           top: "100%",
           left: start,
           right: end,
-          transform: `translateX(${shift})`,
+          translate: `${shift} 0`,
           marginTop: gap,
+          transformOrigin: "top",
         },
       },
       left: {
@@ -62,8 +73,9 @@ export default defineRecipe({
           right: "100%",
           top: start,
           bottom: end,
-          transform: `translateY(${shift})`,
+          translate: `0 ${shift}`,
           marginRight: gap,
+          transformOrigin: "top",
         },
       },
       right: {
@@ -71,8 +83,9 @@ export default defineRecipe({
           left: "100%",
           top: start,
           bottom: end,
-          transform: `translateY(${shift})`,
+          translate: `0 ${shift}`,
           marginLeft: gap,
+          transformOrigin: "top",
         },
       },
     },

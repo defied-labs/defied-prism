@@ -1,0 +1,12 @@
+export { default as CommandPalette } from "./CommandPalette.vue";
+export { default as CommandInput } from "./CommandInput.vue";
+export { default as CommandList } from "./CommandList.vue";
+export { default as CommandEmpty } from "./CommandEmpty.vue";
+export { default as CommandGroup } from "./CommandGroup.vue";
+export { default as CommandItem } from "./CommandItem.vue";
+export { default as CommandSeparator } from "./CommandSeparator.vue";
+export type { CommandPaletteProps } from "./CommandPalette.vue";
+export type { CommandInputProps } from "./CommandInput.vue";
+export type { CommandGroupProps } from "./CommandGroup.vue";
+export type { CommandItemProps } from "./CommandItem.vue";
+export type { CommandItem as CommandItemData } from "@defied-prism/core/components/command-palette";

@@ -139,4 +139,16 @@ describe("Checkbox", () => {
     expect(el.required).toBe(true);
     expect(el.disabled).toBe(true);
   });
+
+  it("draws a tick or a dash as a pathLength-normalised mark", async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(h(m.Checkbox, null, "Accept"));
+    const mark = () => document.querySelector('[data-part="mark"]');
+    expect(mark()).toBeNull();
+    await user.click(box());
+    expect(mark()).toHaveAttribute("pathLength", "1");
+    expect(mark()).toHaveAttribute("d", "M3.5 8.5l3 3 6-7");
+    rerender(h(m.Checkbox, { indeterminate: true }, "Accept"));
+    expect(mark()).toHaveAttribute("d", "M3.5 8h9");
+  });
 });

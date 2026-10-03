@@ -1,0 +1,28 @@
+---
+title: Popover
+description: A non-modal panel anchored to a trigger. Focus moves in when it opens but isn't trapped, and Escape or an outside click closes it.
+---
+
+<Demo id="popover/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add popover
+```
+
+`button` is installed with it: the trigger and close parts render a `Button`.
+
+## Usage
+
+`Popover` holds the open state and is the positioning root; `PopoverTrigger` toggles it and `PopoverContent` is the panel. On open, focus goes to the first focusable element in the content (or to `initialFocus`). Escape and `PopoverClose` return focus to the trigger. Pass `asChild` to the trigger or close part to render your own element instead of a `Button`. To control the state, pass `open` and `onOpenChange` in React, or bind `v-model:open` in Vue.
+
+## Placement
+
+`side` picks the edge of the trigger the content sits on (default `bottom`), and `align` lines it up along that edge (default `center`).
+
+<Demo id="popover/placement" />
+
+## API reference
+
+<ApiReference component="popover" />

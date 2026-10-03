@@ -14,7 +14,7 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
-import { Slot, useComposedRefs, useControllableState } from "@defied-prism/react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
 import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
 import {
   TYPEAHEAD_TIMEOUT,
@@ -186,6 +186,8 @@ export const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuConten
     const contentRef = useRef<HTMLDivElement>(null);
     const composedRef = useComposedRefs(ref, contentRef);
     const variants = { align };
+    // Stays visible with data-state="closed" while the exit animation plays
+    const { present, state } = usePresence(menu.open, contentRef);
     const typeahead = useRef<{ buffer: string; timer?: ReturnType<typeof setTimeout> }>({
       buffer: "",
     });
@@ -268,8 +270,8 @@ export const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuConten
         id={menu.contentId}
         role="menu"
         tabIndex={-1}
-        hidden={!menu.open}
-        data-state={menu.open ? "open" : "closed"}
+        hidden={!present}
+        data-state={state}
         data-slot="dropdown-menu-content"
         {...variantData(variants)}
         className={slotClass(slots, "content", variants, className)}

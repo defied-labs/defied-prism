@@ -63,10 +63,15 @@ watch(
 
 const variants = () => ({ variant: props.variant, size: props.size, fullWidth: props.fullWidth });
 
+// Bind value only under v-model: Vue re-applies a bound `value` on every
+// render, which would wipe what the user typed into an uncontrolled field.
+const valueAttr = () => (props.modelValue === undefined ? {} : { value: props.modelValue });
+
 // Read in the render, so attribute and Field changes re-render the input
 const rootAttrs = () => {
   const merged = controlProps();
   return {
+    ...valueAttr(),
     ...merged,
     disabled: merged.disabled ?? false,
     ...variantData(variants()),
@@ -86,7 +91,7 @@ function onInput(event: Event) {
 <template>
   <input
     v-bind="rootAttrs()"
-    :value="modelValue"
+   
     @input="onInput"
     @focus="send(InputEvents.focus())"
     @blur="send(InputEvents.blur())"

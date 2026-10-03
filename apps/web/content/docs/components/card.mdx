@@ -1,0 +1,26 @@
+---
+title: Card
+description: A container that groups a title, description, content and actions about one subject.
+---
+
+<Demo id="card/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add card
+```
+
+## Usage
+
+`Card` is the box; `CardHeader`, `CardContent` and `CardFooter` lay out its sections, and `CardTitle` and `CardDescription` go in the header. `CardTitle` renders an `h3` by default; set `level` so it fits the page's heading outline.
+
+## Interactive
+
+Set `interactive` and put a `CardLink` in the title to make the whole card clickable. A click anywhere on the card's non-interactive area activates the link, but the link stays the only focusable element and names the destination. Buttons and links inside the card keep working on their own, and selecting text doesn't navigate.
+
+<Demo id="card/interactive" />
+
+## API reference
+
+<ApiReference component="card" />

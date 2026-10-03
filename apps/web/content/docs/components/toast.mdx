@@ -1,0 +1,28 @@
+---
+title: Toast
+description: Short, non-blocking notifications that dismiss themselves after a delay.
+---
+
+<Demo id="toast/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add toast
+```
+
+`button` and `icon-button` are installed with it: the action and dismiss controls render them.
+
+## Usage
+
+Mount one `Toaster` at the root of your app, then call `toast({ title, description, status })` from anywhere. On this site the React root already mounts it; the Vue demo mounts its own because each Vue preview is a separate app.
+
+`toast()` returns the toast's id: `toast.dismiss(id)` removes that toast (or all of them, without an id) and `toast.update(id, options)` changes it in place. The `Toaster` runs the auto-dismiss timers, 5 seconds by default, and pauses them while the pointer is over a toast or focus is inside it. Escape dismisses the focused toast. `danger` toasts are announced assertively (`role="alert"`); every other status is polite (`role="status"`).
+
+## Actions and persistent toasts
+
+An `action` adds a button that runs its `onClick` and then dismisses the toast, like Undo above. Set `duration: Infinity` to keep a toast until the user dismisses it, as the Upload toast does. In React, `useToast()` returns `toast`, `dismiss` and the visible `toasts`; in Vue the same composable returns `toasts` as a computed ref.
+
+## API reference
+
+<ApiReference component="toast" />

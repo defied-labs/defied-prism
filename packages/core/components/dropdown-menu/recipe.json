@@ -21,7 +21,12 @@
       "color": "{color.fg}",
       "boxShadow": "{shadow.lg}",
       "fontFamily": "{font.sans}",
-      "animation": "prism-fade-in {duration.fast} {easing.standard}",
+      "transformOrigin": "top",
+      "animation": "prism-roll-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "pointerEvents": "none",
+        "animation": "prism-roll-out {duration.fast} {easing.exit} forwards"
+      },
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",
         "outlineOffset": "{focus.ring-offset}"

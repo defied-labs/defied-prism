@@ -1,0 +1,26 @@
+---
+title: Switch
+description: An on/off toggle rendered as a button with role="switch".
+---
+
+<Demo id="switch/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add switch
+```
+
+## Usage
+
+The switch's children are its label, and they sit inside the button, so clicking the text toggles it too. Always pass a label (or `aria-label`). Control it in React with `checked` and `onCheckedChange`; in Vue bind `v-model` (or `v-model:checked`). Leave it uncontrolled with `defaultChecked`. In a form, give it a `name`: it submits `value` (default `"on"`) only while on, like a checkbox.
+
+## Sizes and disabled
+
+`size` is `sm` or `md`. `disabled` blocks interaction in either state.
+
+<Demo id="switch/states" />
+
+## API reference
+
+<ApiReference component="switch" />

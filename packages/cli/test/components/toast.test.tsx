@@ -76,6 +76,27 @@ describe("Toast", () => {
     expect(toasts()).toHaveLength(0);
   });
 
+  it("shows a progress bar over the duration that pauses with the timer", () => {
+    const store = setup();
+    add(store, { title: "Timed", duration: 3000 });
+    const bar = document.querySelector<HTMLElement>('[data-slot="toast-progress"]')!;
+    expect(bar.getAttribute("aria-hidden")).toBe("true");
+    expect(bar.style.animationDuration).toBe("3000ms");
+    expect(bar.style.animationPlayState).toBe("running");
+    fireEvent.pointerOver(toasts()[0]!);
+    expect(bar.style.animationPlayState).toBe("paused");
+    fireEvent.pointerOut(toasts()[0]!);
+    expect(bar.style.animationPlayState).toBe("running");
+  });
+
+  it("persistent toasts have no progress bar; each toast sits in an open item", () => {
+    const store = setup();
+    add(store, { title: "Sticky", duration: Infinity });
+    expect(document.querySelector('[data-slot="toast-progress"]')).toBeNull();
+    expect(toasts()[0]!.parentElement!.getAttribute("data-slot")).toBe("toast-item");
+    expect(toasts()[0]!.parentElement!.getAttribute("data-state")).toBe("open");
+  });
+
   it("persistent toasts stay until dismissed", () => {
     const store = setup();
     add(store, { title: "Stay", duration: Infinity });

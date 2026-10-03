@@ -1,0 +1,26 @@
+---
+title: Heading
+description: An h1 to h6 heading whose visual size can be set independently of its level.
+---
+
+<Demo id="heading/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add heading
+```
+
+## Usage
+
+Pick `level` from the document outline; it renders `h1` to `h6` and defaults to 2. The size follows the level (1 is `xl`, 2 is `lg`, 3 is `md`, 4 is `sm`, 5 and 6 are `xs`) unless you set `size`.
+
+## Size
+
+Set `size` when the design calls for a different look without breaking the outline: a large hero title that is still an `h2`, or a small section title.
+
+<Demo id="heading/size" />
+
+## API reference
+
+<ApiReference component="heading" />

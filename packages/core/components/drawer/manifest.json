@@ -129,6 +129,88 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "drawer/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Drawer.vue",
+            "destination": "drawer/Drawer.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerTrigger.vue",
+            "destination": "drawer/DrawerTrigger.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerContent.vue",
+            "destination": "drawer/DrawerContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerTitle.vue",
+            "destination": "drawer/DrawerTitle.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerDescription.vue",
+            "destination": "drawer/DrawerDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerFooter.vue",
+            "destination": "drawer/DrawerFooter.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DrawerClose.vue",
+            "destination": "drawer/DrawerClose.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "drawer/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "drawer/styles.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
       }
     ],
     "styling": [
@@ -178,11 +260,19 @@
       "required": true
     },
     {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
       "name": "duration.normal",
       "required": true
     },
     {
       "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
       "required": true
     },
     {

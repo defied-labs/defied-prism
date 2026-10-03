@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* Docs chrome (/docs); its colors are namespaced as --color-fd-* */
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 @import "@defied-prism/tokens/tokens.css";
 /* Prism's theme values as namespaced utilities (bg-prism-primary, px-prism-4) */
 @import "@defied-prism/tokens/tailwind.css";

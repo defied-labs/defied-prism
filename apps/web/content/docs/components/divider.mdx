@@ -1,0 +1,26 @@
+---
+title: Divider
+description: A thin line that separates content, horizontally or vertically.
+---
+
+<Demo id="divider/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add divider
+```
+
+## Usage
+
+A horizontal `Divider` renders an `<hr>`, so screen readers announce it as a separator. Use it between sections whose break matters to the reader.
+
+## Vertical and decorative
+
+`orientation="vertical"` renders a `div` with `role="separator"` and `aria-orientation="vertical"`; it stretches to its flex row's height. Set `decorative` when the line is only visual, like between inline links: it is then hidden from assistive technology.
+
+<Demo id="divider/vertical" />
+
+## API reference
+
+<ApiReference component="divider" />

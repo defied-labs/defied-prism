@@ -123,6 +123,58 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "radio-group/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "radio-group/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "radio-group/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/RadioGroup.vue",
+            "destination": "radio-group/RadioGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Radio.vue",
+            "destination": "radio-group/Radio.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [
@@ -173,7 +225,11 @@
       "required": true
     },
     {
-      "name": "duration.fast",
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
       "required": true
     },
     {

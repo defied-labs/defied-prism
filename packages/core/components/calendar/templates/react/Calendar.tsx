@@ -5,6 +5,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
@@ -57,6 +58,8 @@ export interface CalendarProps
   previousMonthLabel?: string;
   nextMonthLabel?: string;
   size?: "sm" | "md";
+  /** Edge the days float in from; month navigation slides them in from the side instead. */
+  enterFrom?: "bottom" | "top" | "left" | "right";
   disabled?: boolean;
 }
 
@@ -83,13 +86,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       previousMonthLabel = "Previous month",
       nextMonthLabel = "Next month",
       size = "md",
+      enterFrom = "bottom",
       disabled = false,
       className,
       ...props
     },
     ref,
   ) => {
-    const variants = { size };
+    const variants = { size, enterFrom };
     const headingId = useId();
     const [valueISO, setValueISO] = useControllableState<string | null>({
       value: valueProp,
@@ -113,6 +117,12 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       onChange: onMonthChange,
     });
     const month = startOfMonth(parse(monthISO) ?? now);
+    const monthKey = toISO(month);
+
+    // Which way the last month change went: later months float in from the
+    // right, earlier ones from the left; the first render uses `enterFrom`
+    const [shown, setShown] = useState({ key: monthKey, step: 0 });
+    if (shown.key !== monthKey) setShown({ key: monthKey, step: monthKey > shown.key ? 1 : -1 });
 
     // The roving tab stop: kept inside the displayed month
     const [focusedState, setFocused] = useState<CalendarDate>(initial);
@@ -238,7 +248,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody
+            key={monthKey}
+            style={
+              shown.step
+                ? ({ "--prism-float-x": `${shown.step * 0.75}rem`, "--prism-float-y": "0" } as CSSProperties)
+                : undefined
+            }
+          >
             {weeks.map((week) => (
               <tr key={toISO(week[0]!)}>
                 {week.map((date) => {
@@ -256,6 +273,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
                       aria-current={isToday ? "date" : undefined}
                       aria-disabled={disabled || unavailable || undefined}
                       data-date={iso}
+                      style={{ "--prism-day-index": date.day - 1 } as CSSProperties}
                       data-slot="calendar-cell"
                       {...variantData(variants)}
                       className={slotClass(slots, "cell", variants)}

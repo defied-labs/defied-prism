@@ -1,0 +1,22 @@
+---
+title: Form
+description: A form element that moves focus to the first invalid control after submit.
+---
+
+<Demo id="form/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add form
+```
+
+## Usage
+
+`Form` renders a plain `<form>` and leaves validation to you. Run your checks in the submit handler (React `onSubmit`, Vue `@submit`) and pass the messages to each `Field`'s `FieldError`. Once those updates render, `Form` focuses the first control marked invalid, so screen reader users hear its error right away. Set `focusInvalid={false}` to turn that off.
+
+The demo sets `noValidate` so the browser's own validation bubbles don't replace the `FieldError` messages. Without it, controls that fail native constraints (`required`, `type="email"`) count as invalid too.
+
+## API reference
+
+<ApiReference component="form" />

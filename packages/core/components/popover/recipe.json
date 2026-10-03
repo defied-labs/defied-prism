@@ -22,7 +22,11 @@
       "fontFamily": "{font.sans}",
       "fontSize": "{text.sm}",
       "lineHeight": "{leading.normal}",
-      "animation": "prism-fade-in {duration.fast} {easing.standard}",
+      "animation": "prism-roll-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "pointerEvents": "none",
+        "animation": "prism-roll-out {duration.fast} {easing.exit} forwards"
+      },
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",
         "outlineOffset": "{focus.ring-offset}"
@@ -36,8 +40,12 @@
           "bottom": "100%",
           "left": "var(--prism-popover-start)",
           "right": "var(--prism-popover-end)",
-          "transform": "translateX(var(--prism-popover-shift))",
-          "marginBottom": "{space.2}"
+          "translate": "var(--prism-popover-shift) 0",
+          "marginBottom": "{space.2}",
+          "transformOrigin": "bottom",
+          "--prism-roll-y": "1",
+          "--prism-roll-top": "100%",
+          "--prism-roll-bottom": "0"
         }
       },
       "bottom": {
@@ -45,8 +53,9 @@
           "top": "100%",
           "left": "var(--prism-popover-start)",
           "right": "var(--prism-popover-end)",
-          "transform": "translateX(var(--prism-popover-shift))",
-          "marginTop": "{space.2}"
+          "translate": "var(--prism-popover-shift) 0",
+          "marginTop": "{space.2}",
+          "transformOrigin": "top"
         }
       },
       "left": {
@@ -54,8 +63,9 @@
           "right": "100%",
           "top": "var(--prism-popover-start)",
           "bottom": "var(--prism-popover-end)",
-          "transform": "translateY(var(--prism-popover-shift))",
-          "marginRight": "{space.2}"
+          "translate": "0 var(--prism-popover-shift)",
+          "marginRight": "{space.2}",
+          "transformOrigin": "top"
         }
       },
       "right": {
@@ -63,8 +73,9 @@
           "left": "100%",
           "top": "var(--prism-popover-start)",
           "bottom": "var(--prism-popover-end)",
-          "transform": "translateY(var(--prism-popover-shift))",
-          "marginLeft": "{space.2}"
+          "translate": "0 var(--prism-popover-shift)",
+          "marginLeft": "{space.2}",
+          "transformOrigin": "top"
         }
       }
     },

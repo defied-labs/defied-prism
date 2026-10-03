@@ -7,12 +7,16 @@
   animation: prism-fade-in var(--prism-duration-normal) var(--prism-easing-standard);
 }
 
+.overlay[data-state="closed"] {
+  animation: prism-fade-out var(--prism-duration-fast) var(--prism-easing-exit) forwards;
+}
+
 .content {
   position: fixed;
   z-index: var(--prism-z-modal);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
+  height: fit-content;
   box-sizing: border-box;
   width: calc(100vw - 2 * var(--prism-space-4));
   max-height: calc(100dvh - 2 * var(--prism-space-4));
@@ -29,7 +33,12 @@
   color: var(--prism-color-fg);
   box-shadow: var(--prism-shadow-lg);
   font-family: var(--prism-font-sans);
-  animation: prism-scale-in var(--prism-duration-normal) var(--prism-easing-emphasized);
+  animation: prism-zoom-in var(--prism-duration-normal) var(--prism-easing-emphasized);
+}
+
+.content[data-state="closed"] {
+  animation: prism-zoom-out var(--prism-duration-fast) var(--prism-easing-exit) forwards;
+  pointer-events: none;
 }
 
 .content:focus-visible {

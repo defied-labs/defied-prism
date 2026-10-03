@@ -110,6 +110,39 @@ describe("Combobox", () => {
     expect(input.hasAttribute("aria-activedescendant")).toBe(false);
   });
 
+  it("shows every option on focus, before typing, without highlighting", async () => {
+    const user = userEvent.setup();
+    const input = renderCombobox();
+    await user.click(input);
+    expect(input.getAttribute("aria-expanded")).toBe("true");
+    expect(listbox()!.getAttribute("data-state")).toBe("open");
+    expect(optionNames()).toHaveLength(5);
+    expect(input.hasAttribute("aria-activedescendant")).toBe(false);
+
+    await user.keyboard("[ArrowDown]");
+    expect(highlighted()).toHaveTextContent("React");
+    await user.keyboard("v");
+    expect(optionNames()).toEqual(["Vue", "Svelte"]);
+  });
+
+  it("reopens on click after Escape", async () => {
+    const user = userEvent.setup();
+    const input = renderCombobox();
+    await user.click(input);
+    await user.keyboard("[Escape]");
+    expect(listbox()).toBeNull();
+    expect(input.getAttribute("aria-expanded")).toBe("false");
+    await user.click(input);
+    expect(listbox()).not.toBeNull();
+  });
+
+  it("does not open a disabled combobox on click", async () => {
+    const user = userEvent.setup();
+    const input = renderCombobox({ disabled: true });
+    await user.click(input);
+    expect(listbox()).toBeNull();
+  });
+
   it("Enter selects the highlighted option and keeps focus", async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();

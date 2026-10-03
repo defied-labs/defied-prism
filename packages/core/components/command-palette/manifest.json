@@ -144,6 +144,88 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "command-palette/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandPalette.vue",
+            "destination": "command-palette/CommandPalette.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandInput.vue",
+            "destination": "command-palette/CommandInput.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandList.vue",
+            "destination": "command-palette/CommandList.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandEmpty.vue",
+            "destination": "command-palette/CommandEmpty.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandGroup.vue",
+            "destination": "command-palette/CommandGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandItem.vue",
+            "destination": "command-palette/CommandItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/CommandSeparator.vue",
+            "destination": "command-palette/CommandSeparator.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "command-palette/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "command-palette/styles.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
       }
     ],
     "styling": [
@@ -198,11 +280,19 @@
       "required": true
     },
     {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
       "name": "duration.normal",
       "required": true
     },
     {
       "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
       "required": true
     },
     {

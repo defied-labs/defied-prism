@@ -12,7 +12,7 @@ import {
   type ReactElement,
   type Ref,
 } from "react";
-import { Slot, useMachine } from "@defied-prism/react";
+import { Slot, useComposedRefs, useMachine, usePresence } from "@defied-prism/react";
 import {
   isTooltipOpen,
   onDismiss,
@@ -175,16 +175,20 @@ export interface TooltipContentProps extends HTMLAttributes<HTMLSpanElement> {
 export const TooltipContent = forwardRef<HTMLSpanElement, TooltipContentProps>(
   ({ side = "top", className, onPointerEnter, onPointerLeave, ...props }, ref) => {
     const { open, contentId, send } = useTooltip("TooltipContent");
+    const contentRef = useRef<HTMLSpanElement>(null);
+    const composedRef = useComposedRefs(ref, contentRef);
+    // Stays visible with data-state="closed" while the exit animation plays
+    const { present, state } = usePresence(open, contentRef);
     const variants = { side };
 
     return (
       <span
         {...props}
-        ref={ref}
+        ref={composedRef}
         id={contentId}
         role="tooltip"
-        hidden={!open}
-        data-state={open ? "open" : "closed"}
+        hidden={!present}
+        data-state={state}
         data-slot="tooltip-content"
         {...variantData(variants)}
         className={slotClass(slots, "content", variants, className)}

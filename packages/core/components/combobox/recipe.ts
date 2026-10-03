@@ -53,6 +53,13 @@ export default defineRecipe({
       padding: t("space.1"),
       maxHeight: "16rem",
       overflowY: "auto",
+      // Unrolls down from the input, and rolls back up on close
+      transformOrigin: "top",
+      animation: `prism-roll-in ${t("duration.normal")} ${t("easing.standard")}`,
+      _closed: {
+        pointerEvents: "none",
+        animation: `prism-roll-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+      },
     },
     option: {
       display: "flex",

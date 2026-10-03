@@ -1,0 +1,28 @@
+---
+title: Dialog
+description: A modal window. Focus is trapped and restored, the page behind is inert and scroll-locked, and Escape or an outside click closes it.
+---
+
+<Demo id="dialog/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add dialog
+```
+
+`button` is installed with it: the trigger and close parts render a `Button`.
+
+## Usage
+
+The parts nest: `Dialog` holds the state, `DialogTrigger` opens it, and `DialogContent` is the modal itself. Give every dialog a `DialogTitle`; it names the dialog for screen readers.
+
+## Controlled
+
+Drive the open state yourself. In React pass `open` and `onOpenChange`; in Vue bind `v-model:open`. Use `role="alertdialog"` for destructive confirmations: outside clicks no longer close it, so the choice has to be explicit.
+
+<Demo id="dialog/controlled" />
+
+## API reference
+
+<ApiReference component="dialog" />

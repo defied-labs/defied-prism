@@ -1,0 +1,26 @@
+---
+title: Avatar
+description: A person's picture, falling back to their initials while the image loads or if it fails.
+---
+
+<Demo id="avatar/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add avatar
+```
+
+## Usage
+
+`alt` is required and is the person's name: the avatar is exposed as one `role="img"` with that name, whether the image or the fallback is showing. Without a `src`, or when the image fails, the initials of `alt` are shown ("Ada Lovelace" becomes "AL"). Replace them with `fallback`; in Vue you can also use the `fallback` slot. To track loading, React takes `onStatusChange` and Vue emits `statusChange`, with `"loading"`, `"loaded"` or `"fallback"`.
+
+## Sizes and shapes
+
+`size` goes from `sm` to `xl`, and `shape="square"` suits organizations. When the name is already printed next to the avatar, pass `alt=""`: the avatar is then hidden from assistive technology so the name isn't read twice. Its initials come from `alt`, so give it a `fallback`.
+
+<Demo id="avatar/sizes" />
+
+## API reference
+
+<ApiReference component="avatar" />

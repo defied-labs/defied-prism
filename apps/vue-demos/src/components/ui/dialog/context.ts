@@ -2,6 +2,8 @@ import { inject, type InjectionKey, type Ref, type WritableComputedRef } from "v
 
 export interface DialogContext {
   open: WritableComputedRef<boolean>;
+  /** The DialogTrigger that last opened the dialog; the content grows out of it. */
+  trigger: { current: HTMLElement | null };
   contentId: string;
   titleId: string;
   descriptionId: string;

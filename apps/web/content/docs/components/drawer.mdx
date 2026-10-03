@@ -1,0 +1,30 @@
+---
+title: Drawer
+description: A panel that slides in from an edge of the viewport. Like a dialog, it traps focus, makes the page inert, and closes on Escape or an outside click.
+---
+
+<Demo id="drawer/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add drawer
+```
+
+`button` is installed with it: the trigger and close parts render a `Button`.
+
+## Usage
+
+`Drawer` holds the open state, `DrawerTrigger` toggles it, and `DrawerContent` is the panel. Give every drawer a `DrawerTitle`; it names the panel for screen readers. `DrawerClose` closes it, and `DrawerFooter` lays out the actions. Pass `asChild` to the trigger or close part to render your own element instead of a `Button`.
+
+`closeOnEscape` and `closeOnOutsideClick` (both on by default) control dismissal, and `initialFocus` picks the element focused on open instead of the first focusable one.
+
+## Side and controlled state
+
+`side` picks the edge (`right` by default, or `left`, `top`, `bottom`) and `size` its width or height (`sm`, `md`, `lg`, `full`). To drive the open state yourself, in React pass `open` and `onOpenChange`; in Vue bind `v-model:open`. Here the drawer closes when a link is followed.
+
+<Demo id="drawer/side" />
+
+## API reference
+
+<ApiReference component="drawer" />

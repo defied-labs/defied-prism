@@ -2,12 +2,19 @@
   "name": "code",
   "base": {
     "fontFamily": "{font.mono}",
-    "fontSize": "0.875em",
+    "fontSize": "0.85em",
+    "fontWeight": "{weight.medium}",
+    "lineHeight": "inherit",
     "color": "{color.fg}",
     "background": "{color.muted}",
-    "borderRadius": "{radius.sm}",
-    "paddingBlock": "0.125em",
-    "paddingInline": "0.3em",
-    "overflowWrap": "break-word"
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "{color.border}",
+    "borderRadius": "{radius.md}",
+    "paddingBlock": "0.1em",
+    "paddingInline": "0.4em",
+    "whiteSpace": "break-spaces",
+    "overflowWrap": "anywhere",
+    "boxDecorationBreak": "clone"
   }
 }

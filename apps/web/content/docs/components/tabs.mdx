@@ -1,0 +1,28 @@
+---
+title: Tabs
+description: A set of panels shown one at a time, switched by a keyboard-navigable tab list.
+---
+
+<Demo id="tabs/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add tabs
+```
+
+## Usage
+
+`Tabs` holds the selected value; each `Tab` and `TabPanel` pair share a `value`. Give `TabList` an `aria-label` so the tab list is named. Control the selection in React with `value` and `onValueChange`; in Vue bind `v-model`. Leave it uncontrolled with `defaultValue`.
+
+Only the selected tab is in the tab order. Focus it, then use the arrow keys to move between tabs (Left/Right, or Up/Down with `orientation="vertical"`) and Home/End to jump to the first or last tab. Disabled tabs, like Billing above, are skipped.
+
+## Pills and manual activation
+
+`variant="pills"` swaps the underline for filled pills, and `size` is `sm` or `md`. By default the arrow keys select tabs as they move (`activationMode="automatic"`); with `"manual"` they only move focus, and Enter or Space selects. Use manual when showing a panel is expensive.
+
+<Demo id="tabs/pills" />
+
+## API reference
+
+<ApiReference component="tabs" />

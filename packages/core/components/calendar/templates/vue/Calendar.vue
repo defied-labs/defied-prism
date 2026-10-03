@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, normalizeClass, ref, useAttrs, useId } from "vue";
+import { computed, nextTick, normalizeClass, ref, useAttrs, useId, watch } from "vue";
 import { useControllableState } from "@defied-prism/vue";
 import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
 import { IconButton } from "../icon-button";
@@ -48,6 +48,8 @@ export interface CalendarProps {
   previousMonthLabel?: string;
   nextMonthLabel?: string;
   size?: "sm" | "md";
+  /** Edge the days float in from; month navigation slides them in from the side instead. */
+  enterFrom?: "bottom" | "top" | "left" | "right";
   disabled?: boolean;
 }
 
@@ -71,6 +73,7 @@ const props = withDefaults(defineProps<CalendarProps>(), {
   previousMonthLabel: "Previous month",
   nextMonthLabel: "Next month",
   size: "md",
+  enterFrom: "bottom",
   disabled: false,
 });
 
@@ -83,7 +86,7 @@ const emit = defineEmits<{
 
 const attrs = useAttrs();
 const headingId = useId();
-const variants = () => ({ size: props.size });
+const variants = () => ({ size: props.size, enterFrom: props.enterFrom });
 const parse = (value: string | null | undefined) => (value ? parseISO(value) : null);
 
 const valueISO = useControllableState<string | null>({
@@ -116,6 +119,17 @@ const monthISO = useControllableState<string>({
   },
 });
 const month = computed(() => startOfMonth(parse(monthISO.value) ?? now.value));
+const monthKey = computed(() => toISO(month.value));
+
+// Which way the last month change went: later months float in from the
+// right, earlier ones from the left; the first render uses `enterFrom`
+const step = ref(0);
+watch(monthKey, (next, prev) => {
+  step.value = next > prev ? 1 : -1;
+}, { flush: "sync" });
+const bodyStyle = computed(() =>
+  step.value ? { "--prism-float-x": `${step.value * 0.75}rem`, "--prism-float-y": "0" } : undefined,
+);
 
 // The roving tab stop: kept inside the displayed month
 const focusedState = ref<CalendarDate>(initial);
@@ -205,6 +219,7 @@ const cellAttrs = (date: CalendarDate) => ({
   "aria-current": isSameDay(date, now.value) ? ("date" as const) : undefined,
   "aria-disabled": props.disabled || isUnavailable(date, constraints.value) || undefined,
   "data-date": toISO(date),
+  style: { "--prism-day-index": date.day - 1 },
   "data-slot": "calendar-cell",
   ...variantData(variants()),
   class: slotClass(slots, "cell", variants()),
@@ -270,7 +285,7 @@ const cellAttrs = (date: CalendarDate) => ({
           >{{ w.short }}</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody :key="monthKey" :style="bodyStyle">
         <tr v-for="week in weeks" :key="toISO(week[0]!)">
           <template v-for="date in week" :key="toISO(date)">
             <td v-if="!isSameMonth(date, month)" role="gridcell" />

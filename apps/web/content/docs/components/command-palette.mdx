@@ -1,0 +1,24 @@
+---
+title: Command Palette
+description: A searchable list of commands in a modal, opened from a button or a global keyboard shortcut.
+---
+
+<Demo id="command-palette/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add command-palette
+```
+
+## Usage
+
+`CommandPalette` is the modal and holds the open state and the search query. Inside it, `CommandInput` filters the `CommandItem`s in `CommandList`; `CommandGroup` labels a set of items and hides itself when none of them match, and `CommandSeparator` hides while a search is typed. Put `CommandEmpty` next to `CommandList`, not inside it: it shows only when nothing matches.
+
+Matching uses each item's text plus its `keywords`, ignoring case and accents. Arrow keys, Home and End move the highlight, Enter runs it, and Escape or an outside click closes the palette. Choosing a command calls the item's handler and then the palette's: in React `onSelect` on the item and `onSelect(value)` on the palette; in Vue `@select` on each. The palette closes afterwards unless `closeOnSelect` is false.
+
+`shortcut` adds a global key that toggles the palette (`mod` is ⌘ on macOS, Ctrl elsewhere). Pick one your page doesn't already use; this site uses `mod+k` for search, so the demo uses `mod+j`. Always offer a visible trigger too.
+
+## API reference
+
+<ApiReference component="command-palette" />

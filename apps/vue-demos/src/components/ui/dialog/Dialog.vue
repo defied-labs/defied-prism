@@ -23,6 +23,7 @@ const id = useId();
 
 provide(DialogKey, {
   open,
+  trigger: { current: null },
   contentId: `${id}-content`,
   titleId: `${id}-title`,
   descriptionId: `${id}-description`,

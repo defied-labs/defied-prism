@@ -53,6 +53,40 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/Code.vue",
+            "destination": "code/Code.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "code/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [
@@ -75,6 +109,10 @@
   ],
   "tokens": [
     {
+      "name": "color.border",
+      "required": true
+    },
+    {
       "name": "color.fg",
       "required": true
     },
@@ -87,7 +125,11 @@
       "required": true
     },
     {
-      "name": "radius.sm",
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "weight.medium",
       "required": true
     }
   ],

@@ -13,13 +13,15 @@ export default defineRecipe({
       zIndex: t("z.overlay"),
       background: t("color.overlay"),
       animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
+      _closed: { animation: `prism-fade-out ${t("duration.fast")} ${t("easing.exit")} forwards` },
     },
     content: {
       position: "fixed",
       zIndex: t("z.modal"),
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
+      // Centred by margins, not a transform, so the zoom keyframes own transform
+      inset: "0",
+      margin: "auto",
+      height: "fit-content",
       boxSizing: "border-box",
       width: `calc(100vw - 2 * ${t("space.4")})`,
       maxHeight: `calc(100dvh - 2 * ${t("space.4")})`,
@@ -36,7 +38,12 @@ export default defineRecipe({
       color: t("color.fg"),
       boxShadow: t("shadow.lg"),
       fontFamily: t("font.sans"),
-      animation: `prism-scale-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      // Grows out of its trigger (--prism-zoom-* set inline) and shrinks back into it
+      animation: `prism-zoom-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        animation: `prism-zoom-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+        pointerEvents: "none",
+      },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: t("focus.ring-offset"),

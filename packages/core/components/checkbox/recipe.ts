@@ -48,7 +48,13 @@ export default defineRecipe({
         background: t("color.primary"),
         color: t("color.primary-fg"),
         pointerEvents: "none",
-        animation: `prism-scale-in ${t("duration.fast")} ${t("easing.standard")}`,
+        animation: `prism-scale-in ${t("duration.fast")} ${t("easing.emphasized")}`,
+      },
+      // The tick / dash path (pathLength 1) draws itself once the box has filled
+      "part:mark": {
+        "--prism-draw-length": "1",
+        strokeDasharray: "1",
+        animation: ["prism-draw", t("duration.normal"), t("easing.emphasized"), t("duration.fast"), "both"].join(" "),
       },
     },
   },

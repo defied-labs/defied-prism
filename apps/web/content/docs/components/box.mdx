@@ -1,0 +1,20 @@
+---
+title: Box
+description: A generic layout element with token-based padding and background.
+---
+
+<Demo id="box/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add box
+```
+
+## Usage
+
+`padding` (`none` to `lg`) and `background` (`none`, `subtle`, `muted`) map to design tokens, so spacing and surfaces stay consistent without custom classes. `as` picks the element: `div` by default, or a landmark like `section`, `aside` or `nav`. A landmark needs an accessible name when there is more than one of its kind, as with `aria-label` above.
+
+## API reference
+
+<ApiReference component="box" />

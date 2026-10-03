@@ -4,8 +4,11 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
+  useState,
   type ButtonHTMLAttributes,
+  type CSSProperties,
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
@@ -92,11 +95,51 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 );
 Tabs.displayName = "Tabs";
 
+type Box = { x: number; y: number; width: number; height: number };
+
+/** A tab's box within the list, or null before layout (or in tests). */
+function measure(list: HTMLElement | null, value: string | null | undefined): Box | null {
+  if (!list || value == null) return null;
+  const tab = Array.from(list.querySelectorAll<HTMLElement>('[role="tab"]')).find(
+    (el) => el.dataset.value === value,
+  );
+  if (!tab || (!tab.offsetWidth && !tab.offsetHeight)) return null;
+  return { x: tab.offsetLeft, y: tab.offsetTop, width: tab.offsetWidth, height: tab.offsetHeight };
+}
+
+const boxStyle = (box: Box): CSSProperties => ({
+  width: box.width,
+  height: box.height,
+  transform: `translate(${box.x}px, ${box.y}px)`,
+});
+
+const useIsomorphicLayoutEffect = typeof document === "undefined" ? useEffect : useLayoutEffect;
+
 export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, onKeyDown, ...props }, ref) => {
+  ({ className, style, children, onKeyDown, onPointerOver, onPointerLeave, ...props }, ref) => {
     const { value, orientation, activationMode, select, variants } = useTabs("TabList");
     const listRef = useRef<HTMLDivElement>(null);
     const composedRef = useComposedRefs(ref, listRef);
+
+    // Thumbs that slide between tabs: the selected indicator, and a subtle
+    // highlight that follows the pointer and returns to the selection
+    const [hovered, setHovered] = useState<string | null>(null);
+    const [boxes, setBoxes] = useState<{ selected: Box | null; hovered: Box | null }>({
+      selected: null,
+      hovered: null,
+    });
+    useIsomorphicLayoutEffect(() => {
+      const list = listRef.current;
+      const update = () =>
+        setBoxes({ selected: measure(list, value), hovered: measure(list, hovered ?? value) });
+      update();
+      const view = list?.ownerDocument.defaultView;
+      if (!list || !view || !("ResizeObserver" in view)) return;
+      const observer = new view.ResizeObserver(update);
+      observer.observe(list);
+      list.querySelectorAll('[role="tab"]').forEach((tab) => observer.observe(tab));
+      return () => observer.disconnect();
+    }, [value, hovered]);
 
     // With no selected tab, keep the first enabled tab reachable by keyboard
     useEffect(() => {
@@ -127,6 +170,13 @@ export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>
       if (activationMode === "automatic" && tab.dataset.value) select(tab.dataset.value);
     };
 
+    const thumb = (name: string) => ({
+      "aria-hidden": true,
+      "data-slot": `tabs-${name}`,
+      ...variantData(variants),
+      className: slotClass(slots, name, variants),
+    });
+
     return (
       <div
         {...props}
@@ -136,8 +186,29 @@ export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>
         data-slot="tabs-list"
         {...variantData(variants)}
         className={slotClass(slots, "list", variants, className)}
+        // Once measured, the indicator replaces the selected tab's own styling
+        style={boxes.selected ? { ...style, "--prism-tabs-selected": "transparent" } as CSSProperties : style}
         onKeyDown={handleKeyDown}
-      />
+        onPointerOver={(event) => {
+          onPointerOver?.(event);
+          const tab = (event.target as Element).closest<HTMLButtonElement>('[role="tab"]');
+          if (tab && !tab.disabled && tab.dataset.value) setHovered(tab.dataset.value);
+        }}
+        onPointerLeave={(event) => {
+          onPointerLeave?.(event);
+          setHovered(null);
+        }}
+      >
+        {boxes.hovered && (
+          <span
+            {...thumb("highlight")}
+            data-state={hovered !== null ? "open" : "closed"}
+            style={boxStyle(boxes.hovered)}
+          />
+        )}
+        {boxes.selected && <span {...thumb("indicator")} style={boxStyle(boxes.selected)} />}
+        {children}
+      </div>
     );
   },
 );

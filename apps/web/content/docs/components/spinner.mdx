@@ -1,0 +1,20 @@
+---
+title: Spinner
+description: An animated loading indicator that announces a visually hidden label to screen readers.
+---
+
+<Demo id="spinner/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add spinner
+```
+
+## Usage
+
+`Spinner` renders a `role="status"` element with a visually hidden `label` (default "Loading"), so it is announced when it appears. Pick `size` from `xs` to `lg`; the ring takes `currentColor`, so set `color` on it or a parent to tint it. Give the label something specific, like "Loading invoices", when the context isn't obvious.
+
+## API reference
+
+<ApiReference component="spinner" />

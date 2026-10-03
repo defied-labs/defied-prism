@@ -1,0 +1,20 @@
+---
+title: Skeleton
+description: Placeholder shapes shown while content loads.
+---
+
+<Demo id="skeleton/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add skeleton
+```
+
+## Usage
+
+Wrap the shapes in a `SkeletonGroup`: it is the loading region (`role="status"`, `aria-busy`) and announces its `label` (default "Loading") once, while each `Skeleton` is hidden from assistive technology. Size shapes with `className` or `style`. `variant` sets the shape (`text`, `rect` or `circle`), on each `Skeleton` or once on the group as a default. When loading finishes, render the real content in place of the group.
+
+## API reference
+
+<ApiReference component="skeleton" />

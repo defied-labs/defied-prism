@@ -6,13 +6,15 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type ReactElement,
+  type MutableRefObject,
   type ReactNode,
   type Ref,
 } from "react";
 import { createPortal } from "react-dom";
-import { Slot, useComposedRefs, useControllableState } from "@defied-prism/react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
 import {
   hideOthers,
   lockScroll,
@@ -20,6 +22,7 @@ import {
   slotClass,
   trapFocus,
   variantData,
+  zoomOriginVars,
   type StyleSlots,
 } from "@defied-prism/core";
 import { Button, type ButtonProps } from "./Button";
@@ -30,6 +33,8 @@ const slots: StyleSlots = {{STYLE_SLOTS}};
 interface DialogContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** The DialogTrigger that last opened the dialog; the content grows out of it. */
+  triggerRef: MutableRefObject<HTMLElement | null>;
   contentId: string;
   titleId: string;
   descriptionId: string;
@@ -62,6 +67,7 @@ export function Dialog({ open: openProp, defaultOpen = false, onOpenChange, chil
   });
   const [hasTitle, setHasTitle] = useState(false);
   const [hasDescription, setHasDescription] = useState(false);
+  const triggerRef = useRef<HTMLElement | null>(null);
   const id = useId();
 
   return (
@@ -69,6 +75,7 @@ export function Dialog({ open: openProp, defaultOpen = false, onOpenChange, chil
       value={{
         open,
         setOpen,
+        triggerRef,
         contentId: `${id}-content`,
         titleId: `${id}-title`,
         descriptionId: `${id}-description`,
@@ -114,7 +121,7 @@ function renderButton(
 
 export const DialogTrigger = forwardRef<HTMLButtonElement, TriggerProps>(
   ({ asChild = false, children, onClick, ...props }, ref) => {
-    const { open, setOpen, contentId } = useDialog("DialogTrigger");
+    const { open, setOpen, triggerRef, contentId } = useDialog("DialogTrigger");
     return renderButton(
       asChild,
       ref,
@@ -126,7 +133,9 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, TriggerProps>(
         "data-state": open ? "open" : "closed",
         onClick: (event) => {
           onClick?.(event);
-          if (!event.defaultPrevented) setOpen(!open);
+          if (event.defaultPrevented) return;
+          if (!open) triggerRef.current = event.currentTarget;
+          setOpen(!open);
         },
       } as ButtonProps,
       children,
@@ -157,6 +166,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       closeOnEscape = true,
       initialFocus,
       className,
+      style,
       children,
       ...props
     },
@@ -195,13 +205,23 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       };
     }, [dialog.open, closeOnEscape, closeOnOutsideClick]);
 
-    if (!dialog.open || typeof document === "undefined") return null;
+    // Grow out of whatever opened the dialog: the trigger, else the focused
+    // element (controlled opens). Captured once per open, shrinks back into it.
+    const originRef = useRef<Record<string, string> | null>(null);
+    if (dialog.open && !originRef.current && typeof document !== "undefined") {
+      originRef.current = zoomOriginVars(dialog.triggerRef.current ?? document.activeElement);
+      dialog.triggerRef.current = null;
+    }
+    // Stays mounted, data-state="closed", while the exit animation plays
+    const { present, state } = usePresence(dialog.open, contentRef);
+    if (!present) originRef.current = null;
+    if (!present || typeof document === "undefined") return null;
 
     return createPortal(
       <div ref={portalRef}>
         <div
           aria-hidden="true"
-          data-state="open"
+          data-state={state}
           data-slot="dialog-overlay"
           {...variantData(variants)}
           className={slotClass(slots, "overlay", variants)}
@@ -211,11 +231,12 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
           ref={composedRef}
           id={dialog.contentId}
           role={role}
-          aria-modal="true"
+          aria-modal={dialog.open ? "true" : undefined}
           aria-labelledby={dialog.hasTitle && !props["aria-label"] ? dialog.titleId : undefined}
           aria-describedby={dialog.hasDescription ? dialog.descriptionId : undefined}
           tabIndex={-1}
-          data-state="open"
+          style={{ ...originRef.current, ...style } as CSSProperties}
+          data-state={state}
           data-slot="dialog-content"
           {...variantData(variants)}
           className={slotClass(slots, "content", variants, className)}

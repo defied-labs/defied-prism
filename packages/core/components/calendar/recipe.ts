@@ -45,6 +45,9 @@ export default defineRecipe({
       textAlign: "center",
       borderRadius: t("radius.md"),
       cursor: "pointer",
+      // Days drift into focus one after another; --prism-day-index is set inline
+      // per day and the stagger is capped so long months don't lag
+      animation: ["prism-float-in", t("duration.slow"), t("easing.emphasized"), `calc(min(var(--prism-day-index, 0), 24) * ${t("duration.fast")} / 12)`, "both"].join(" "),
       _hoverAny: { background: t("color.ghost-hover") },
       _focusVisible: focusRing,
       _selected: { background: t("color.primary"), color: t("color.primary-fg") },
@@ -70,6 +73,13 @@ export default defineRecipe({
         "slot:cell": { width: t("control.md"), height: t("control.md"), fontSize: t("text.sm") },
       },
     },
+    // Where the days float in from; month navigation overrides it inline
+    enterFrom: {
+      bottom: { "--prism-float-x": "0", "--prism-float-y": "0.5rem" },
+      top: { "--prism-float-x": "0", "--prism-float-y": "-0.5rem" },
+      left: { "--prism-float-x": "-0.75rem", "--prism-float-y": "0" },
+      right: { "--prism-float-x": "0.75rem", "--prism-float-y": "0" },
+    },
   },
-  defaultVariants: { size: "md" },
+  defaultVariants: { size: "md", enterFrom: "bottom" },
 });

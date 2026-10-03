@@ -8,34 +8,47 @@ import Home from "../app/page";
 vi.mock("next-themes", () => ({ useTheme: () => ({ resolvedTheme: "light", setTheme: vi.fn() }) }));
 
 describe("Showcase page", () => {
-  it("leads with the Defied line and names the ceiling", () => {
+  it("leads with the pick-your-stack line", () => {
     render(<Home />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "The industry standard was a ceiling.Until we defied it.",
+      "Every design system picks your stack Prism lets you pick yours",
     );
-    expect(screen.getByText(/Every design system picks your stack/)).toBeInTheDocument();
   });
 
   it("shows registry numbers counted at build time, not hard-coded", () => {
     render(<Home />);
     const scale = screen.getByRole("region", { name: /Built to grow/ });
-    for (const value of [stats.components, stats.vueComponents, stats.stylings, stats.machines]) {
-      expect(within(scale).getAllByText(String(value)).length).toBeGreaterThan(0);
+    for (const value of [
+      stats.components,
+      stats.vueComponents,
+      stats.stylings,
+      stats.machines,
+    ]) {
+      expect(within(scale).getAllByText(String(value)).length).toBeGreaterThan(
+        0,
+      );
     }
-    // Sanity: the counts describe a real registry
-    expect(stats.vueReady).toEqual(expect.arrayContaining(["button", "dialog", "select"]));
+    expect(stats.vueReady).toEqual(
+      expect.arrayContaining(["button", "dialog", "select"]),
+    );
     expect(stats.vueComponents).toBe(stats.vueReady.length);
   });
 
   it("only badges Vue on components that generate for Vue", () => {
     render(<Home />);
-    const gallery = screen.getByRole("region", { name: /Accessible by contract/ });
+    const gallery = screen.getByRole("region", {
+      name: /Accessible by contract/,
+    });
     const cards = [...gallery.querySelectorAll(":scope ul > li")];
     expect(cards.length).toBe(7);
     for (const card of cards) {
-      const badges = [...card.querySelectorAll("[data-slot='badge']")].map((b) => b.textContent);
+      const badges = [...card.querySelectorAll("[data-slot='badge']")].map(
+        (b) => b.textContent,
+      );
       // The install command names the registry components behind the card
-      const names = card.textContent!.match(/prism add ([a-z-]+)/g)!.map((m) => m.slice("prism add ".length));
+      const names = card
+        .textContent!.match(/cli add ([a-z-]+)/g)!
+        .map((m) => m.slice("cli add ".length));
       const vue = names.every((name) => stats.vueReady.includes(name));
       expect(badges).toEqual(vue ? ["React", "Vue"] : ["React"]);
     }

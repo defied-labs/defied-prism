@@ -53,7 +53,13 @@ export default defineRecipe({
       color: t("color.fg"),
       boxShadow: t("shadow.lg"),
       fontFamily: t("font.sans"),
-      animation: `prism-fade-in ${t("duration.fast")} ${t("easing.standard")}`,
+      // Unrolls down from the trigger; rolls back up on close
+      transformOrigin: "top",
+      animation: `prism-roll-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        pointerEvents: "none",
+        animation: `prism-roll-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+      },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: t("focus.ring-offset"),

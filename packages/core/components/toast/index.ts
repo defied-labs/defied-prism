@@ -216,3 +216,18 @@ export function createToastStore(options: ToastStoreOptions = {}): ToastStore {
   };
   return store;
 }
+
+/**
+ * The toasts a Toaster renders: the visible ones plus those that just left
+ * and still play their exit animation, kept where they were so the stack
+ * does not jump. `previous` is the last list this returned; drop a leaving
+ * toast from it once its animation ends.
+ */
+export function withLeaving<T extends { id: string }>(previous: readonly T[], visible: readonly T[]): T[] {
+  const ids = new Set(visible.map((t) => t.id));
+  const next = [...visible];
+  previous.forEach((toast, index) => {
+    if (!ids.has(toast.id)) next.splice(Math.min(index, next.length), 0, toast);
+  });
+  return next;
+}

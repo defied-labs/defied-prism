@@ -1,0 +1,26 @@
+---
+title: Breadcrumb
+description: The path from the site root to the current page, as a labeled navigation landmark.
+---
+
+<Demo id="breadcrumb/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add breadcrumb
+```
+
+## Usage
+
+`Breadcrumb` renders `<nav aria-label="Breadcrumb">` with an ordered list, and inserts separators between its `BreadcrumbItem` children; the separators are hidden from screen readers. Put a `BreadcrumbLink` in each item except the last, which holds a `BreadcrumbPage`: it is not a link and is marked `aria-current="page"`. To use a router link, pass `asChild` to `BreadcrumbLink` and give it your link as the child.
+
+## Collapsing long paths
+
+With `maxItems`, a path longer than that collapses its middle items into an ellipsis button; `itemsBeforeCollapse` and `itemsAfterCollapse` (both 1 by default) set how many stay visible on each side. Activating the button reveals the full path and moves focus to the first revealed link. Change the separator with `separator`; in Vue you can also use the `separator` slot.
+
+<Demo id="breadcrumb/collapsed" />
+
+## API reference
+
+<ApiReference component="breadcrumb" />

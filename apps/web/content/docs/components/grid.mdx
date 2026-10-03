@@ -1,0 +1,26 @@
+---
+title: Grid
+description: A CSS grid of equal-width columns with a spacing-scale gap.
+---
+
+<Demo id="grid/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add grid
+```
+
+## Usage
+
+Set `columns` to 1, 2, 3, 4, 6 or 12 and `gap` from `none` to `xl`. Children flow into the tracks row by row. Use `as` to render a `section`, `ul` or `ol` instead of a `div` when the content is a list.
+
+## Auto columns
+
+`columns="auto"` fits as many columns of at least 16rem as the container allows, wrapping to fewer on narrow screens without breakpoints.
+
+<Demo id="grid/auto" />
+
+## API reference
+
+<ApiReference component="grid" />

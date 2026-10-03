@@ -23,6 +23,7 @@ import {
   useControllableState,
   useIsomorphicLayoutEffect,
   useField,
+  usePresence,
   useFieldControlProps,
   type Collection,
   type CollectionRecord,
@@ -422,17 +423,21 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
     const field = useField();
     const labelledBy =
       labelling.labelledBy ?? (field && !labelling.label ? field.labelId : undefined);
+    const listboxRef = useRef<HTMLDivElement>(null);
+    const composedRef = useComposedRefs(ref, listboxRef);
+    // Stays visible with data-state="closed" while the exit animation plays
+    const { present, state } = usePresence(open, listboxRef);
     return (
       <div
         aria-labelledby={labelledBy}
         aria-label={labelledBy ? undefined : labelling.label}
         {...props}
-        ref={ref}
+        ref={composedRef}
         id={listboxId}
         role="listbox"
         tabIndex={-1}
-        hidden={!open}
-        data-state={open ? "open" : "closed"}
+        hidden={!present}
+        data-state={state}
         data-slot="select-listbox"
         {...variantData(variants)}
         className={slotClass(slots, "listbox", variants, className)}

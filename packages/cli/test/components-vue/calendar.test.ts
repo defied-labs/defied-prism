@@ -237,4 +237,17 @@ describe("Calendar (vue)", () => {
     render({ render: () => h(m.Calendar, { today: "2024-01-10", "aria-label": "x", ref: instance }) });
     expect(instance.value?.$el).toBe(screen.getByRole("group"));
   });
+
+  it("floats days in from enterFrom, then from the side the month moved to", async () => {
+    const user = userEvent.setup();
+    renderCalendar({ enterFrom: "top" });
+    expect(screen.getByRole("group")).toHaveAttribute("data-enter-from", "top");
+    expect(cell("2024-01-05").style.getPropertyValue("--prism-day-index")).toBe("4");
+    const body = () => screen.getByRole("grid").querySelector("tbody")!;
+    expect(body().style.getPropertyValue("--prism-float-x")).toBe("");
+    await user.click(screen.getByRole("button", { name: "Next month" }));
+    expect(body().style.getPropertyValue("--prism-float-x")).toBe("0.75rem");
+    await user.click(screen.getByRole("button", { name: "Previous month" }));
+    expect(body().style.getPropertyValue("--prism-float-x")).toBe("-0.75rem");
+  });
 });

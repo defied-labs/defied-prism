@@ -15,6 +15,7 @@ export default defineRecipe({
       zIndex: t("z.overlay"),
       background: t("color.overlay"),
       animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
+      _closed: { animation: `prism-fade-out ${t("duration.fast")} ${t("easing.exit")} forwards` },
     },
     content: {
       position: "fixed",
@@ -33,6 +34,11 @@ export default defineRecipe({
       fontFamily: t("font.sans"),
       // Slides in from its edge; each side sets --prism-slide-x / -y
       animation: `prism-slide-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      // ...and back out to the same edge
+      _closed: {
+        animation: `prism-slide-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+        pointerEvents: "none",
+      },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: `calc(-1 * ${t("focus.ring-width")})`,

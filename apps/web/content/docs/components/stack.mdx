@@ -1,0 +1,26 @@
+---
+title: Stack
+description: A vertical flex layout that puts consistent space between its children.
+---
+
+<Demo id="stack/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add stack
+```
+
+## Usage
+
+Wrap children in `Stack` and choose a `gap` from the spacing scale (`none` to `xl`). Children stack top to bottom; for a horizontal row use `Inline`.
+
+## Alignment and element
+
+`align` sets cross-axis alignment (`start`, `center`, `end`, or the default `stretch`) and `justify` distributes children along the vertical axis. `as` changes the rendered element, here a `ul` so the list keeps its semantics.
+
+<Demo id="stack/alignment" />
+
+## API reference
+
+<ApiReference component="stack" />

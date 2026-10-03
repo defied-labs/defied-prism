@@ -240,7 +240,9 @@ export function defineContractSuite<Node>({
           expect(await axeViolations(), prop).toEqual([]);
           cleanup();
         }
-      });
+        // One axe pass per variant value: components with many variants
+        // (drawer: side x size) outgrow the 5s default in a full parallel run
+      }, 30_000);
     });
   });
 }

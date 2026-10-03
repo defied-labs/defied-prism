@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { createToastStore } from "../components/toast";
+import { createToastStore, withLeaving } from "../components/toast";
 
 const ids = (list: { id: string }[]) => list.map((t) => t.id);
 
@@ -137,5 +137,14 @@ describe("toast store", () => {
     now = 1000;
     store.expire("a");
     expect(store.getSnapshot().visible).toHaveLength(0);
+  });
+});
+
+describe("withLeaving", () => {
+  it("keeps leaving toasts where they were, between the visible ones", () => {
+    const a = { id: "a" }, b = { id: "b" }, c = { id: "c" }, d = { id: "d" };
+    expect(ids(withLeaving([a, b, c], [a, c, d]))).toEqual(["a", "b", "c", "d"]);
+    expect(ids(withLeaving([a, b], []))).toEqual(["a", "b"]);
+    expect(ids(withLeaving([], [a]))).toEqual(["a"]);
   });
 });

@@ -1,0 +1,26 @@
+---
+title: Text
+description: Body text with a size, tone and weight from the design tokens.
+---
+
+<Demo id="text/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add text
+```
+
+## Usage
+
+`Text` renders a `<p>` by default. Pick the element with `as` (`p`, `span` or `div`): use `as="span"` for text inside another paragraph, since a `<p>` can't nest. Headings belong to `Heading`, not `Text`.
+
+## Tones, weight and truncation
+
+`tone` covers body, lead and muted text plus the status colors `success`, `warning` and `danger`. `truncate` keeps the text on one line and cuts it off with an ellipsis; the parent has to limit the width for it to have an effect.
+
+<Demo id="text/variants" />
+
+## API reference
+
+<ApiReference component="text" />

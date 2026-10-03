@@ -5,13 +5,13 @@ Defied Prism is a multi-framework component engine and state machine architectur
 ## Features
 
 - **Multi-Framework Generators**: Code generation for React (every component) and Vue (button, icon-button, input, field, select, dialog, toast, calendar, data-table; more as each passes the same contract tests). `prism init --framework vue` sets a project up for Vue.
-- **Dual-Engine Styling**: Single `defineStyle` DSL targeting both **Tailwind CSS** and **CSS Modules**.
+- **Three Styling Targets**: One `defineRecipe` per component compiles to **Tailwind CSS**, **CSS Modules** or **plain CSS**.
 - **State Machine Core**: Headless, state-driven UI logic using per-mount machine definition instances.
 - **CLI Registry**: Command-line generator with built-in TypeScript transpilation (via Sucrase) for dynamic registry style evaluation.
 
-## Dual-Engine Compatibility
+## Styling Targets
 
-Defied Prism uses a single DSL (`defineStyle`) to compile components into either Tailwind CSS utility strings or scoped CSS Modules files:
+Defied Prism uses a single DSL (`defineRecipe`) to compile components into Tailwind CSS utility strings, scoped CSS Modules files or plain CSS:
 
 - **Tailwind Engine**: Maps spacing scale steps (`4`, `rem(1)`, `px(16)`) to Tailwind utilities (e.g. `px-4`, `py-2`).
 - **CSS Modules Engine**: Compiles typed lengths into explicit CSS property declarations (`padding-left: 1rem;`).

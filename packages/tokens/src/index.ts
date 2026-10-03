@@ -136,6 +136,118 @@ ${colorDeclarations("dark", "    ")}
   }
 }
 
+/* Exit counterparts, played while an overlay is data-state="closed" */
+@keyframes prism-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes prism-scale-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes prism-slide-out {
+  to {
+    transform: translate(var(--prism-slide-x, 0), var(--prism-slide-y, 0));
+  }
+}
+
+/*
+ * Grow from / shrink to a point (a dialog from its trigger). Set
+ * --prism-zoom-x / --prism-zoom-y to the offset of that point and
+ * --prism-zoom-scale to the starting size.
+ */
+@keyframes prism-zoom-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--prism-zoom-x, 0), var(--prism-zoom-y, 0)) scale(var(--prism-zoom-scale, 0.96));
+  }
+}
+
+@keyframes prism-zoom-out {
+  to {
+    opacity: 0;
+    transform: translate(var(--prism-zoom-x, 0), var(--prism-zoom-y, 0)) scale(var(--prism-zoom-scale, 0.96));
+  }
+}
+
+/*
+ * Popups that unroll from their trigger (menus, popovers, selects). The clip
+ * reveals the panel edge-first; --prism-roll-y is the side it rolls from
+ * (-1 = top, 1 = bottom). Pair with transform-origin on that edge.
+ */
+@keyframes prism-roll-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--prism-roll-y, -1) * 0.375rem)) scaleY(0.92);
+    clip-path: inset(var(--prism-roll-top, 0) -2rem var(--prism-roll-bottom, 100%) -2rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(-2rem -2rem -2rem -2rem);
+  }
+}
+
+@keyframes prism-roll-out {
+  from {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(-2rem -2rem -2rem -2rem);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--prism-roll-y, -1) * 0.375rem)) scaleY(0.92);
+    clip-path: inset(var(--prism-roll-top, 0) -2rem var(--prism-roll-bottom, 100%) -2rem);
+  }
+}
+
+/* Content drifting into focus; set --prism-float-x / --prism-float-y */
+@keyframes prism-float-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--prism-float-blur, 4px));
+    transform: translate(var(--prism-float-x, 0), var(--prism-float-y, 0.5rem));
+  }
+}
+
+/* Small indicators (radio dots, badges) popping in with a slight overshoot */
+@keyframes prism-pop-in {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Strokes drawing themselves (check marks); pair with stroke-dasharray */
+@keyframes prism-draw {
+  from {
+    stroke-dashoffset: var(--prism-draw-length, 24);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* A bar emptying over a countdown (toast timers) */
+@keyframes prism-countdown {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
 ${declarations(

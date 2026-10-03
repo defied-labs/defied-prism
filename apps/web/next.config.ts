@@ -1,5 +1,6 @@
 import "@defied-prism/env/web";
 import type { NextConfig } from "next";
+import { createMDX } from "fumadocs-mdx/next";
 
 import { existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -17,4 +18,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Compiles content/docs (MDX) for the /docs site
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);

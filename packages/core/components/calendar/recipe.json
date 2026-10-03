@@ -39,6 +39,7 @@
       "textAlign": "center",
       "borderRadius": "{radius.md}",
       "cursor": "pointer",
+      "animation": "prism-float-in {duration.slow} {easing.emphasized} calc(min(var(--prism-day-index, 0), 24) * {duration.fast} / 12) both",
       "_hoverAny": {
         "background": "{color.ghost-hover}"
       },
@@ -83,9 +84,28 @@
           "fontSize": "{text.sm}"
         }
       }
+    },
+    "enterFrom": {
+      "bottom": {
+        "--prism-float-x": "0",
+        "--prism-float-y": "0.5rem"
+      },
+      "top": {
+        "--prism-float-x": "0",
+        "--prism-float-y": "-0.5rem"
+      },
+      "left": {
+        "--prism-float-x": "-0.75rem",
+        "--prism-float-y": "0"
+      },
+      "right": {
+        "--prism-float-x": "0.75rem",
+        "--prism-float-y": "0"
+      }
     }
   },
   "defaultVariants": {
-    "size": "md"
+    "size": "md",
+    "enterFrom": "bottom"
   }
 }

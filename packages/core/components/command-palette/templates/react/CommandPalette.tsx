@@ -21,6 +21,7 @@ import {
   useComposedRefs,
   useControllableState,
   useIsomorphicLayoutEffect,
+  usePresence,
   type Collection,
   type CollectionRecord,
 } from "@defied-prism/react";
@@ -272,14 +273,16 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       inputRef,
     };
 
-    if (!open || typeof document === "undefined") return null;
+    // Stays mounted, data-state="closed", while the exit animation plays
+    const { present, state } = usePresence(open, contentRef);
+    if (!present || typeof document === "undefined") return null;
 
     return createPortal(
       <PaletteContext.Provider value={ctx}>
         <div ref={portalRef}>
           <div
             aria-hidden="true"
-            data-state="open"
+            data-state={state}
             data-slot="command-palette-overlay"
             {...variantData(variants)}
             className={slotClass(slots, "overlay", variants)}
@@ -288,10 +291,10 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
             {...props}
             ref={composedRef}
             role="dialog"
-            aria-modal="true"
+            aria-modal={open ? "true" : undefined}
             aria-label={props["aria-labelledby"] ? undefined : (props["aria-label"] ?? label)}
             tabIndex={-1}
-            data-state="open"
+            data-state={state}
             data-slot="command-palette-content"
             {...variantData(variants)}
             className={slotClass(slots, "content", variants, className)}

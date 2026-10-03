@@ -1,0 +1,28 @@
+---
+title: Pagination
+description: Page navigation with previous and next controls that collapses long page ranges into ellipses.
+---
+
+<Demo id="pagination/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add pagination
+```
+
+## Usage
+
+Pass the total `count`; pages are 1-based and the current one gets `aria-current="page"`. `siblings` (pages on each side of the current one) and `boundaries` (pages always shown at each end) both default to 1, and the gaps between them become ellipses hidden from screen readers. It renders a `nav` labelled "Pagination"; pass your own `aria-label` when a page has more than one.
+
+Pages are buttons by default. Pass `getHref` to render them as links for URL-driven pages: a plain click also updates the current page, and modified clicks open new tabs as usual.
+
+## Controlled
+
+Own the page to load data for it. In React pass `page` and `onPageChange`; in Vue bind `v-model:page` (a `pageChange` event fires too). Replace the previous and next content with the `previousContent` and `nextContent` props in React or the `previous` and `next` slots in Vue; their accessible names come from `previousLabel` and `nextLabel`.
+
+<Demo id="pagination/controlled" />
+
+## API reference
+
+<ApiReference component="pagination" />

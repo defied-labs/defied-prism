@@ -1,4 +1,3 @@
-import { tailwindSlots } from "@defied-prism/core/tailwind";
 import {
   createContext,
   forwardRef,
@@ -7,13 +6,15 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type ReactElement,
+  type MutableRefObject,
   type ReactNode,
   type Ref,
 } from "react";
 import { createPortal } from "react-dom";
-import { Slot, useComposedRefs, useControllableState } from "@defied-prism/react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
 import {
   hideOthers,
   lockScroll,
@@ -21,9 +22,11 @@ import {
   slotClass,
   trapFocus,
   variantData,
+  zoomOriginVars,
   type StyleSlots,
 } from "@defied-prism/core";
 import { Button, type ButtonProps } from "./Button";
+import { tailwindSlots } from "@defied-prism/core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({
@@ -32,11 +35,11 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "overlay": {
-    "base": "fixed inset-0 z-(--prism-z-overlay) bg-prism-overlay [animation:prism-fade-in_var(--prism-duration-normal)_var(--prism-easing-standard)]",
+    "base": "fixed inset-0 z-(--prism-z-overlay) bg-prism-overlay [animation:prism-fade-in_var(--prism-duration-normal)_var(--prism-easing-standard)] data-[state=closed]:[animation:prism-fade-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
     "variants": {}
   },
   "content": {
-    "base": "fixed z-(--prism-z-modal) [top:50%] [left:50%] [transform:translate(-50%,_-50%)] box-border [width:calc(100vw_-_2_*_var(--prism-space-4))] [max-height:calc(100dvh_-_2_*_var(--prism-space-4))] overflow-y-auto flex flex-col gap-prism-4 p-prism-6 rounded-prism-lg [border-width:1px] border-solid border-prism-border bg-prism-bg text-prism-fg shadow-prism-lg font-prism-sans [animation:prism-scale-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
+    "base": "fixed z-(--prism-z-modal) inset-0 [margin:auto] [height:fit-content] box-border [width:calc(100vw_-_2_*_var(--prism-space-4))] [max-height:calc(100dvh_-_2_*_var(--prism-space-4))] overflow-y-auto flex flex-col gap-prism-4 p-prism-6 rounded-prism-lg [border-width:1px] border-solid border-prism-border bg-prism-bg text-prism-fg shadow-prism-lg font-prism-sans [animation:prism-zoom-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:[animation:prism-zoom-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards] data-[state=closed]:pointer-events-none focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
     "variants": {
       "size": {
         "sm": "[max-width:24rem]",
@@ -64,6 +67,8 @@ const slots: StyleSlots = tailwindSlots({
 interface DialogContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** The DialogTrigger that last opened the dialog; the content grows out of it. */
+  triggerRef: MutableRefObject<HTMLElement | null>;
   contentId: string;
   titleId: string;
   descriptionId: string;
@@ -96,6 +101,7 @@ export function Dialog({ open: openProp, defaultOpen = false, onOpenChange, chil
   });
   const [hasTitle, setHasTitle] = useState(false);
   const [hasDescription, setHasDescription] = useState(false);
+  const triggerRef = useRef<HTMLElement | null>(null);
   const id = useId();
 
   return (
@@ -103,6 +109,7 @@ export function Dialog({ open: openProp, defaultOpen = false, onOpenChange, chil
       value={{
         open,
         setOpen,
+        triggerRef,
         contentId: `${id}-content`,
         titleId: `${id}-title`,
         descriptionId: `${id}-description`,
@@ -148,7 +155,7 @@ function renderButton(
 
 export const DialogTrigger = forwardRef<HTMLButtonElement, TriggerProps>(
   ({ asChild = false, children, onClick, ...props }, ref) => {
-    const { open, setOpen, contentId } = useDialog("DialogTrigger");
+    const { open, setOpen, triggerRef, contentId } = useDialog("DialogTrigger");
     return renderButton(
       asChild,
       ref,
@@ -160,7 +167,9 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, TriggerProps>(
         "data-state": open ? "open" : "closed",
         onClick: (event) => {
           onClick?.(event);
-          if (!event.defaultPrevented) setOpen(!open);
+          if (event.defaultPrevented) return;
+          if (!open) triggerRef.current = event.currentTarget;
+          setOpen(!open);
         },
       } as ButtonProps,
       children,
@@ -191,6 +200,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       closeOnEscape = true,
       initialFocus,
       className,
+      style,
       children,
       ...props
     },
@@ -229,13 +239,23 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       };
     }, [dialog.open, closeOnEscape, closeOnOutsideClick]);
 
-    if (!dialog.open || typeof document === "undefined") return null;
+    // Grow out of whatever opened the dialog: the trigger, else the focused
+    // element (controlled opens). Captured once per open, shrinks back into it.
+    const originRef = useRef<Record<string, string> | null>(null);
+    if (dialog.open && !originRef.current && typeof document !== "undefined") {
+      originRef.current = zoomOriginVars(dialog.triggerRef.current ?? document.activeElement);
+      dialog.triggerRef.current = null;
+    }
+    // Stays mounted, data-state="closed", while the exit animation plays
+    const { present, state } = usePresence(dialog.open, contentRef);
+    if (!present) originRef.current = null;
+    if (!present || typeof document === "undefined") return null;
 
     return createPortal(
       <div ref={portalRef}>
         <div
           aria-hidden="true"
-          data-state="open"
+          data-state={state}
           data-slot="dialog-overlay"
           {...variantData(variants)}
           className={slotClass(slots, "overlay", variants)}
@@ -245,11 +265,12 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
           ref={composedRef}
           id={dialog.contentId}
           role={role}
-          aria-modal="true"
+          aria-modal={dialog.open ? "true" : undefined}
           aria-labelledby={dialog.hasTitle && !props["aria-label"] ? dialog.titleId : undefined}
           aria-describedby={dialog.hasDescription ? dialog.descriptionId : undefined}
           tabIndex={-1}
-          data-state="open"
+          style={{ ...originRef.current, ...style } as CSSProperties}
+          data-state={state}
           data-slot="dialog-content"
           {...variantData(variants)}
           className={slotClass(slots, "content", variants, className)}

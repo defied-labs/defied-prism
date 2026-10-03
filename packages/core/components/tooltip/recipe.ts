@@ -24,7 +24,14 @@ export default defineRecipe({
       fontFamily: t("font.sans"),
       fontSize: t("text.xs"),
       lineHeight: t("leading.snug"),
-      animation: `prism-fade-in ${t("duration.fast")} ${t("easing.standard")}`,
+      // Fades in, growing slightly as it settles towards the trigger (`side`
+      // sets where it starts); fades back out the same way, faster
+      "--prism-zoom-scale": "0.92",
+      animation: `prism-zoom-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        pointerEvents: "none",
+        animation: `prism-zoom-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+      },
     },
   },
   variants: {
@@ -33,32 +40,40 @@ export default defineRecipe({
         "slot:content": {
           bottom: "100%",
           left: "50%",
-          transform: "translateX(-50%)",
+          translate: "-50% 0",
           marginBottom: gap,
+          transformOrigin: "bottom",
+          "--prism-zoom-y": "-0.25rem",
         },
       },
       bottom: {
         "slot:content": {
           top: "100%",
           left: "50%",
-          transform: "translateX(-50%)",
+          translate: "-50% 0",
           marginTop: gap,
+          transformOrigin: "top",
+          "--prism-zoom-y": "0.25rem",
         },
       },
       left: {
         "slot:content": {
           right: "100%",
           top: "50%",
-          transform: "translateY(-50%)",
+          translate: "0 -50%",
           marginRight: gap,
+          transformOrigin: "right",
+          "--prism-zoom-x": "-0.25rem",
         },
       },
       right: {
         "slot:content": {
           left: "100%",
           top: "50%",
-          transform: "translateY(-50%)",
+          translate: "0 -50%",
           marginLeft: gap,
+          transformOrigin: "left",
+          "--prism-zoom-x": "0.25rem",
         },
       },
     },

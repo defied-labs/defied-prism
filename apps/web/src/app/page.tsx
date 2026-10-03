@@ -6,74 +6,7 @@ import { Install } from "@/components/site/install";
 import { HeroPrism } from "@/components/site/hero-prism";
 import { MachineVisualizer } from "@/components/site/machine-visualizer";
 import { StackMatrix } from "@/components/site/stack-matrix";
-
-function Section({
-  id,
-  kicker,
-  title,
-  lead,
-  band = false,
-  children,
-}: {
-  id: string;
-  kicker: string;
-  title: React.ReactNode;
-  lead: React.ReactNode;
-  band?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section
-      id={id}
-      aria-labelledby={`${id}-title`}
-      className={`scroll-mt-20 py-20 sm:py-28 ${band ? "bg-muted/40" : ""}`}
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <p className="text-center font-mono text-xs font-medium uppercase text-primary">
-          // {kicker}
-        </p>
-        <h2
-          id={`${id}-title`}
-          className="mx-auto mt-3 max-w-3xl text-center font-lora text-3xl leading-tight sm:text-4xl"
-        >
-          {title}
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
-          {lead}
-        </p>
-        <div className="mt-10">{children}</div>
-      </div>
-    </section>
-  );
-}
-
-const COMPARISON: [string, string, string, string][] = [
-  [
-    "Components live in your repo, as editable code",
-    "Yes",
-    "Yes",
-    "No — a dependency",
-  ],
-  [
-    "Choose React or Vue from the same registry",
-    "Yes",
-    "One framework per project",
-    "Varies by library",
-  ],
-  [
-    "Choose Tailwind, CSS Modules or plain CSS",
-    "Yes, switchable with one command",
-    "Usually Tailwind only",
-    "Bring your own",
-  ],
-  ["Behavior as a framework-agnostic state machine", "Yes", "Rarely", "Some"],
-  [
-    "Every component checked against a contract + axe, per CSS target",
-    "Yes",
-    "Varies",
-    "Varies",
-  ],
-];
+import Section from "@/components/home/Section";
 
 export default function Home() {
   return (
@@ -130,7 +63,7 @@ export default function Home() {
               Every{" "}
               <span className="text-primary">
                 design system picks your stack
-              </span>
+              </span>{" "}
               <br />
               Prism lets you pick{" "}
               <span className="italic text-primary">yours</span>
@@ -142,7 +75,7 @@ export default function Home() {
             </p>
             <div className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row sm:items-center group-has-data-prism/hero:mx-0">
               <div className="flex-1">
-                <Command>npx prism init</Command>
+                <Command>npx @defied-prism/cli init</Command>
               </div>
               <a
                 href="#matrix"
@@ -196,7 +129,7 @@ export default function Home() {
               underneath every target.
             </>
           }
-          lead="Behavior isn't reimplemented per framework. Each component's logic is a typed state machine in the core; React and Vue are thin adapters over it. Watch both frameworks walk the same states."
+          lead="Where a component has real states with timing or ordering, like a tooltip or a combobox, its logic is a typed state machine in the core, and React and Vue are thin adapters over it. Everything else shares framework-agnostic primitives for focus trapping, dismissal and keyboard navigation. Watch both frameworks walk the same states."
         >
           <MachineVisualizer />
         </Section>
@@ -241,49 +174,6 @@ export default function Home() {
               </div>
             ))}
           </dl>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Vue support is rolling out component by component; each one ships
-            only when it passes the same contract tests as React.
-          </p>
-
-          <div className="mt-14 overflow-x-auto rounded-xl border">
-            <table className="w-full min-w-160 text-left text-sm">
-              <caption className="border-b p-4 text-left font-medium">
-                How it compares, by approach
-              </caption>
-              <thead className="bg-muted/50 text-muted-foreground">
-                <tr>
-                  <th scope="col" className="p-4 font-medium" />
-                  <th scope="col" className="p-4 font-medium text-foreground">
-                    Prism
-                  </th>
-                  <th scope="col" className="p-4 font-medium">
-                    Copy-paste kits
-                  </th>
-                  <th scope="col" className="p-4 font-medium">
-                    Packaged libraries
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARISON.map(([feature, ...cells]) => (
-                  <tr key={feature} className="border-t">
-                    <th scope="row" className="p-4 font-normal">
-                      {feature}
-                    </th>
-                    {cells.map((cell, i) => (
-                      <td
-                        key={i}
-                        className={`p-4 ${i === 0 ? "font-medium text-foreground" : "text-muted-foreground"}`}
-                      >
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </Section>
 
         <Section

@@ -23,6 +23,7 @@ import {
   useControllableState,
   useIsomorphicLayoutEffect,
   useField,
+  usePresence,
   useFieldControlProps,
   type Collection,
   type CollectionRecord,
@@ -57,7 +58,7 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "listbox": {
-    "base": "absolute z-(--prism-z-dropdown) [top:100%] [left:0] [right:0] mt-prism-1 box-border p-prism-1 [max-height:16rem] overflow-y-auto rounded-prism-md [border-width:1px] border-solid border-prism-border bg-prism-bg shadow-prism-lg [animation:prism-fade-in_var(--prism-duration-fast)_var(--prism-easing-standard)]",
+    "base": "absolute z-(--prism-z-dropdown) [top:100%] [left:0] [right:0] mt-prism-1 box-border p-prism-1 [max-height:16rem] overflow-y-auto rounded-prism-md [border-width:1px] border-solid border-prism-border bg-prism-bg shadow-prism-lg [transform-origin:top] [animation:prism-roll-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:pointer-events-none data-[state=closed]:[animation:prism-roll-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
     "variants": {}
   },
   "option": {
@@ -462,17 +463,21 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
     const field = useField();
     const labelledBy =
       labelling.labelledBy ?? (field && !labelling.label ? field.labelId : undefined);
+    const listboxRef = useRef<HTMLDivElement>(null);
+    const composedRef = useComposedRefs(ref, listboxRef);
+    // Stays visible with data-state="closed" while the exit animation plays
+    const { present, state } = usePresence(open, listboxRef);
     return (
       <div
         aria-labelledby={labelledBy}
         aria-label={labelledBy ? undefined : labelling.label}
         {...props}
-        ref={ref}
+        ref={composedRef}
         id={listboxId}
         role="listbox"
         tabIndex={-1}
-        hidden={!open}
-        data-state={open ? "open" : "closed"}
+        hidden={!present}
+        data-state={state}
         data-slot="select-listbox"
         {...variantData(variants)}
         className={slotClass(slots, "listbox", variants, className)}

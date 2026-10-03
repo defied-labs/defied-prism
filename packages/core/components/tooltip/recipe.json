@@ -19,7 +19,12 @@
       "fontFamily": "{font.sans}",
       "fontSize": "{text.xs}",
       "lineHeight": "{leading.snug}",
-      "animation": "prism-fade-in {duration.fast} {easing.standard}"
+      "--prism-zoom-scale": "0.92",
+      "animation": "prism-zoom-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "pointerEvents": "none",
+        "animation": "prism-zoom-out {duration.fast} {easing.exit} forwards"
+      }
     }
   },
   "variants": {
@@ -28,32 +33,40 @@
         "slot:content": {
           "bottom": "100%",
           "left": "50%",
-          "transform": "translateX(-50%)",
-          "marginBottom": "{space.2}"
+          "translate": "-50% 0",
+          "marginBottom": "{space.2}",
+          "transformOrigin": "bottom",
+          "--prism-zoom-y": "-0.25rem"
         }
       },
       "bottom": {
         "slot:content": {
           "top": "100%",
           "left": "50%",
-          "transform": "translateX(-50%)",
-          "marginTop": "{space.2}"
+          "translate": "-50% 0",
+          "marginTop": "{space.2}",
+          "transformOrigin": "top",
+          "--prism-zoom-y": "0.25rem"
         }
       },
       "left": {
         "slot:content": {
           "right": "100%",
           "top": "50%",
-          "transform": "translateY(-50%)",
-          "marginRight": "{space.2}"
+          "translate": "0 -50%",
+          "marginRight": "{space.2}",
+          "transformOrigin": "right",
+          "--prism-zoom-x": "-0.25rem"
         }
       },
       "right": {
         "slot:content": {
           "left": "100%",
           "top": "50%",
-          "transform": "translateY(-50%)",
-          "marginLeft": "{space.2}"
+          "translate": "0 -50%",
+          "marginLeft": "{space.2}",
+          "transformOrigin": "left",
+          "--prism-zoom-x": "0.25rem"
         }
       }
     }

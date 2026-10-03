@@ -1,0 +1,26 @@
+---
+title: Badge
+description: A small, non-interactive label for a status or count.
+---
+
+<Demo id="badge/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add badge
+```
+
+## Usage
+
+Pick a `status` for the color. Color alone doesn't carry meaning, so the text has to say the status: "Failed", not just a red badge. A badge is a plain `<span>`; don't make it clickable, use a `Button` or `Link` for that.
+
+## Variants and icons
+
+`variant` sets the emphasis (`subtle`, `solid`, `outline`) and `size` is `sm` or `md`. Wrap an icon in `BadgeIcon` to size it and hide it from assistive technology.
+
+<Demo id="badge/variants" />
+
+## API reference
+
+<ApiReference component="badge" />

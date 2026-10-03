@@ -19,15 +19,15 @@ export default defineRecipe({
       position: "relative",
       display: "inline-flex",
       flexShrink: "0",
-      // Rendered only on the checked radio
+      // Rendered only on the checked radio: the inner dot, popping in while the
+      // radio itself fades to the primary fill
       "part:indicator": {
         position: "absolute",
-        inset: "0",
+        inset: "0.3em",
         borderRadius: t("radius.full"),
         background: t("color.primary-fg"),
-        boxShadow: `inset 0 0 0 0.3em ${t("color.primary")}`,
         pointerEvents: "none",
-        animation: `prism-scale-in ${t("duration.fast")} ${t("easing.standard")}`,
+        animation: `prism-pop-in ${t("duration.normal")} ${t("easing.emphasized")}`,
       },
     },
     radio: {
@@ -41,8 +41,9 @@ export default defineRecipe({
       borderRadius: t("radius.full"),
       background: t("color.bg"),
       cursor: "pointer",
-      transition: `border-color ${t("duration.fast")} ${t("easing.standard")}`,
+      transition: [`border-color ${t("duration.normal")} ${t("easing.standard")}`, `background-color ${t("duration.normal")} ${t("easing.standard")}`].join(", "),
       _hover: { borderColor: t("color.fg") },
+      _checked: { borderColor: t("color.primary"), background: t("color.primary") },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: t("focus.ring-offset"),

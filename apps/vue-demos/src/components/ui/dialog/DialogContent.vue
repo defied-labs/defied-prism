@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { normalizeClass, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
-import { hideOthers, lockScroll, onDismiss, slotClass, trapFocus, variantData } from "@defied-prism/core";
+import { normalizeClass, normalizeStyle, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
+import {
+  hideOthers,
+  lockScroll,
+  onDismiss,
+  slotClass,
+  trapFocus,
+  variantData,
+  zoomOriginVars,
+} from "@defied-prism/core";
+import { usePresence } from "@defied-prism/vue";
 import { slots } from "./styles";
 import { useDialog } from "./context";
 
@@ -30,6 +39,26 @@ const attrs = useAttrs();
 const dialog = useDialog("DialogContent");
 const contentRef = ref<HTMLDivElement | null>(null);
 const portalRef = ref<HTMLDivElement | null>(null);
+
+// Grow out of whatever opened the dialog: the trigger, else the focused
+// element (controlled opens). Captured once per open, shrinks back into it.
+const origin = ref<Record<string, string>>({});
+function captureOrigin() {
+  if (typeof document === "undefined") return;
+  origin.value = zoomOriginVars(dialog.trigger.current ?? document.activeElement);
+  dialog.trigger.current = null;
+}
+if (dialog.open.value) captureOrigin();
+watch(
+  () => dialog.open.value,
+  (isOpen) => {
+    // Reopened mid-exit: keep the origin it is shrinking into
+    if (isOpen && !contentRef.value) captureOrigin();
+  },
+  { flush: "sync" },
+);
+// Stays mounted, data-state="closed", while the exit animation plays
+const { present, state } = usePresence(() => dialog.open.value, contentRef);
 
 const variants = () => ({ size: props.size });
 const closeOnOutside = () => props.closeOnOutsideClick ?? props.role !== "alertdialog";
@@ -69,16 +98,17 @@ onBeforeUnmount(teardown);
 
 // Read in the render, so attribute and state changes re-render the content
 const contentAttrs = () => {
-  const { class: className, ...rest } = attrs;
+  const { class: className, style, ...rest } = attrs;
   return {
     ...rest,
     id: dialog.contentId,
     role: props.role,
-    "aria-modal": "true" as const,
+    "aria-modal": dialog.open.value ? ("true" as const) : undefined,
     "aria-labelledby": dialog.hasTitle.value && !attrs["aria-label"] ? dialog.titleId : undefined,
     "aria-describedby": dialog.hasDescription.value ? dialog.descriptionId : undefined,
     tabindex: -1,
-    "data-state": "open",
+    style: [origin.value, normalizeStyle(style)],
+    "data-state": state.value,
     "data-slot": "dialog-content",
     ...variantData(variants()),
     class: slotClass(slots, "content", variants(), normalizeClass(className)),
@@ -87,7 +117,7 @@ const contentAttrs = () => {
 
 const overlayAttrs = () => ({
   "aria-hidden": "true" as const,
-  "data-state": "open",
+  "data-state": state.value,
   "data-slot": "dialog-overlay",
   ...variantData(variants()),
   class: slotClass(slots, "overlay", variants()),
@@ -96,7 +126,7 @@ const overlayAttrs = () => ({
 
 <template>
   <Teleport to="body">
-    <div v-if="dialog.open.value" ref="portalRef">
+    <div v-if="present" ref="portalRef">
       <div v-bind="overlayAttrs()" />
       <div ref="contentRef" v-bind="contentAttrs()"><slot /></div>
     </div>

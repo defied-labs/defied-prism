@@ -1,0 +1,34 @@
+---
+title: Field
+description: Attaches a label, help text and an error message to a form control, and wires up the ids and ARIA attributes between them.
+---
+
+<Demo id="field/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add field
+```
+
+## Usage
+
+Wrap one control in a `Field` with a `FieldLabel`, and optionally a `FieldDescription` and a `FieldError`. You don't set any ids: the Field gives the control its id, points the label at it, and adds the description and error to its `aria-describedby`. This is how every Prism form control (Input, Textarea, Select, Checkbox and the rest) gets its label.
+
+`required`, `disabled` and `invalid` on the `Field` are passed to the control. `required` also shows an asterisk on the label; the asterisk is visual only, the control carries the real `required` attribute.
+
+## Errors
+
+A `FieldError` with content marks the control `aria-invalid` and adds the message to its description. When it's empty, the control is valid again, so render it unconditionally and pass the message (or nothing). It is a polite live region: the message is announced when it appears or changes.
+
+<Demo id="field/error" />
+
+## Groups
+
+`FieldGroup` renders a `<fieldset>` with an optional `legend` for related fields. `disabled` on the group disables every control inside it and dims their labels.
+
+<Demo id="field/group" />
+
+## API reference
+
+<ApiReference component="field" />

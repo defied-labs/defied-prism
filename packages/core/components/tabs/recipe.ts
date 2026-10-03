@@ -9,8 +9,40 @@ export default defineRecipe({
   },
   slots: {
     list: {
+      position: "relative",
+      isolation: "isolate",
       display: "flex",
       gap: t("space.1"),
+    },
+    // Thumbs sized and moved inline to a tab's box (behind the tabs). The
+    // indicator marks the selected tab; the highlight follows the pointer.
+    indicator: {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      zIndex: "-1",
+      pointerEvents: "none",
+      transition: [
+        `transform ${t("duration.normal")} ${t("easing.standard")}`,
+        `width ${t("duration.normal")} ${t("easing.standard")}`,
+        `height ${t("duration.normal")} ${t("easing.standard")}`,
+      ].join(", "),
+    },
+    highlight: {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      zIndex: "-1",
+      pointerEvents: "none",
+      background: t("color.muted"),
+      opacity: "0.6",
+      transition: [
+        `transform ${t("duration.normal")} ${t("easing.standard")}`,
+        `width ${t("duration.normal")} ${t("easing.standard")}`,
+        `height ${t("duration.normal")} ${t("easing.standard")}`,
+        `opacity ${t("duration.fast")} ${t("easing.standard")}`,
+      ].join(", "),
+      _closed: { opacity: "0" },
     },
     trigger: {
       display: "inline-flex",
@@ -56,27 +88,43 @@ export default defineRecipe({
         flexDirection: "column",
         "slot:list": { flexDirection: "row" },
         "slot:trigger": { "--prism-tabs-indicator": "inset 0 -2px 0 0" },
+        "slot:indicator": { "--prism-tabs-indicator": "inset 0 -2px 0 0" },
       },
       vertical: {
         flexDirection: "row",
         "slot:list": { flexDirection: "column" },
         "slot:trigger": { "--prism-tabs-indicator": "inset 2px 0 0 0" },
+        "slot:indicator": { "--prism-tabs-indicator": "inset 2px 0 0 0" },
       },
     },
     variant: {
       line: {
         "slot:list": { boxShadow: `inset 0 -1px 0 0 ${t("color.border")}` },
+        // Until the indicator is measured the selected tab draws its own line;
+        // the list then sets --prism-tabs-selected to transparent
         "slot:trigger": {
           borderRadius: "0",
-          _selected: { boxShadow: `var(--prism-tabs-indicator) ${t("color.primary")}` },
+          _selected: { boxShadow: `var(--prism-tabs-indicator) var(--prism-tabs-selected, ${t("color.primary")})` },
         },
+        "slot:indicator": {
+          borderRadius: "0",
+          background: "transparent",
+          boxShadow: `var(--prism-tabs-indicator) ${t("color.primary")}`,
+        },
+        "slot:highlight": { borderRadius: t("radius.sm") },
       },
       pills: {
         "slot:list": { boxShadow: "none" },
         "slot:trigger": {
           borderRadius: t("radius.md"),
-          _selected: { background: t("color.muted") },
+          _selected: { background: `var(--prism-tabs-selected, ${t("color.muted")})` },
         },
+        "slot:indicator": {
+          borderRadius: t("radius.md"),
+          background: t("color.muted"),
+          boxShadow: "none",
+        },
+        "slot:highlight": { borderRadius: t("radius.md") },
       },
     },
     size: {

@@ -13,3 +13,12 @@ export type Mount = (el: Element, name: DemoName, props?: Record<string, unknown
 
 /** Typed entry for hosts; resolved to the built bundle at runtime. */
 export declare const mount: Mount;
+
+/**
+ * Docs demos: `src/docs/<component>/<demo>.vue`, addressed as "<component>/<demo>".
+ * Picked up automatically; the React twin lives in apps/web at the same path.
+ */
+export type MountDoc = (el: Element, id: string) => MountedDemo;
+
+/** Typed entry for hosts; resolved to the built bundle at runtime. */
+export declare const mountDoc: MountDoc;

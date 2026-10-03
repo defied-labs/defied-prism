@@ -154,6 +154,88 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "combobox/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "combobox/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "combobox/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Combobox.vue",
+            "destination": "combobox/Combobox.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxInput.vue",
+            "destination": "combobox/ComboboxInput.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxContent.vue",
+            "destination": "combobox/ComboboxContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxItem.vue",
+            "destination": "combobox/ComboboxItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxGroup.vue",
+            "destination": "combobox/ComboboxGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxLabel.vue",
+            "destination": "combobox/ComboboxLabel.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/ComboboxEmpty.vue",
+            "destination": "combobox/ComboboxEmpty.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
       }
     ],
     "styling": [
@@ -221,6 +303,14 @@
     },
     {
       "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
       "required": true
     },
     {

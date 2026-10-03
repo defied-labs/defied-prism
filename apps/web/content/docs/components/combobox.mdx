@@ -1,0 +1,26 @@
+---
+title: Combobox
+description: A text input with a filtered list of options to pick one value from.
+---
+
+<Demo id="combobox/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add combobox
+```
+
+## Usage
+
+`Combobox` holds the state, `ComboboxInput` is the text field, and `ComboboxContent` is the listbox of `ComboboxItem`s. Focus stays in the input while arrow keys move the highlight through the list. Typing filters items by their text (or `textValue`); pass your own `filter`, or set it to `false` to show every item (for example, results already filtered by a server). Put `ComboboxEmpty` next to `ComboboxContent`, not inside it: it is shown when the list is open and nothing matches. Label the input with a `FieldLabel` inside a `Field`, and set `name` to submit the value with a form.
+
+## Groups and controlled value
+
+`ComboboxGroup` with a `ComboboxLabel` groups items under a heading; a group hides when none of its items match. A `disabled` item stays visible but can't be chosen. To control the selection, pass `value` and `onValueChange` in React, or bind `v-model` in Vue; the value is `null` when nothing is selected.
+
+<Demo id="combobox/groups" />
+
+## API reference
+
+<ApiReference component="combobox" />

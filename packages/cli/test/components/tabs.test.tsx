@@ -33,6 +33,25 @@ function renderTabs(props: Record<string, unknown> = {}, disabled: string[] = []
   );
 }
 
+/** Fake layout: tabs 80px wide, 90px apart, 36px tall. */
+function mockLayout(values: string[]) {
+  const tabIndex = (el: HTMLElement) =>
+    el.getAttribute("role") === "tab" ? values.indexOf(el.dataset.value ?? "") : -1;
+  const spies = [
+    vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockImplementation(function (this: HTMLElement) {
+      return tabIndex(this) >= 0 ? 80 : 0;
+    }),
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return tabIndex(this) >= 0 ? 36 : 0;
+    }),
+    vi.spyOn(HTMLElement.prototype, "offsetLeft", "get").mockImplementation(function (this: HTMLElement) {
+      return Math.max(0, tabIndex(this)) * 90;
+    }),
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockReturnValue(0),
+  ];
+  return () => spies.forEach((spy) => spy.mockRestore());
+}
+
 const tab = (name: string) => screen.getByRole("tab", { name });
 const selected = () => screen.getAllByRole("tab").find((t) => t.getAttribute("aria-selected") === "true");
 
@@ -164,5 +183,40 @@ describe("Tabs", () => {
     await user.click(tab("b"));
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(selected()).toBe(tab("b"));
+  });
+  it("slides an indicator to the selected tab and a highlight to the hovered one", async () => {
+    const restore = mockLayout(["account", "billing", "team", "danger"]);
+    try {
+      const user = userEvent.setup();
+      renderTabs();
+      const list = screen.getByRole("tablist");
+      const indicator = () => list.querySelector<HTMLElement>('[data-slot="tabs-indicator"]')!;
+      const highlight = () => list.querySelector<HTMLElement>('[data-slot="tabs-highlight"]')!;
+      expect(indicator().getAttribute("aria-hidden")).toBe("true");
+      expect(indicator().style.transform).toBe("translate(0px, 0px)");
+      expect(indicator().style.width).toBe("80px");
+      // The indicator takes over from the selected tab's static styling
+      expect(list.style.getPropertyValue("--prism-tabs-selected")).toBe("transparent");
+      expect(highlight().getAttribute("data-state")).toBe("closed");
+
+      await user.hover(tab("team"));
+      expect(highlight().getAttribute("data-state")).toBe("open");
+      expect(highlight().style.transform).toBe("translate(180px, 0px)");
+      await user.unhover(list);
+      expect(highlight().getAttribute("data-state")).toBe("closed");
+      expect(highlight().style.transform).toBe("translate(0px, 0px)");
+
+      await user.click(tab("billing"));
+      expect(indicator().style.transform).toBe("translate(90px, 0px)");
+    } finally {
+      restore();
+    }
+  });
+
+  it("keeps the static selected styling until the tabs are measured", () => {
+    renderTabs();
+    const list = screen.getByRole("tablist");
+    expect(list.querySelector('[data-slot="tabs-indicator"]')).toBeNull();
+    expect(list.style.getPropertyValue("--prism-tabs-selected")).toBe("");
   });
 });

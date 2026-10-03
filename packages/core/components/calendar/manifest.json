@@ -52,6 +52,16 @@
         ],
         "default": "md"
       },
+      "enterFrom": {
+        "type": "enum",
+        "values": [
+          "bottom",
+          "top",
+          "left",
+          "right"
+        ],
+        "default": "bottom"
+      },
       "disabled": {
         "type": "boolean",
         "default": false
@@ -236,6 +246,18 @@
     },
     {
       "name": "control.sm",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "duration.slow",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
       "required": true
     },
     {

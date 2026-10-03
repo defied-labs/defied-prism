@@ -1,0 +1,28 @@
+---
+title: Data Table
+description: A table built from column definitions and row data, with sorting and row selection.
+---
+
+<Demo id="data-table/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add data-table
+```
+
+## Usage
+
+Pass `columns` and `data`. Each column has an `id`, a `header` and an `accessor` that reads the cell value from a row; that value is displayed and used for sorting. Give `getRowId` a stable key (it defaults to the row's index), and a `caption`, which also names the table.
+
+Mark a column `sortable` to turn its header into a button that cycles ascending, descending, then unsorted (set `allowUnsorted={false}` to skip the last step). Supply `compare` for a custom order, or set `manualSorting` and sort on the server from the sort change event. To customize a cell, give the column a `cell` function in React; in Vue use a `cell` function or a `#cell-<id>="{ row, value }"` slot. A table wider than its container scrolls inside it.
+
+## Selection
+
+`selectable` adds a checkbox column with a select-all box in the header. Selection is a list of row keys: in React pass `selected` and `onSelectedChange`; in Vue bind `v-model:selected`. `isRowSelectable` disables individual rows, and `getRowLabel` gives each checkbox a meaningful name.
+
+<Demo id="data-table/selection" />
+
+## API reference
+
+<ApiReference component="data-table" />

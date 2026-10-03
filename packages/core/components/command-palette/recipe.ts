@@ -13,13 +13,16 @@ export default defineRecipe({
       zIndex: t("z.overlay"),
       background: t("color.overlay"),
       animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
+      _closed: { animation: `prism-fade-out ${t("duration.fast")} ${t("easing.exit")} forwards` },
     },
     content: {
       position: "fixed",
       zIndex: t("z.modal"),
       top: "15vh",
-      left: "50%",
-      transform: "translateX(-50%)",
+      // Centred by margins, not a transform, so the keyframes own transform
+      left: "0",
+      right: "0",
+      marginInline: "auto",
       boxSizing: "border-box",
       width: `calc(100vw - 2 * ${t("space.4")})`,
       maxHeight: "70vh",
@@ -34,7 +37,12 @@ export default defineRecipe({
       color: t("color.fg"),
       boxShadow: t("shadow.lg"),
       fontFamily: t("font.sans"),
+      // Grows in; shrinks back out the way it came
       animation: `prism-scale-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      _closed: {
+        animation: `prism-scale-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+        pointerEvents: "none",
+      },
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
         outlineOffset: t("focus.ring-offset"),

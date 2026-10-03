@@ -1,0 +1,26 @@
+---
+title: Icon Button
+description: A square button that shows only an icon, named by a required aria-label.
+---
+
+<Demo id="icon-button/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add icon-button
+```
+
+## Usage
+
+Put the icon in as the child (React) or default slot (Vue); it is wrapped in an `aria-hidden` span, so the button's only name is its `aria-label`. Always pass one. The default `variant` is `ghost` and the default `type` is `button`, so it won't submit a form unless you set `type="submit"`.
+
+## Loading
+
+Set `loading` while an action runs. The icon is replaced by a spinner, the button gets `aria-busy` and `aria-disabled`, and clicks are ignored, but it stays focusable so keyboard focus isn't lost. `disabled` instead removes it from the tab order.
+
+<Demo id="icon-button/loading" />
+
+## API reference
+
+<ApiReference component="icon-button" />

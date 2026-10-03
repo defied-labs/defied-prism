@@ -1,6 +1,6 @@
 import { createApp, h, reactive, type Component } from "vue";
 
-import type { DemoName, Mount } from "./api";
+import type { DemoName, Mount, MountDoc } from "./api";
 
 import ButtonDemo from "./demos/ButtonDemo.vue";
 import CalendarDemo from "./demos/CalendarDemo.vue";
@@ -34,4 +34,15 @@ export const mount: Mount = (el, name, props = {}) => {
     },
     unmount: () => app.unmount(),
   };
+};
+
+const docDemos = import.meta.glob<{ default: Component }>("./docs/*/*.vue", { eager: true });
+
+/** Mounts a docs demo ("dialog/basic"); throws on an unknown id so a typo fails loudly. */
+export const mountDoc: MountDoc = (el, id) => {
+  const demo = docDemos[`./docs/${id}.vue`];
+  if (!demo) throw new Error(`Unknown Vue docs demo: ${id}`);
+  const app = createApp(demo.default);
+  app.mount(el);
+  return { update: () => {}, unmount: () => app.unmount() };
 };

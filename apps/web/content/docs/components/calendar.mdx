@@ -1,0 +1,28 @@
+---
+title: Calendar
+description: A month grid for picking a single date, with arrow-key navigation and dates exchanged as "YYYY-MM-DD" strings.
+---
+
+<Demo id="calendar/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add calendar
+```
+
+`icon-button` is installed with it: the previous and next month buttons render an `IconButton`.
+
+## Usage
+
+Values in and out are plain "YYYY-MM-DD" strings, never `Date` objects, so there are no time-zone surprises. In React pass `value` and `onValueChange` (or `defaultValue`); in Vue bind `v-model`. The displayed month is separate state: `month`/`onMonthChange` in React, `v-model:month` in Vue. Give the calendar an `aria-label` that names what is being picked; otherwise it is labelled by its month heading.
+
+## Limiting dates
+
+`min` and `max` bound the range, and `isDateDisabled` rules out individual dates: they can still be focused but not selected. `weekStartsOn` (0 = Sunday) and `locale` control the grid and the month and weekday names.
+
+<Demo id="calendar/constraints" />
+
+## API reference
+
+<ApiReference component="calendar" />

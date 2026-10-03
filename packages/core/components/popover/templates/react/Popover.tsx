@@ -11,7 +11,7 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
-import { Slot, useComposedRefs, useControllableState } from "@defied-prism/react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
 import { getFocusable, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
 import { Button, type ButtonProps } from "./Button";
 
@@ -145,6 +145,8 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
     const contentRef = useRef<HTMLDivElement>(null);
     const composedRef = useComposedRefs(ref, contentRef);
     const variants = { side, align };
+    // Lingers with data-state="closed" while the exit animation plays
+    const { present, state } = usePresence(popover.open, contentRef);
 
     const setOpenRef = useRef(popover.setOpen);
     setOpenRef.current = popover.setOpen;
@@ -165,7 +167,7 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       });
     }, [popover.open, popover.triggerRef]);
 
-    if (!popover.open) return null;
+    if (!present) return null;
 
     return (
       <div
@@ -174,7 +176,7 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
         id={popover.contentId}
         role="dialog"
         tabIndex={-1}
-        data-state="open"
+        data-state={state}
         data-slot="popover-content"
         {...variantData(variants)}
         className={slotClass(slots, "content", variants, className)}

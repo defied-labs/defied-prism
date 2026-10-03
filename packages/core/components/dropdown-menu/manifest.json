@@ -155,6 +155,112 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "dropdown-menu/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "dropdown-menu/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "dropdown-menu/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenu.vue",
+            "destination": "dropdown-menu/DropdownMenu.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuTrigger.vue",
+            "destination": "dropdown-menu/DropdownMenuTrigger.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuContent.vue",
+            "destination": "dropdown-menu/DropdownMenuContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/MenuItemImpl.vue",
+            "destination": "dropdown-menu/MenuItemImpl.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuItem.vue",
+            "destination": "dropdown-menu/DropdownMenuItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuCheckboxItem.vue",
+            "destination": "dropdown-menu/DropdownMenuCheckboxItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuGroup.vue",
+            "destination": "dropdown-menu/DropdownMenuGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuRadioGroup.vue",
+            "destination": "dropdown-menu/DropdownMenuRadioGroup.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuRadioItem.vue",
+            "destination": "dropdown-menu/DropdownMenuRadioItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuLabel.vue",
+            "destination": "dropdown-menu/DropdownMenuLabel.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/DropdownMenuSeparator.vue",
+            "destination": "dropdown-menu/DropdownMenuSeparator.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
       }
     ],
     "styling": [
@@ -208,7 +314,15 @@
       "required": true
     },
     {
-      "name": "easing.standard",
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
       "required": true
     },
     {

@@ -3,14 +3,17 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
   useSyncExternalStore,
   type FocusEvent,
   type HTMLAttributes,
   type RefObject,
 } from "react";
 import { onDismiss, slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { usePresence } from "@defied-prism/react";
 import {
   createToastStore,
+  withLeaving,
   type Toast as ToastData,
   type ToastOptions,
   type ToastStore,
@@ -34,8 +37,21 @@ const slots: StyleSlots = tailwindSlots({
       }
     }
   },
+  "item": {
+    "base": "grid [grid-template-rows:1fr] [animation:prism-slide-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] [transition:grid-template-rows_var(--prism-duration-normal)_var(--prism-easing-exit),_margin_var(--prism-duration-normal)_var(--prism-easing-exit)] data-[state=closed]:[grid-template-rows:0fr] data-[state=closed]:[margin-block-start:calc(-1_*_var(--prism-space-2))] data-[state=closed]:[--prism-toast-events:none] data-[state=closed]:[animation:prism-slide-out_var(--prism-duration-normal)_var(--prism-easing-exit)_forwards,_prism-fade-out_var(--prism-duration-normal)_var(--prism-easing-exit)_forwards]",
+    "variants": {
+      "position": {
+        "top-start": "[--prism-slide-x:calc(-100%_-_1rem)] [--prism-slide-y:0]",
+        "top-center": "[--prism-slide-x:0] [--prism-slide-y:calc(-100%_-_1rem)]",
+        "top-end": "[--prism-slide-x:calc(100%_+_1rem)] [--prism-slide-y:0]",
+        "bottom-start": "[--prism-slide-x:calc(-100%_-_1rem)] [--prism-slide-y:0]",
+        "bottom-center": "[--prism-slide-x:0] [--prism-slide-y:calc(100%_+_1rem)]",
+        "bottom-end": "[--prism-slide-x:calc(100%_+_1rem)] [--prism-slide-y:0]"
+      }
+    }
+  },
   "toast": {
-    "base": "flex items-start gap-prism-3 [width:22rem] max-w-full py-prism-3 px-prism-4 [border-width:1px] border-solid rounded-prism-lg shadow-prism-lg text-prism-sm leading-prism-normal [pointer-events:auto] [animation:prism-scale-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
+    "base": "relative overflow-hidden [min-height:0] flex items-start gap-prism-3 [width:22rem] max-w-full py-prism-3 px-prism-4 [border-width:1px] border-solid rounded-prism-lg shadow-prism-lg text-prism-sm leading-prism-normal [pointer-events:var(--prism-toast-events,_auto)] [animation:prism-scale-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
     "variants": {
       "status": {
         "neutral": "bg-prism-neutral-bg text-prism-neutral-fg border-prism-neutral-border",
@@ -56,6 +72,10 @@ const slots: StyleSlots = tailwindSlots({
   },
   "description": {
     "base": "text-inherit",
+    "variants": {}
+  },
+  "progress": {
+    "base": "absolute [inset-inline-start:0] [inset-inline-end:0] [bottom:0] [height:2px] [background:currentColor] [opacity:0.4] [transform-origin:left] [animation-name:prism-countdown] [animation-timing-function:linear] [animation-fill-mode:forwards]",
     "variants": {}
   },
   "action": {
@@ -130,6 +150,20 @@ export const Toaster = forwardRef<HTMLDivElement, ToasterProps>(
   ) => {
     const { visible } = useToasts(store);
     const returnFocus = useRef<HTMLElement | null>(null);
+    // Dismissed toasts stay rendered until their exit animation ends
+    const [rendered, setRendered] = useState(visible);
+    const [seen, setSeen] = useState(visible);
+    if (seen !== visible) {
+      setSeen(visible);
+      setRendered(withLeaving(rendered, visible));
+    }
+    const onExited = useCallback(
+      (id: string) => {
+        const shown = store.getSnapshot().visible;
+        setRendered((list) => list.filter((t) => t.id !== id || shown.some((s) => s.id === id)));
+      },
+      [store],
+    );
 
     useEffect(() => {
       if (max !== undefined) store.setMax(max);
@@ -159,10 +193,12 @@ export const Toaster = forwardRef<HTMLDivElement, ToasterProps>(
           if (!event.currentTarget.contains(from)) returnFocus.current = from;
         }}
       >
-        {visible.map((item) => (
+        {rendered.map((item) => (
           <ToastItem
             key={item.id}
             toast={item}
+            open={visible.some((t) => t.id === item.id)}
+            onExited={onExited}
             store={store}
             position={position}
             dismissLabel={dismissLabel}
@@ -177,6 +213,9 @@ Toaster.displayName = "Toaster";
 
 interface ToastItemProps {
   toast: ToastData;
+  /** False once dismissed: the toast plays its exit animation, then calls onExited. */
+  open: boolean;
+  onExited: (id: string) => void;
   store: ToastStore;
   position: Position;
   dismissLabel: string;
@@ -184,7 +223,7 @@ interface ToastItemProps {
   returnFocus: RefObject<HTMLElement | null>;
 }
 
-function ToastItem({ toast: item, store, position, dismissLabel, returnFocus }: ToastItemProps) {
+function ToastItem({ toast: item, open, onExited, store, position, dismissLabel, returnFocus }: ToastItemProps) {
   const variants = { position, status: item.status };
   const slot = (name: string) => ({
     "data-slot": `toast-${name}`,
@@ -192,11 +231,16 @@ function ToastItem({ toast: item, store, position, dismissLabel, returnFocus }: 
     className: slotClass(slots, name, variants),
   });
   const node = useRef<HTMLDivElement>(null);
+  const { present, state } = usePresence(open, node);
+  useEffect(() => {
+    if (!present) onExited(item.id);
+  }, [present, item.id, onExited]);
+
   const dismiss = () => {
     const el = node.current;
     if (el?.contains(document.activeElement)) {
       // Keep keyboard users in the toasts: a neighbour, else where they came from
-      const neighbour = (el.nextElementSibling ?? el.previousElementSibling) as HTMLElement | null;
+      const neighbour = siblingToast(el);
       const target = neighbour?.querySelector<HTMLElement>("button") ?? returnFocus.current;
       target?.focus();
     }
@@ -210,50 +254,78 @@ function ToastItem({ toast: item, store, position, dismissLabel, returnFocus }: 
   // Release the Escape layer if the toast leaves while focused
   useEffect(() => releaseEscape, []);
 
+  if (!present) return null;
+  const countdown = Number.isFinite(item.duration) && item.duration > 0;
+
   return (
-    <div
-      // Danger is time-sensitive (assertive); everything else is polite
-      role={item.status === "danger" ? "alert" : "status"}
-      aria-atomic="true"
-      {...slot("toast")}
-      ref={node}
-      onPointerEnter={() => store.pause(item.id, "hover")}
-      onPointerLeave={() => store.resume(item.id, "hover")}
-      onFocus={() => {
-        store.pause(item.id, "focus");
-        // While focus is inside, Escape dismisses this toast as the topmost
-        // layer (without closing a surrounding dialog or popover)
-        escapeLayer.current ??= onDismiss({ inside: () => [], outside: false, onDismiss: dismiss });
-      }}
-      onBlur={(event: FocusEvent<HTMLDivElement>) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-          releaseEscape();
-          store.resume(item.id, "focus");
-        }
-      }}
-    >
-      <div {...slot("content")}>
-        {item.title && <div {...slot("title")}>{item.title}</div>}
-        {item.description && <div {...slot("description")}>{item.description}</div>}
+    <div {...slot("item")} ref={node} data-state={state}>
+      <div
+        // Danger is time-sensitive (assertive); everything else is polite
+        role={item.status === "danger" ? "alert" : "status"}
+        aria-atomic="true"
+        {...slot("toast")}
+        onPointerEnter={() => store.pause(item.id, "hover")}
+        onPointerLeave={() => store.resume(item.id, "hover")}
+        onFocus={() => {
+          store.pause(item.id, "focus");
+          // While focus is inside, Escape dismisses this toast as the topmost
+          // layer (without closing a surrounding dialog or popover)
+          escapeLayer.current ??= onDismiss({ inside: () => [], outside: false, onDismiss: dismiss });
+        }}
+        onBlur={(event: FocusEvent<HTMLDivElement>) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            releaseEscape();
+            store.resume(item.id, "focus");
+          }
+        }}
+      >
+        <div {...slot("content")}>
+          {item.title && <div {...slot("title")}>{item.title}</div>}
+          {item.description && <div {...slot("description")}>{item.description}</div>}
+        </div>
+        {item.action && (
+          <Button
+            variant="outline"
+            size="sm"
+            {...slot("action")}
+            onClick={() => {
+              item.action?.onClick?.();
+              dismiss();
+            }}
+          >
+            {item.action.label}
+          </Button>
+        )}
+        <IconButton variant="ghost" size="sm" aria-label={dismissLabel} {...slot("close")} onClick={dismiss}>
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </IconButton>
+        {countdown && (
+          <div
+            // Restarts when an update changes the duration
+            key={item.duration}
+            aria-hidden="true"
+            {...slot("progress")}
+            style={{
+              animationDuration: `${item.duration}ms`,
+              animationPlayState: !open || item.pausedBy.length > 0 ? "paused" : "running",
+            }}
+          />
+        )}
       </div>
-      {item.action && (
-        <Button
-          variant="outline"
-          size="sm"
-          {...slot("action")}
-          onClick={() => {
-            item.action?.onClick?.();
-            dismiss();
-          }}
-        >
-          {item.action.label}
-        </Button>
-      )}
-      <IconButton variant="ghost" size="sm" aria-label={dismissLabel} {...slot("close")} onClick={dismiss}>
-        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
-          <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </IconButton>
     </div>
+  );
+}
+
+/** The nearest toast that is not leaving: the next one, else the previous. */
+function siblingToast(el: HTMLElement): HTMLElement | null {
+  const live = (node: Element | null, step: (node: Element) => Element | null) => {
+    while (node?.getAttribute("data-state") === "closed") node = step(node);
+    return node as HTMLElement | null;
+  };
+  return (
+    live(el.nextElementSibling, (n) => n.nextElementSibling) ??
+    live(el.previousElementSibling, (n) => n.previousElementSibling)
   );
 }

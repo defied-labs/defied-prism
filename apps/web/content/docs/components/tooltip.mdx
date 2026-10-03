@@ -1,0 +1,30 @@
+---
+title: Tooltip
+description: A short hint that appears on hover or keyboard focus and describes its trigger.
+---
+
+<Demo id="tooltip/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add tooltip
+```
+
+## Usage
+
+`Tooltip` holds the state, `TooltipTrigger` is the element it describes, and `TooltipContent` is the hint. The trigger renders a `<button>`; pass `asChild` (`as-child` in Vue) to use your own element, such as a `Button`, instead.
+
+The content is always in the DOM (hidden while closed) and linked to the trigger with `aria-describedby`, so screen readers announce it without hovering. That makes it a description, not a label: an icon-only trigger still needs its own `aria-label`. Don't put interactive content in a tooltip.
+
+Hover opens it after `openDelay` (500 ms by default); keyboard focus opens it immediately. It closes on pointer leave after `closeDelay` (150 ms, so the pointer can move onto the tooltip), on blur, on press, and on Escape, which doesn't close a surrounding dialog. React reports changes through `onOpenChange`; Vue emits `openChange`.
+
+## Placement
+
+`side` on `TooltipContent` places it `top` (the default), `right`, `bottom` or `left` of the trigger. These tooltips use `openDelay={0}`.
+
+<Demo id="tooltip/sides" />
+
+## API reference
+
+<ApiReference component="tooltip" />

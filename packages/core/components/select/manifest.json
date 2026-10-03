@@ -338,6 +338,18 @@
       "required": true
     },
     {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.exit",
+      "required": true
+    },
+    {
       "name": "easing.standard",
       "required": true
     },

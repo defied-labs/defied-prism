@@ -1,4 +1,3 @@
-import { tailwindSlots } from "@defied-prism/core/tailwind";
 import {
   forwardRef,
   useEffect,
@@ -14,6 +13,7 @@ import {
   ButtonEvents,
 } from "@defied-prism/core/components/button";
 import { slotClass, variantData, type StyleSlots } from "@defied-prism/core";
+import { tailwindSlots } from "@defied-prism/core/tailwind";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive" | "link";

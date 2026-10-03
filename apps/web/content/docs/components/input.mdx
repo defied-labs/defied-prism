@@ -1,0 +1,28 @@
+---
+title: Input
+description: A single-line text input that takes its id, description, error and required state from the surrounding Field.
+---
+
+<Demo id="input/field" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add input
+```
+
+The demos also use `Field`, which is installed separately with `npx @defied-prism/cli add field`.
+
+## Usage
+
+Put `Input` inside a `Field` next to a `FieldLabel`. The Field gives the input its id, `aria-describedby`, `aria-invalid`, `disabled` and `required`, so the label and description are connected without writing ids; props you pass explicitly still win. Native input attributes (`type`, `name`, `placeholder`, `autoComplete`) pass through. With no value bound, the input is uncontrolled and the DOM owns the value, as above.
+
+## Controlled
+
+To own the value, in React pass `value` and `onChange` (a native change event); in Vue bind `v-model`.
+
+<Demo id="input/controlled" />
+
+## API reference
+
+<ApiReference component="input" />

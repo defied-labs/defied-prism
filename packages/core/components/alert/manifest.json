@@ -99,6 +99,82 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/Alert.vue",
+            "destination": "alert/Alert.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/AlertAction.vue",
+            "destination": "alert/AlertAction.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/AlertContent.vue",
+            "destination": "alert/AlertContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/AlertDescription.vue",
+            "destination": "alert/AlertDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/AlertIcon.vue",
+            "destination": "alert/AlertIcon.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/AlertTitle.vue",
+            "destination": "alert/AlertTitle.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "alert/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "alert/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "alert/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [

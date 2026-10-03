@@ -140,6 +140,15 @@ describe("Input (vue)", () => {
     expect(el.disabled).toBe(false);
   });
 
+  it("uncontrolled: keeps typed text across re-renders (focus, typing, blur)", async () => {
+    const user = userEvent.setup();
+    await show(() => h(m.Input, { "aria-label": "Notes" }));
+    await user.type(box(), "hello");
+    await user.tab();
+    await nextTick();
+    expect((box() as HTMLInputElement).value).toBe("hello");
+  });
+
   it("tracks filled / focused state", async () => {
     const user = userEvent.setup();
     await show(() => h(m.Input, { "aria-label": "Email" }));

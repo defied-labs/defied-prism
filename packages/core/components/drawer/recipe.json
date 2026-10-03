@@ -7,7 +7,10 @@
       "inset": "0",
       "zIndex": "{z.overlay}",
       "background": "{color.overlay}",
-      "animation": "prism-fade-in {duration.normal} {easing.standard}"
+      "animation": "prism-fade-in {duration.normal} {easing.standard}",
+      "_closed": {
+        "animation": "prism-fade-out {duration.fast} {easing.exit} forwards"
+      }
     },
     "content": {
       "position": "fixed",
@@ -25,6 +28,10 @@
       "boxShadow": "{shadow.lg}",
       "fontFamily": "{font.sans}",
       "animation": "prism-slide-in {duration.normal} {easing.emphasized}",
+      "_closed": {
+        "animation": "prism-slide-out {duration.fast} {easing.exit} forwards",
+        "pointerEvents": "none"
+      },
       "_focusVisible": {
         "outline": "{focus.ring-width} solid {color.ring}",
         "outlineOffset": "calc(-1 * {focus.ring-width})"

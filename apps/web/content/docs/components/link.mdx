@@ -1,0 +1,26 @@
+---
+title: Link
+description: A styled anchor with tone and underline options and safe handling of external links.
+---
+
+<Demo id="link/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add link
+```
+
+## Usage
+
+`Link` renders an `<a>`, and every anchor attribute passes through. `tone` is `primary` (the default), `neutral` or `muted`; `underline` is `always` (the default), `hover` or `none`. Keep the underline on links inside running text so they stand out without relying on color. To style a router link instead, set `asChild` and pass the router link as the only child in React or in the default slot in Vue.
+
+## External links
+
+`external` opens the link in a new tab, adds `noopener noreferrer` to any `rel` you pass, and appends visually hidden text, "(opens in a new tab)" by default, so screen reader users are told. Change that text with `externalLabel`.
+
+<Demo id="link/external" />
+
+## API reference
+
+<ApiReference component="link" />

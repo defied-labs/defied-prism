@@ -88,6 +88,70 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "breadcrumb/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Breadcrumb.vue",
+            "destination": "breadcrumb/Breadcrumb.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/BreadcrumbItem.vue",
+            "destination": "breadcrumb/BreadcrumbItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/BreadcrumbLink.vue",
+            "destination": "breadcrumb/BreadcrumbLink.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/BreadcrumbPage.vue",
+            "destination": "breadcrumb/BreadcrumbPage.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "breadcrumb/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "breadcrumb/styles.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [

@@ -51,7 +51,12 @@
         "background": "{color.primary}",
         "color": "{color.primary-fg}",
         "pointerEvents": "none",
-        "animation": "prism-scale-in {duration.fast} {easing.standard}"
+        "animation": "prism-scale-in {duration.fast} {easing.emphasized}"
+      },
+      "part:mark": {
+        "--prism-draw-length": "1",
+        "strokeDasharray": "1",
+        "animation": "prism-draw {duration.normal} {easing.emphasized} {duration.fast} both"
       }
     }
   },

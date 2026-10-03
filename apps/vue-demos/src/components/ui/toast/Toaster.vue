@@ -1,7 +1,16 @@
 <script setup lang="ts">
-import { normalizeClass, onBeforeUnmount, onMounted, ref, useAttrs, watch, watchEffect } from "vue";
+import {
+  normalizeClass,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  useAttrs,
+  watch,
+  watchEffect,
+} from "vue";
 import { slotClass, variantData } from "@defied-prism/core";
-import type { ToastStore } from "@defied-prism/core/components/toast";
+import { withLeaving, type Toast, type ToastStore } from "@defied-prism/core/components/toast";
 import { slots } from "./styles";
 import { toastStore, useToasts } from "./toast";
 import type { Position, ReturnFocus } from "./context";
@@ -32,6 +41,18 @@ const props = withDefaults(defineProps<ToasterProps>(), {
 const attrs = useAttrs();
 const snapshot = useToasts(() => props.store);
 const returnFocus: ReturnFocus = { current: null };
+
+// Dismissed toasts stay rendered until their exit animation ends
+const rendered = shallowRef<Toast[]>(snapshot.value.visible);
+watch(
+  () => snapshot.value.visible,
+  (visible) => (rendered.value = withLeaving(rendered.value, visible)),
+  { flush: "sync" },
+);
+const isOpen = (id: string) => snapshot.value.visible.some((t) => t.id === id);
+function onExited(id: string) {
+  rendered.value = rendered.value.filter((t) => t.id !== id || isOpen(id));
+}
 
 watchEffect(() => {
   if (props.max !== undefined) props.store.setMax(props.max);
@@ -83,13 +104,15 @@ function onFocusIn(event: FocusEvent) {
 <template>
   <div ref="root" v-bind="rootAttrs()">
     <ToastItem
-      v-for="item in snapshot.visible"
+      v-for="item in rendered"
       :key="item.id"
       :toast="item"
+      :open="isOpen(item.id)"
       :store="store"
       :position="position"
       :dismiss-label="dismissLabel"
       :return-focus="returnFocus"
+      @exited="onExited"
     />
   </div>
 </template>

@@ -7,8 +7,31 @@
   },
   "slots": {
     "list": {
+      "position": "relative",
+      "isolation": "isolate",
       "display": "flex",
       "gap": "{space.1}"
+    },
+    "indicator": {
+      "position": "absolute",
+      "top": "0",
+      "left": "0",
+      "zIndex": "-1",
+      "pointerEvents": "none",
+      "transition": "transform {duration.normal} {easing.standard}, width {duration.normal} {easing.standard}, height {duration.normal} {easing.standard}"
+    },
+    "highlight": {
+      "position": "absolute",
+      "top": "0",
+      "left": "0",
+      "zIndex": "-1",
+      "pointerEvents": "none",
+      "background": "{color.muted}",
+      "opacity": "0.6",
+      "transition": "transform {duration.normal} {easing.standard}, width {duration.normal} {easing.standard}, height {duration.normal} {easing.standard}, opacity {duration.fast} {easing.standard}",
+      "_closed": {
+        "opacity": "0"
+      }
     },
     "trigger": {
       "display": "inline-flex",
@@ -56,6 +79,9 @@
         },
         "slot:trigger": {
           "--prism-tabs-indicator": "inset 0 -2px 0 0"
+        },
+        "slot:indicator": {
+          "--prism-tabs-indicator": "inset 0 -2px 0 0"
         }
       },
       "vertical": {
@@ -64,6 +90,9 @@
           "flexDirection": "column"
         },
         "slot:trigger": {
+          "--prism-tabs-indicator": "inset 2px 0 0 0"
+        },
+        "slot:indicator": {
           "--prism-tabs-indicator": "inset 2px 0 0 0"
         }
       }
@@ -76,8 +105,16 @@
         "slot:trigger": {
           "borderRadius": "0",
           "_selected": {
-            "boxShadow": "var(--prism-tabs-indicator) {color.primary}"
+            "boxShadow": "var(--prism-tabs-indicator) var(--prism-tabs-selected, {color.primary})"
           }
+        },
+        "slot:indicator": {
+          "borderRadius": "0",
+          "background": "transparent",
+          "boxShadow": "var(--prism-tabs-indicator) {color.primary}"
+        },
+        "slot:highlight": {
+          "borderRadius": "{radius.sm}"
         }
       },
       "pills": {
@@ -87,8 +124,16 @@
         "slot:trigger": {
           "borderRadius": "{radius.md}",
           "_selected": {
-            "background": "{color.muted}"
+            "background": "var(--prism-tabs-selected, {color.muted})"
           }
+        },
+        "slot:indicator": {
+          "borderRadius": "{radius.md}",
+          "background": "{color.muted}",
+          "boxShadow": "none"
+        },
+        "slot:highlight": {
+          "borderRadius": "{radius.md}"
         }
       }
     },

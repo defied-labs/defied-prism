@@ -1,4 +1,3 @@
-import { tailwindSlots } from "@defied-prism/core/tailwind";
 import {
   forwardRef,
   useEffect,
@@ -6,6 +5,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
@@ -32,6 +32,7 @@ import {
   type CalendarDate,
   type Weekday,
 } from "@defied-prism/core/components/calendar";
+import { tailwindSlots } from "@defied-prism/core/tailwind";
 
 export interface CalendarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange" | "role"> {
@@ -58,6 +59,8 @@ export interface CalendarProps
   previousMonthLabel?: string;
   nextMonthLabel?: string;
   size?: "sm" | "md";
+  /** Edge the days float in from; month navigation slides them in from the side instead. */
+  enterFrom?: "bottom" | "top" | "left" | "right";
   disabled?: boolean;
 }
 
@@ -65,7 +68,14 @@ export interface CalendarProps
 const slots: StyleSlots = tailwindSlots({
   "root": {
     "base": "inline-flex flex-col gap-prism-2 font-prism-sans text-prism-fg aria-disabled:opacity-(--prism-opacity-disabled)",
-    "variants": {}
+    "variants": {
+      "enterFrom": {
+        "bottom": "[--prism-float-x:0] [--prism-float-y:0.5rem]",
+        "top": "[--prism-float-x:0] [--prism-float-y:-0.5rem]",
+        "left": "[--prism-float-x:-0.75rem] [--prism-float-y:0]",
+        "right": "[--prism-float-x:0.75rem] [--prism-float-y:0]"
+      }
+    }
   },
   "header": {
     "base": "flex items-center justify-between gap-prism-2",
@@ -88,7 +98,7 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "cell": {
-    "base": "relative text-center rounded-prism-md cursor-pointer not-aria-disabled:hover:bg-prism-ghost-hover focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)] aria-selected:bg-prism-primary aria-selected:text-prism-primary-fg aria-disabled:opacity-(--prism-opacity-disabled) aria-disabled:cursor-not-allowed aria-disabled:[text-decoration:line-through] [&_[data-part=today]]:absolute [&_[data-part=today]]:[inset-inline:0] [&_[data-part=today]]:[bottom:2px] [&_[data-part=today]]:[margin-inline:auto] [&_[data-part=today]]:[width:4px] [&_[data-part=today]]:[height:4px] [&_[data-part=today]]:rounded-prism-full [&_[data-part=today]]:[background:currentColor]",
+    "base": "relative text-center rounded-prism-md cursor-pointer [animation:prism-float-in_var(--prism-duration-slow)_var(--prism-easing-emphasized)_calc(min(var(--prism-day-index,_0),_24)_*_var(--prism-duration-fast)_/_12)_both] not-aria-disabled:hover:bg-prism-ghost-hover focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)] aria-selected:bg-prism-primary aria-selected:text-prism-primary-fg aria-disabled:opacity-(--prism-opacity-disabled) aria-disabled:cursor-not-allowed aria-disabled:[text-decoration:line-through] [&_[data-part=today]]:absolute [&_[data-part=today]]:[inset-inline:0] [&_[data-part=today]]:[bottom:2px] [&_[data-part=today]]:[margin-inline:auto] [&_[data-part=today]]:[width:4px] [&_[data-part=today]]:[height:4px] [&_[data-part=today]]:rounded-prism-full [&_[data-part=today]]:[background:currentColor]",
     "variants": {
       "size": {
         "sm": "w-(--prism-control-sm) h-(--prism-control-sm) text-prism-xs",
@@ -118,13 +128,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       previousMonthLabel = "Previous month",
       nextMonthLabel = "Next month",
       size = "md",
+      enterFrom = "bottom",
       disabled = false,
       className,
       ...props
     },
     ref,
   ) => {
-    const variants = { size };
+    const variants = { size, enterFrom };
     const headingId = useId();
     const [valueISO, setValueISO] = useControllableState<string | null>({
       value: valueProp,
@@ -148,6 +159,12 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       onChange: onMonthChange,
     });
     const month = startOfMonth(parse(monthISO) ?? now);
+    const monthKey = toISO(month);
+
+    // Which way the last month change went: later months float in from the
+    // right, earlier ones from the left; the first render uses `enterFrom`
+    const [shown, setShown] = useState({ key: monthKey, step: 0 });
+    if (shown.key !== monthKey) setShown({ key: monthKey, step: monthKey > shown.key ? 1 : -1 });
 
     // The roving tab stop: kept inside the displayed month
     const [focusedState, setFocused] = useState<CalendarDate>(initial);
@@ -273,7 +290,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody
+            key={monthKey}
+            style={
+              shown.step
+                ? ({ "--prism-float-x": `${shown.step * 0.75}rem`, "--prism-float-y": "0" } as CSSProperties)
+                : undefined
+            }
+          >
             {weeks.map((week) => (
               <tr key={toISO(week[0]!)}>
                 {week.map((date) => {
@@ -291,6 +315,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
                       aria-current={isToday ? "date" : undefined}
                       aria-disabled={disabled || unavailable || undefined}
                       data-date={iso}
+                      style={{ "--prism-day-index": date.day - 1 } as CSSProperties}
                       data-slot="calendar-cell"
                       {...variantData(variants)}
                       className={slotClass(slots, "cell", variants)}

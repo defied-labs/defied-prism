@@ -267,4 +267,16 @@ describe("DialogClose", () => {
     await user.click(done);
     expect(screen.queryByRole("dialog")).toBeNull();
   });
+
+  it("grows out of the trigger that opened it", async () => {
+    const user = userEvent.setup();
+    const { trigger } = renderPage();
+    // jsdom has no layout; place the trigger at the viewport's top-left
+    trigger.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 40 }) as DOMRect;
+    await user.click(trigger);
+    const style = dialogEl()!.style;
+    expect(style.getPropertyValue("--prism-zoom-x")).toBe(`${Math.round(50 - window.innerWidth / 2)}px`);
+    expect(style.getPropertyValue("--prism-zoom-y")).toBe(`${Math.round(20 - window.innerHeight / 2)}px`);
+    expect(dialogEl()!.getAttribute("data-state")).toBe("open");
+  });
 });

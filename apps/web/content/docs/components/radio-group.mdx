@@ -1,0 +1,26 @@
+---
+title: Radio Group
+description: A set of native radio buttons where exactly one option can be picked.
+---
+
+<Demo id="radio-group/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add radio-group
+```
+
+## Usage
+
+`RadioGroup` holds the value and each `Radio` is one option, with its children as the visible label. The radios are native inputs sharing a `name` (generated if you omit it), so the browser handles arrow-key selection, the single tab stop and form submission. Name the group with a surrounding `Field` and `FieldLabel`, or with `aria-label`. Read and set the value with `value` and `onValueChange` in React, or `v-model` in Vue; for an uncontrolled group use `defaultValue`.
+
+## Layout and size
+
+`orientation="horizontal"` lays the options out in a row, and `size="sm"` makes them smaller.
+
+<Demo id="radio-group/horizontal" />
+
+## API reference
+
+<ApiReference component="radio-group" />

@@ -1,0 +1,22 @@
+---
+title: Table
+description: A semantic HTML table with optional striping and density, wrapped in a horizontal scroll container.
+---
+
+<Demo id="table/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add table
+```
+
+## Usage
+
+The parts map one-to-one to native elements: `TableCaption`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead` and `TableCell`. Put `TableCaption` first; it names the table. `TableHead` defaults to `scope="col"`; set `scope="row"` for row headers. `striped` alternates body row backgrounds and `density` controls cell padding.
+
+When the table is wider than its container, the wrapper becomes a focusable, named `role="region"` so keyboard users can scroll it with the arrow keys. Its name comes from `scrollLabel`, then the caption, then the table's `aria-label`. When the table fits, the wrapper adds no tab stop.
+
+## API reference
+
+<ApiReference component="table" />

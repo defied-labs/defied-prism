@@ -1,0 +1,26 @@
+---
+title: Checkbox
+description: A native checkbox with a visible label, an optional mixed state, and Field integration.
+---
+
+<Demo id="checkbox/basic" />
+
+## Installation
+
+```bash
+npx @defied-prism/cli add checkbox
+```
+
+## Usage
+
+The children are the label: `Checkbox` renders a `<label>` that wraps the box, so it needs no separate `FieldLabel`. Inside a `Field` it picks up the field's id, description, error, `required` and `disabled`. Read or set the state with `checked` and `onCheckedChange` in React, or `v-model` in Vue.
+
+## Indeterminate
+
+`indeterminate` shows the mixed state, for a "select all" box when only some items are selected. It is controlled: it stays on until you clear it, so derive it from your own state.
+
+<Demo id="checkbox/indeterminate" />
+
+## API reference
+
+<ApiReference component="checkbox" />

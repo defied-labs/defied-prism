@@ -4,8 +4,11 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
+  useState,
   type ButtonHTMLAttributes,
+  type CSSProperties,
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
@@ -25,7 +28,7 @@ const slots: StyleSlots = tailwindSlots({
     }
   },
   "list": {
-    "base": "flex gap-prism-1",
+    "base": "relative [isolation:isolate] flex gap-prism-1",
     "variants": {
       "orientation": {
         "horizontal": "flex-row",
@@ -37,6 +40,28 @@ const slots: StyleSlots = tailwindSlots({
       }
     }
   },
+  "indicator": {
+    "base": "absolute [top:0] [left:0] [z-index:-1] pointer-events-none [transition:transform_var(--prism-duration-normal)_var(--prism-easing-standard),_width_var(--prism-duration-normal)_var(--prism-easing-standard),_height_var(--prism-duration-normal)_var(--prism-easing-standard)]",
+    "variants": {
+      "orientation": {
+        "horizontal": "[--prism-tabs-indicator:inset_0_-2px_0_0]",
+        "vertical": "[--prism-tabs-indicator:inset_2px_0_0_0]"
+      },
+      "variant": {
+        "line": "[border-radius:0] bg-transparent [box-shadow:var(--prism-tabs-indicator)_var(--prism-color-primary)]",
+        "pills": "rounded-prism-md bg-prism-muted [box-shadow:none]"
+      }
+    }
+  },
+  "highlight": {
+    "base": "absolute [top:0] [left:0] [z-index:-1] pointer-events-none bg-prism-muted [opacity:0.6] [transition:transform_var(--prism-duration-normal)_var(--prism-easing-standard),_width_var(--prism-duration-normal)_var(--prism-easing-standard),_height_var(--prism-duration-normal)_var(--prism-easing-standard),_opacity_var(--prism-duration-fast)_var(--prism-easing-standard)] data-[state=closed]:[opacity:0]",
+    "variants": {
+      "variant": {
+        "line": "rounded-prism-sm",
+        "pills": "rounded-prism-md"
+      }
+    }
+  },
   "trigger": {
     "base": "inline-flex items-center justify-center gap-prism-2 [border-width:0] bg-transparent text-prism-muted-fg [font-family:inherit] font-prism-medium leading-prism-tight whitespace-nowrap cursor-pointer [transition:color_var(--prism-duration-fast)_var(--prism-easing-standard),_background-color_var(--prism-duration-fast)_var(--prism-easing-standard),_box-shadow_var(--prism-duration-fast)_var(--prism-easing-standard)] enabled:not-aria-disabled:hover:text-prism-fg aria-selected:text-prism-fg focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)] disabled:opacity-(--prism-opacity-disabled) disabled:cursor-not-allowed",
     "variants": {
@@ -45,8 +70,8 @@ const slots: StyleSlots = tailwindSlots({
         "vertical": "[--prism-tabs-indicator:inset_2px_0_0_0]"
       },
       "variant": {
-        "line": "[border-radius:0] aria-selected:[box-shadow:var(--prism-tabs-indicator)_var(--prism-color-primary)]",
-        "pills": "rounded-prism-md aria-selected:bg-prism-muted"
+        "line": "[border-radius:0] aria-selected:[box-shadow:var(--prism-tabs-indicator)_var(--prism-tabs-selected,_var(--prism-color-primary))]",
+        "pills": "rounded-prism-md aria-selected:[background:var(--prism-tabs-selected,_var(--prism-color-muted))]"
       },
       "size": {
         "sm": "min-h-(--prism-control-sm) px-prism-3 text-prism-sm",
@@ -137,11 +162,51 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 );
 Tabs.displayName = "Tabs";
 
+type Box = { x: number; y: number; width: number; height: number };
+
+/** A tab's box within the list, or null before layout (or in tests). */
+function measure(list: HTMLElement | null, value: string | null | undefined): Box | null {
+  if (!list || value == null) return null;
+  const tab = Array.from(list.querySelectorAll<HTMLElement>('[role="tab"]')).find(
+    (el) => el.dataset.value === value,
+  );
+  if (!tab || (!tab.offsetWidth && !tab.offsetHeight)) return null;
+  return { x: tab.offsetLeft, y: tab.offsetTop, width: tab.offsetWidth, height: tab.offsetHeight };
+}
+
+const boxStyle = (box: Box): CSSProperties => ({
+  width: box.width,
+  height: box.height,
+  transform: `translate(${box.x}px, ${box.y}px)`,
+});
+
+const useIsomorphicLayoutEffect = typeof document === "undefined" ? useEffect : useLayoutEffect;
+
 export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, onKeyDown, ...props }, ref) => {
+  ({ className, style, children, onKeyDown, onPointerOver, onPointerLeave, ...props }, ref) => {
     const { value, orientation, activationMode, select, variants } = useTabs("TabList");
     const listRef = useRef<HTMLDivElement>(null);
     const composedRef = useComposedRefs(ref, listRef);
+
+    // Thumbs that slide between tabs: the selected indicator, and a subtle
+    // highlight that follows the pointer and returns to the selection
+    const [hovered, setHovered] = useState<string | null>(null);
+    const [boxes, setBoxes] = useState<{ selected: Box | null; hovered: Box | null }>({
+      selected: null,
+      hovered: null,
+    });
+    useIsomorphicLayoutEffect(() => {
+      const list = listRef.current;
+      const update = () =>
+        setBoxes({ selected: measure(list, value), hovered: measure(list, hovered ?? value) });
+      update();
+      const view = list?.ownerDocument.defaultView;
+      if (!list || !view || !("ResizeObserver" in view)) return;
+      const observer = new view.ResizeObserver(update);
+      observer.observe(list);
+      list.querySelectorAll('[role="tab"]').forEach((tab) => observer.observe(tab));
+      return () => observer.disconnect();
+    }, [value, hovered]);
 
     // With no selected tab, keep the first enabled tab reachable by keyboard
     useEffect(() => {
@@ -172,6 +237,13 @@ export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>
       if (activationMode === "automatic" && tab.dataset.value) select(tab.dataset.value);
     };
 
+    const thumb = (name: string) => ({
+      "aria-hidden": true,
+      "data-slot": `tabs-${name}`,
+      ...variantData(variants),
+      className: slotClass(slots, name, variants),
+    });
+
     return (
       <div
         {...props}
@@ -181,8 +253,29 @@ export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>
         data-slot="tabs-list"
         {...variantData(variants)}
         className={slotClass(slots, "list", variants, className)}
+        // Once measured, the indicator replaces the selected tab's own styling
+        style={boxes.selected ? { ...style, "--prism-tabs-selected": "transparent" } as CSSProperties : style}
         onKeyDown={handleKeyDown}
-      />
+        onPointerOver={(event) => {
+          onPointerOver?.(event);
+          const tab = (event.target as Element).closest<HTMLButtonElement>('[role="tab"]');
+          if (tab && !tab.disabled && tab.dataset.value) setHovered(tab.dataset.value);
+        }}
+        onPointerLeave={(event) => {
+          onPointerLeave?.(event);
+          setHovered(null);
+        }}
+      >
+        {boxes.hovered && (
+          <span
+            {...thumb("highlight")}
+            data-state={hovered !== null ? "open" : "closed"}
+            style={boxStyle(boxes.hovered)}
+          />
+        )}
+        {boxes.selected && <span {...thumb("indicator")} style={boxStyle(boxes.selected)} />}
+        {children}
+      </div>
     );
   },
 );

@@ -12,7 +12,7 @@ import {
   type Ref,
 } from "react";
 import { createPortal } from "react-dom";
-import { Slot, useComposedRefs, useControllableState } from "@defied-prism/react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-prism/react";
 import {
   hideOthers,
   lockScroll,
@@ -196,13 +196,15 @@ export const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
       };
     }, [drawer.open, closeOnEscape, closeOnOutsideClick]);
 
-    if (!drawer.open || typeof document === "undefined") return null;
+    // Stays mounted, data-state="closed", while the exit animation plays
+    const { present, state } = usePresence(drawer.open, contentRef);
+    if (!present || typeof document === "undefined") return null;
 
     return createPortal(
       <div ref={portalRef}>
         <div
           aria-hidden="true"
-          data-state="open"
+          data-state={state}
           data-slot="drawer-overlay"
           {...variantData(variants)}
           className={slotClass(slots, "overlay", variants)}
@@ -212,11 +214,11 @@ export const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
           ref={composedRef}
           id={drawer.contentId}
           role="dialog"
-          aria-modal="true"
+          aria-modal={drawer.open ? "true" : undefined}
           aria-labelledby={drawer.hasTitle && !props["aria-label"] ? drawer.titleId : undefined}
           aria-describedby={drawer.hasDescription ? drawer.descriptionId : undefined}
           tabIndex={-1}
-          data-state="open"
+          data-state={state}
           data-slot="drawer-content"
           {...variantData(variants)}
           className={slotClass(slots, "content", variants, className)}

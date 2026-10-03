@@ -97,6 +97,94 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "table/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Table.vue",
+            "destination": "table/Table.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableBody.vue",
+            "destination": "table/TableBody.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableCaption.vue",
+            "destination": "table/TableCaption.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableCell.vue",
+            "destination": "table/TableCell.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableFooter.vue",
+            "destination": "table/TableFooter.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableHead.vue",
+            "destination": "table/TableHead.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableHeader.vue",
+            "destination": "table/TableHeader.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TableRow.vue",
+            "destination": "table/TableRow.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "table/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "table/styles.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [

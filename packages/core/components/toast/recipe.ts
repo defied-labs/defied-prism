@@ -19,6 +19,11 @@ const position = (block: "top" | "bottom", inline: "start" | "center" | "end") =
   transform: inline === "center" ? "translateX(-50%)" : "none",
   // Newest toast sits nearest the screen edge
   flexDirection: block === "top" ? "column-reverse" : "column",
+  // Toasts slide in from, and back out to, the edge the toaster sits on
+  "slot:item": {
+    "--prism-slide-x": inline === "start" ? "calc(-100% - 1rem)" : inline === "end" ? "calc(100% + 1rem)" : "0",
+    "--prism-slide-y": inline !== "center" ? "0" : block === "top" ? "calc(-100% - 1rem)" : "calc(100% + 1rem)",
+  },
 });
 
 const focusRing = {
@@ -41,7 +46,30 @@ export default defineRecipe({
     fontFamily: t("font.sans"),
   },
   slots: {
+    // Wraps each toast; collapses its row on exit so the others glide into place
+    item: {
+      display: "grid",
+      gridTemplateRows: "1fr",
+      animation: `prism-slide-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      transition: [
+        `grid-template-rows ${t("duration.normal")} ${t("easing.exit")}`,
+        `margin ${t("duration.normal")} ${t("easing.exit")}`,
+      ].join(", "),
+      _closed: {
+        gridTemplateRows: "0fr",
+        // Swallow the region's gap too
+        marginBlockStart: `calc(-1 * ${t("space.2")})`,
+        "--prism-toast-events": "none",
+        animation: [
+          `prism-slide-out ${t("duration.normal")} ${t("easing.exit")} forwards`,
+          `prism-fade-out ${t("duration.normal")} ${t("easing.exit")} forwards`,
+        ].join(", "),
+      },
+    },
     toast: {
+      position: "relative",
+      overflow: "hidden",
+      minHeight: "0",
       display: "flex",
       alignItems: "flex-start",
       gap: t("space.3"),
@@ -55,7 +83,7 @@ export default defineRecipe({
       boxShadow: t("shadow.lg"),
       fontSize: t("text.sm"),
       lineHeight: t("leading.normal"),
-      pointerEvents: "auto",
+      pointerEvents: "var(--prism-toast-events, auto)",
       animation: `prism-scale-in ${t("duration.normal")} ${t("easing.emphasized")}`,
       _focusVisible: focusRing,
     },
@@ -72,6 +100,20 @@ export default defineRecipe({
     },
     description: {
       color: "inherit",
+    },
+    // Empties over the toast's duration (set inline); pauses with its timer
+    progress: {
+      position: "absolute",
+      insetInlineStart: "0",
+      insetInlineEnd: "0",
+      bottom: "0",
+      height: "2px",
+      background: "currentColor",
+      opacity: "0.4",
+      transformOrigin: "left",
+      animationName: "prism-countdown",
+      animationTimingFunction: "linear",
+      animationFillMode: "forwards",
     },
     // Action and close are Prism Button / IconButton; the slots only lay them out
     action: {

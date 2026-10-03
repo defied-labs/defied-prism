@@ -44,6 +44,7 @@
   text-align: center;
   border-radius: var(--prism-radius-md);
   cursor: pointer;
+  animation: prism-float-in var(--prism-duration-slow) var(--prism-easing-emphasized) calc(min(var(--prism-day-index, 0), 24) * var(--prism-duration-fast) / 12) both;
 }
 
 .cell:hover:not([aria-disabled="true"]) {
@@ -87,4 +88,24 @@
   width: var(--prism-control-md);
   height: var(--prism-control-md);
   font-size: var(--prism-text-sm);
+}
+
+.root[data-enter-from="bottom"] {
+  --prism-float-x: 0;
+  --prism-float-y: 0.5rem;
+}
+
+.root[data-enter-from="top"] {
+  --prism-float-x: 0;
+  --prism-float-y: -0.5rem;
+}
+
+.root[data-enter-from="left"] {
+  --prism-float-x: -0.75rem;
+  --prism-float-y: 0;
+}
+
+.root[data-enter-from="right"] {
+  --prism-float-x: 0.75rem;
+  --prism-float-y: 0;
 }

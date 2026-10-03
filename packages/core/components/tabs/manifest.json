@@ -26,6 +26,14 @@
         "element": "div",
         "role": "tablist"
       },
+      "indicator": {
+        "element": "span",
+        "optional": true
+      },
+      "highlight": {
+        "element": "span",
+        "optional": true
+      },
       "trigger": {
         "element": "button",
         "role": "tab"
@@ -143,6 +151,70 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "tabs/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "tabs/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "tabs/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Tabs.vue",
+            "destination": "tabs/Tabs.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TabList.vue",
+            "destination": "tabs/TabList.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Tab.vue",
+            "destination": "tabs/Tab.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/TabPanel.vue",
+            "destination": "tabs/TabPanel.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [
@@ -198,6 +270,10 @@
     },
     {
       "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
       "required": true
     },
     {

@@ -83,6 +83,76 @@
             "type": "dependency"
           }
         ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/EmptyState.vue",
+            "destination": "empty-state/EmptyState.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/EmptyStateActions.vue",
+            "destination": "empty-state/EmptyStateActions.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/EmptyStateDescription.vue",
+            "destination": "empty-state/EmptyStateDescription.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/EmptyStateIcon.vue",
+            "destination": "empty-state/EmptyStateIcon.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/EmptyStateTitle.vue",
+            "destination": "empty-state/EmptyStateTitle.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "empty-state/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "empty-state/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "empty-state/index.ts",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied-prism/vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied-prism/vue",
+          "version": "^0.1.0"
+        }
       }
     ],
     "styling": [
