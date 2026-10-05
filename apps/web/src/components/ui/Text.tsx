@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type HTMLAttributes } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
   /** Element to render. */

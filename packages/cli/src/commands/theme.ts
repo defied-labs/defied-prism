@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { buildThemeCss, themes, type ColorToken, type ThemeOverrides } from "@defied/prism-tokens";
+import { buildThemeCss, themes, type ColorToken, type ThemeOverrides } from "@defied-labs/prism-tokens";
 
 export interface ThemeOptions {
   primary?: string;
@@ -42,7 +42,7 @@ export async function themeCommand(options: ThemeOptions) {
 
   console.log(`✓ Wrote ${path.relative(process.cwd(), out)}`);
   console.log(`  Import it after the tokens, in your global stylesheet:
-    @import "@defied/prism-tokens/tokens.css";
+    @import "@defied-labs/prism-tokens/tokens.css";
     @import "./${path.basename(out)}";`);
 
   if (issues.length > 0) {

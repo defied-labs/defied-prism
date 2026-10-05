@@ -1,9 +1,0 @@
-{
-  "framework": "react",
-  "styling": "tailwind",
-  "componentsPath": "src/components/ui",
-  "registryPath": "./packages/core",
-  "components": [
-    "button"
-  ]
-}

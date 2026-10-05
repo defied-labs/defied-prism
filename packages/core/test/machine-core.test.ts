@@ -3,7 +3,7 @@ import {
   Machine,
   type MachineDefinition,
   type MachineEvent,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 describe("Machine Core Contract & Reducer Engine", () => {
   it("executes pure reducer transitions immutably", () => {

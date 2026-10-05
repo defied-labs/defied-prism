@@ -14,7 +14,7 @@ import {
   type Ref,
 } from "react";
 import { createPortal } from "react-dom";
-import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied/prism-react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-labs/prism-react";
 import {
   hideOthers,
   lockScroll,
@@ -24,9 +24,9 @@ import {
   variantData,
   zoomOriginVars,
   type StyleSlots,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 import { Button, type ButtonProps } from "./Button";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

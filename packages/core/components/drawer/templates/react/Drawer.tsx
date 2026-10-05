@@ -12,7 +12,7 @@ import {
   type Ref,
 } from "react";
 import { createPortal } from "react-dom";
-import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied/prism-react";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-labs/prism-react";
 import {
   hideOthers,
   lockScroll,
@@ -21,7 +21,7 @@ import {
   trapFocus,
   variantData,
   type StyleSlots,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 import { Button, type ButtonProps } from "./Button";
 
 // Filled in by `prism add` from the component's recipe.

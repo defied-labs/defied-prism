@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { defineComponent, effectScope, h, nextTick, ref } from "vue";
 import { fireEvent, render, screen } from "@testing-library/vue";
-import { buttonMachineDefinition, ButtonEvents } from "@defied/prism-core";
+import { buttonMachineDefinition, ButtonEvents } from "@defied-labs/prism-core";
 
 import {
   Slot,

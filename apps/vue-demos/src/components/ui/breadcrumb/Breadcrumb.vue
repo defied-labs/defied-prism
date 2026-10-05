@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Comment, Fragment, Text, nextTick, normalizeClass, provide, ref, useAttrs, useSlots, type VNode } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 import { BreadcrumbKey, type BreadcrumbSize } from "./context";
 

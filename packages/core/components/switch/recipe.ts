@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied/prism-style-engine";
+import { defineRecipe, token as t } from "@defied-labs/prism-style-engine";
 
 // --prism-switch-on is 1 while the root is aria-checked, 0 otherwise: the
 // track color and thumb position (child slots) interpolate from it.

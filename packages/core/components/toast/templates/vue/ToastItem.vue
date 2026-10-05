@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from "vue";
-import { onDismiss, slotClass, variantData } from "@defied/prism-core";
-import { usePresence } from "@defied/prism-vue";
-import type { Toast as ToastData, ToastStore } from "@defied/prism-core/components/toast";
+import { onDismiss, slotClass, variantData } from "@defied-labs/prism-core";
+import { usePresence } from "@defied-labs/prism-vue";
+import type { Toast as ToastData, ToastStore } from "@defied-labs/prism-core/components/toast";
 import { Button } from "../button";
 import { IconButton } from "../icon-button";
 import { slots } from "./styles";

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, onMounted, ref, useAttrs, watch } from "vue";
-import { mergeFieldControlProps, useField } from "@defied/prism-vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { mergeFieldControlProps, useField } from "@defied-labs/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface TextareaProps {
   variant?: "outlined" | "filled";

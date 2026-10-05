@@ -10,8 +10,8 @@ import {
   useComposedRefs,
   useControllableState,
   useFieldControlProps,
-} from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+} from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface CheckboxProps
   extends Omit<

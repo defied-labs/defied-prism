@@ -1,4 +1,4 @@
-import type { StyleSlots } from "@defied/prism-core";
+import type { StyleSlots } from "@defied-labs/prism-core";
 import styles from "./styles.module.css";
 
 // Filled in by `prism add` from the component's recipe.

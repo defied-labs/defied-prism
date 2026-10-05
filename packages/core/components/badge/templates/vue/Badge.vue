@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 /**
  * A small, non-interactive label. Color alone doesn't carry meaning: make

@@ -7,13 +7,13 @@ import {
   type MouseEvent,
   type PointerEvent,
 } from "react";
-import { useMachine } from "@defied/prism-react";
+import { useMachine } from "@defied-labs/prism-react";
 import {
   buttonMachineDefinition,
   ButtonEvents,
-} from "@defied/prism-core/components/button";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+} from "@defied-labs/prism-core/components/button";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive" | "link";

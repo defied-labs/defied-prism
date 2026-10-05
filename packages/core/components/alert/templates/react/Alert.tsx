@@ -4,7 +4,7 @@ import {
   useContext,
   type HTMLAttributes,
 } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import { IconButton } from "./IconButton";
 
 // Filled in by `prism add` from the component's recipe.

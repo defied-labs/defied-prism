@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, normalizeClass, provide, ref, useAttrs, useId, watch } from "vue";
-import { useCollection, useFieldControlProps, useMachine } from "@defied/prism-vue";
-import { onDismiss, slotClass, variantData } from "@defied/prism-core";
+import { useCollection, useFieldControlProps, useMachine } from "@defied-labs/prism-vue";
+import { onDismiss, slotClass, variantData } from "@defied-labs/prism-core";
 import {
   ComboboxEvents,
   createComboboxMachineDefinition,
   filterOptions,
   matchesQuery,
   type ComboboxOption,
-} from "@defied/prism-core/components/combobox";
+} from "@defied-labs/prism-core/components/combobox";
 import {
   ComboboxContext,
   type ComboboxFilter,

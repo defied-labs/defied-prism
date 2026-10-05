@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, onBeforeUnmount, ref, useAttrs } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import styles from "./Form.module.css";
 
 // Filled in by `prism add` from the component's recipe.

@@ -4,7 +4,7 @@ import { rmSync } from "node:fs";
 import path from "node:path";
 import { defineComponent, h } from "vue";
 import { cleanup, render, screen } from "@testing-library/vue";
-import { provideField, useField, useFieldState } from "@defied/prism-vue";
+import { provideField, useField, useFieldState } from "@defied-labs/prism-vue";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
 import { generatedRoot, loadGenerated } from "../support/generated";

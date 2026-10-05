@@ -151,7 +151,7 @@ export class TemplateGenerator implements Generator {
         : this.options.styling === "css"
           ? this.addImport(content, `import "./${stylesheet}";
 `)
-          : this.addImport(content, `import { tailwindSlots } from "@defied/prism-core/tailwind";
+          : this.addImport(content, `import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 `);
 
     return withImport.split(PLACEHOLDER).join(this.options.slotsExpression);

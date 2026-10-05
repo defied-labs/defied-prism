@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs, watch } from "vue";
-import { mergeFieldControlProps, useField, useMachine } from "@defied/prism-vue";
+import { mergeFieldControlProps, useField, useMachine } from "@defied-labs/prism-vue";
 import {
   inputMachineDefinition,
   InputEvents,
-} from "@defied/prism-core/components/input";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+} from "@defied-labs/prism-core/components/input";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface InputProps {
   variant?: "outlined" | "filled";

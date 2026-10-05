@@ -1,4 +1,4 @@
-import type { TokenPath, TokenRef } from "@defied/prism-tokens";
+import type { TokenPath, TokenRef } from "@defied-labs/prism-tokens";
 
 import type { Recipe } from "./types";
 

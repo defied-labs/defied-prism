@@ -1,4 +1,4 @@
-# @defied/prism-cli
+# @defied-labs/prism-cli
 
 Add accessible React and Vue components to your project as source code you own. Each component is generated from one design-token recipe into **Tailwind CSS**, **CSS Modules** or **plain CSS**, and every framework target passes the same contract tests.
 
@@ -6,10 +6,10 @@ Add accessible React and Vue components to your project as source code you own. 
 
 ```sh
 # 1. Create prism.json (React is the default)
-npx @defied/prism-cli init                    # or: init --framework vue
+npx @defied-labs/prism-cli init                    # or: init --framework vue
 
 # 2. Install the runtime the generated components import
-npm install @defied/prism-tokens @defied/prism-core @defied/prism-react   # or @defied/prism-vue
+npm install @defied-labs/prism-tokens @defied-labs/prism-core @defied-labs/prism-react   # or @defied-labs/prism-vue
 
 # 3. Add components
 npx prism add button
@@ -20,8 +20,8 @@ Load the design tokens once, in your global stylesheet:
 
 ```css
 @import "tailwindcss";                        /* Tailwind styling only */
-@import "@defied/prism-tokens/tokens.css";
-@import "@defied/prism-tokens/tailwind.css";  /* Tailwind styling only, after tailwindcss */
+@import "@defied-labs/prism-tokens/tokens.css";
+@import "@defied-labs/prism-tokens/tailwind.css";  /* Tailwind styling only, after tailwindcss */
 ```
 
 Components are written to `src/components/ui` by default. Edit them freely; they are yours.

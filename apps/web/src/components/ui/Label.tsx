@@ -1,7 +1,7 @@
 import { forwardRef, type LabelHTMLAttributes } from "react";
-import { useField } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { useField } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   size?: "sm" | "md";

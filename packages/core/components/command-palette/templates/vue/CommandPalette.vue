@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, normalizeClass, onBeforeUnmount, onMounted, provide, ref, useAttrs, useId, watch } from "vue";
-import { useCollection, useControllableState, usePresence } from "@defied/prism-vue";
-import { hideOthers, lockScroll, nextIndex, onDismiss, slotClass, trapFocus, variantData } from "@defied/prism-core";
+import { useCollection, useControllableState, usePresence } from "@defied-labs/prism-vue";
+import { hideOthers, lockScroll, nextIndex, onDismiss, slotClass, trapFocus, variantData } from "@defied-labs/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -11,7 +11,7 @@ import {
   matchesShortcut,
   parseShortcut,
   type CommandItem as CommandItemData,
-} from "@defied/prism-core/components/command-palette";
+} from "@defied-labs/prism-core/components/command-palette";
 import { slots } from "./styles";
 import { CommandPaletteKey, type ItemRecord, type Size } from "./context";
 

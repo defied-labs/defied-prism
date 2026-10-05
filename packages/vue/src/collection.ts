@@ -13,7 +13,7 @@ import {
   resolveItemText,
   sameRecord,
   sortByDocumentPosition,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 /** What an item tells its collection. Extra fields (group, keywords…) pass through. */
 export interface CollectionItemInput {

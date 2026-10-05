@@ -1,7 +1,7 @@
 import { forwardRef, type AnchorHTMLAttributes, type ReactElement } from "react";
-import { Slot } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { Slot } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   tone?: "primary" | "neutral" | "muted";

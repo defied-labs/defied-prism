@@ -10,8 +10,8 @@ import {
   type TdHTMLAttributes,
   type ThHTMLAttributes,
 } from "react";
-import { useOverflow } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { useOverflow } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};

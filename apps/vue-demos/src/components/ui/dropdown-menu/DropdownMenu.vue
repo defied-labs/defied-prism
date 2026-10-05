@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, provide, ref, useAttrs, useId } from "vue";
-import { useCollection, useControllableState } from "@defied/prism-vue";
-import { slotClass } from "@defied/prism-core";
+import { useCollection, useControllableState } from "@defied-labs/prism-vue";
+import { slotClass } from "@defied-labs/prism-core";
 import { MenuKey, type FocusTarget, type MenuItemEntry } from "./context";
 import { slots } from "./styles";
 

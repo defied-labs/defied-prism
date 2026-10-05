@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, ref, useAttrs, watch } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { useRadioGroup } from "./context";
 import { slots } from "./styles";
 

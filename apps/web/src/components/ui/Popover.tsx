@@ -11,10 +11,10 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
-import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied/prism-react";
-import { getFocusable, onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { Slot, useComposedRefs, useControllableState, usePresence } from "@defied-labs/prism-react";
+import { getFocusable, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import { Button, type ButtonProps } from "./Button";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

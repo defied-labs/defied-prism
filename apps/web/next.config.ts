@@ -1,4 +1,4 @@
-import "@defied/prism-env/web";
+import "@defied-labs/prism-env/web";
 import type { NextConfig } from "next";
 import { createMDX } from "fumadocs-mdx/next";
 

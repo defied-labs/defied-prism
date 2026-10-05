@@ -1,5 +1,5 @@
 import { onScopeDispose, ref, watch, type Ref } from "vue";
-import { observeOverflow } from "@defied/prism-core";
+import { observeOverflow } from "@defied-labs/prism-core";
 
 /** Whether the element overflows horizontally; tracks resizes. False on the server. */
 export function useOverflow(el: Readonly<Ref<HTMLElement | null | undefined>>): Ref<boolean> {

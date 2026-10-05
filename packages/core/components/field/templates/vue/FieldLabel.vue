@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { useField } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { useField } from "@defied-labs/prism-vue";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 
 export interface FieldLabelProps {

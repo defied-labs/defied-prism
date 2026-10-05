@@ -3,7 +3,7 @@ import {
   Machine,
   buttonMachineDefinition,
   ButtonEvents,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 describe("buttonMachine coherent state model", () => {
   it("handles idle -> focus -> press -> release -> blur cycle", () => {

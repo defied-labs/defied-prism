@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, ref, useAttrs, useId } from "vue";
-import { useCollectionItem } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { useCollectionItem } from "@defied-labs/prism-vue";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { callListener, useSelectContext, withoutListeners } from "./context";
 import { slots } from "./styles";
 

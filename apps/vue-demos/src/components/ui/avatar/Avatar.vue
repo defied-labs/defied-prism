@@ -32,7 +32,7 @@ export interface AvatarProps {
 
 <script setup lang="ts">
 import { normalizeClass, onMounted, ref, useAttrs, watch } from "vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import styles from "./Avatar.module.css";
 
 // Filled in by `prism add` from the component's recipe.

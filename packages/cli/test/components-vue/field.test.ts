@@ -5,7 +5,7 @@ import path from "node:path";
 import { defineComponent, h, nextTick, ref } from "vue";
 import { cleanup, render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
-import { useFieldControlProps, type FieldControlProps } from "@defied/prism-vue";
+import { useFieldControlProps, type FieldControlProps } from "@defied-labs/prism-vue";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
 import { generatedRoot, loadGenerated } from "../support/generated";

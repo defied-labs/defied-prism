@@ -6,8 +6,8 @@ import {
   type ChangeEvent,
   type TextareaHTMLAttributes,
 } from "react";
-import { useComposedRefs, useFieldControlProps } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { useComposedRefs, useFieldControlProps } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface TextareaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "aria-invalid"> {

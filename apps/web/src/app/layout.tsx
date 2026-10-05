@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 
 import "../index.css";
-import "@defied/prism-vue-demos/style.css";
+import "@defied-labs/prism-vue-demos/style.css";
 import Providers from "@/components/providers";
 
 const inter = Inter({

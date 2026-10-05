@@ -4,11 +4,11 @@
   "commit": false,
   "fixed": [
     [
-      "@defied/prism-cli",
-      "@defied/prism-core",
-      "@defied/prism-react",
-      "@defied/prism-vue",
-      "@defied/prism-tokens"
+      "@defied-labs/prism-cli",
+      "@defied-labs/prism-core",
+      "@defied-labs/prism-react",
+      "@defied-labs/prism-vue",
+      "@defied-labs/prism-tokens"
     ]
   ],
   "linked": [],
@@ -16,6 +16,6 @@
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@defied/prism-config"
+    "@defied-labs/prism-config"
   ]
 }

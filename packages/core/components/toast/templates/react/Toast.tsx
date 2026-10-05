@@ -9,15 +9,15 @@ import {
   type HTMLAttributes,
   type RefObject,
 } from "react";
-import { onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { usePresence } from "@defied/prism-react";
+import { onDismiss, slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { usePresence } from "@defied-labs/prism-react";
 import {
   createToastStore,
   withLeaving,
   type Toast as ToastData,
   type ToastOptions,
   type ToastStore,
-} from "@defied/prism-core/components/toast";
+} from "@defied-labs/prism-core/components/toast";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 

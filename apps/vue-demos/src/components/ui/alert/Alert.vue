@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, provide, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { IconButton } from "../icon-button";
 import { slots } from "./styles";
 import { AlertKey, type AlertVariants } from "./context";

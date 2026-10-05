@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, normalizeStyle, ref, useAttrs, watch, watchEffect } from "vue";
-import { nextIndex, slotClass, variantData } from "@defied/prism-core";
+import { nextIndex, slotClass, variantData } from "@defied-labs/prism-core";
 import { useTabs } from "./context";
 import { slots } from "./styles";
 

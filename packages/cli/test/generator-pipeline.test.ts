@@ -121,7 +121,7 @@ describe("Generator Pipeline (Vue SFC)", () => {
   };
   const SFC = `<script setup lang="ts">
 import { computed } from "vue";
-import { slotClass } from "@defied/prism-core";
+import { slotClass } from "@defied-labs/prism-core";
 
 const slots = {{STYLE_SLOTS}};
 </script>
@@ -153,7 +153,7 @@ const slots = {{STYLE_SLOTS}};
     expect((await fs.readdir(dir)).sort()).toEqual(["Button.module.css", "Button.vue"]);
     const sfc = await read("Button.vue");
     expect(sfc).toContain(
-      'import { slotClass } from "@defied/prism-core";\nimport styles from "./Button.module.css";\n',
+      'import { slotClass } from "@defied-labs/prism-core";\nimport styles from "./Button.module.css";\n',
     );
     expect(sfc.indexOf("import styles")).toBeLessThan(sfc.indexOf("</script>"));
     expect(sfc).toContain('const slots = { "root": { base: styles["root"], variants: {} } };');
@@ -166,7 +166,7 @@ const slots = {{STYLE_SLOTS}};
       slotsExpression: 'tailwindSlots({"root":{"base":"flex","variants":{}}})',
       styleFile: null,
     });
-    expect(await read("Button.vue")).toContain('import { tailwindSlots } from "@defied/prism-core/tailwind";');
+    expect(await read("Button.vue")).toContain('import { tailwindSlots } from "@defied-labs/prism-core/tailwind";');
   });
 
   it("createGenerator accepts vue when the manifest declares it", () => {
@@ -178,7 +178,7 @@ const slots = {{STYLE_SLOTS}};
 
 describe("Generator Pipeline (component folders)", () => {
   const files: Record<string, string> = {
-    "vue/styles.ts": 'import type { StyleSlots } from "@defied/prism-core";\nexport const slots: StyleSlots = {{STYLE_SLOTS}};\n',
+    "vue/styles.ts": 'import type { StyleSlots } from "@defied-labs/prism-core";\nexport const slots: StyleSlots = {{STYLE_SLOTS}};\n',
     "vue/Dialog.vue": '<script setup lang="ts">\nimport { slots } from "./styles";\n</script>\n<template><div /></template>\n',
     "vue/index.ts": 'export { default as Dialog } from "./Dialog.vue";\n',
   };
@@ -236,7 +236,7 @@ describe("Generator Pipeline (component folders)", () => {
 
 describe("Generator Pipeline (line endings)", () => {
   it("places the import inside <script setup> for CRLF templates", async () => {
-    const sfc = '<script setup lang="ts">\r\nimport { slotClass } from "@defied/prism-core";\r\n\r\nconst slots = {{STYLE_SLOTS}};\r\n</script>\r\n<template><button /></template>\r\n';
+    const sfc = '<script setup lang="ts">\r\nimport { slotClass } from "@defied-labs/prism-core";\r\n\r\nconst slots = {{STYLE_SLOTS}};\r\n</script>\r\n<template><button /></template>\r\n';
     const dir = await fs.mkdtemp(path.join(os.tmpdir(), "prism-test-crlf-"));
     tempDirs.push(dir);
     await new TemplateGenerator("vue", { getFile: async () => sfc } as any, {
@@ -250,6 +250,6 @@ describe("Generator Pipeline (line endings)", () => {
     } as any);
     const out = await fs.readFile(path.join(dir, "button/Button.vue"), "utf8");
     expect(out.startsWith("<script setup")).toBe(true);
-    expect(out).toContain('from "@defied/prism-core";\r\nimport { tailwindSlots } from "@defied/prism-core/tailwind";');
+    expect(out).toContain('from "@defied-labs/prism-core";\r\nimport { tailwindSlots } from "@defied-labs/prism-core/tailwind";');
   });
 });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { Slot } from "@defied/prism-vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { Slot } from "@defied-labs/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 /** Content for screen readers only. */
 export interface VisuallyHiddenProps {

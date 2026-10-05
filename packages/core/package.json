@@ -1,5 +1,5 @@
 {
-  "name": "@defied/prism-core",
+  "name": "@defied-labs/prism-core",
   "version": "0.1.0",
   "description": "Defied Prism core: framework-agnostic state machines, DOM primitives and styling helpers used by generated components.",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "./components/*": "./components/*/index.ts"
   },
   "devDependencies": {
-    "@defied/prism-style-engine": "workspace:*",
+    "@defied-labs/prism-style-engine": "workspace:*",
     "@types/node": "catalog:",
     "jsdom": "^29.1.1",
     "tsup": "^8.5.1",
@@ -50,6 +50,7 @@
   ],
   "sideEffects": false,
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public",
     "exports": {
       ".": {
@@ -75,7 +76,7 @@
     }
   },
   "dependencies": {
-    "@defied/prism-tokens": "workspace:^",
+    "@defied-labs/prism-tokens": "workspace:^",
     "tailwind-merge": "^3.6.0"
   }
 }

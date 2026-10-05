@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { slotClass } from "@defied/prism-core";
+import { slotClass } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 
 defineOptions({ inheritAttrs: false });

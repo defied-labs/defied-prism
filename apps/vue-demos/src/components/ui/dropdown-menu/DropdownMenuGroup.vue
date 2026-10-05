@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, provide, ref, useAttrs, useId } from "vue";
-import { slotClass } from "@defied/prism-core";
+import { slotClass } from "@defied-labs/prism-core";
 import { GroupKey } from "./context";
 import { slots } from "./styles";
 

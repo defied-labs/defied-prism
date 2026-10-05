@@ -1,5 +1,5 @@
 import { createElement as h } from "react";
-import { useFieldControlProps, type FieldControlProps } from "@defied/prism-react";
+import { useFieldControlProps, type FieldControlProps } from "@defied-labs/prism-react";
 import type { Fixture } from "../support/fixture";
 
 // A native input wired to the Field the way every Prism control is

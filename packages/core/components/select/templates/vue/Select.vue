@@ -4,8 +4,8 @@ import {
   useCollection,
   useControllableState,
   useFieldControlProps,
-} from "@defied/prism-vue";
-import { onDismiss, slotClass, variantData } from "@defied/prism-core";
+} from "@defied-labs/prism-vue";
+import { onDismiss, slotClass, variantData } from "@defied-labs/prism-core";
 import { SelectContext, type ItemEntry, type Labelling, type Size } from "./context";
 import { slots } from "./styles";
 

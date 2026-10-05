@@ -1,6 +1,6 @@
 import { forwardRef, type HTMLAttributes, type Ref } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export interface DividerProps extends HTMLAttributes<HTMLElement> {
   orientation?: "horizontal" | "vertical";

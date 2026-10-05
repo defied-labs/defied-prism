@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied/prism-style-engine";
+import { defineRecipe, token as t } from "@defied-labs/prism-style-engine";
 
 type Status = "neutral" | "info" | "success" | "warning" | "danger";
 

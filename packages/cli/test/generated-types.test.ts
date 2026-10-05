@@ -56,9 +56,9 @@ describe("generated components", () => {
           types: [],
           typeRoots: [path.join(__dirname, "../node_modules/@types")],
           paths: {
-            "@defied/prism-core": [path.join(packages, "core/index.ts")],
-            "@defied/prism-core/*": [path.join(packages, "core/*/index.ts")],
-            "@defied/prism-react": [path.join(packages, "react/src/index.ts")],
+            "@defied-labs/prism-core": [path.join(packages, "core/index.ts")],
+            "@defied-labs/prism-core/*": [path.join(packages, "core/*/index.ts")],
+            "@defied-labs/prism-react": [path.join(packages, "react/src/index.ts")],
             react: [path.join(__dirname, "../node_modules/@types/react")],
             "react/jsx-runtime": [path.join(__dirname, "../node_modules/@types/react/jsx-runtime.d.ts")],
             "react-dom": [path.join(__dirname, "../node_modules/@types/react-dom")],

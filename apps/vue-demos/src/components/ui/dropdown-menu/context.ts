@@ -1,5 +1,5 @@
 import { inject, type InjectionKey, type Ref, type WritableComputedRef } from "vue";
-import type { Collection, CollectionRecord } from "@defied/prism-vue";
+import type { Collection, CollectionRecord } from "@defied-labs/prism-vue";
 
 export type FocusTarget = "first" | "last";
 

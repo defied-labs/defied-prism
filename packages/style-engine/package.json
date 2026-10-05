@@ -1,5 +1,5 @@
 {
-  "name": "@defied/prism-style-engine",
+  "name": "@defied-labs/prism-style-engine",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "zod": "catalog:",
-    "@defied/prism-tokens": "workspace:^"
+    "@defied-labs/prism-tokens": "workspace:^"
   },
   "devDependencies": {
-    "@defied/prism-config": "workspace:*",
+    "@defied-labs/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
@@ -26,6 +26,7 @@
     "dist"
   ],
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public",
     "exports": {
       ".": {

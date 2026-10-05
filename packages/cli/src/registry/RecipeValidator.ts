@@ -1,4 +1,4 @@
-import { flattenRecipe, type Recipe } from "@defied/prism-style-engine";
+import { flattenRecipe, type Recipe } from "@defied-labs/prism-style-engine";
 
 /**
  * Validates a component's `recipe.json`.

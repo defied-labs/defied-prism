@@ -27,28 +27,28 @@
       "@/*": [
         "./src/*"
       ],
-      "@defied/prism-core": [
+      "@defied-labs/prism-core": [
         "../../packages/core"
       ],
-      "@defied/prism-core/*": [
+      "@defied-labs/prism-core/*": [
         "../../packages/core/*"
       ],
-      "@defied/prism-react": [
+      "@defied-labs/prism-react": [
         "../../packages/react"
       ],
-      "@defied/prism-react/*": [
+      "@defied-labs/prism-react/*": [
         "../../packages/react/*"
       ],
-      "@defied/prism-style-engine": [
+      "@defied-labs/prism-style-engine": [
         "../../packages/style-engine/src"
       ],
-      "@defied/prism-style-engine/*": [
+      "@defied-labs/prism-style-engine/*": [
         "../../packages/style-engine/*"
       ],
-      "@defied/prism-cli": [
+      "@defied-labs/prism-cli": [
         "../../packages/cli"
       ],
-      "@defied/prism-cli/*": [
+      "@defied-labs/prism-cli/*": [
         "../../packages/cli/*"
       ]
     }

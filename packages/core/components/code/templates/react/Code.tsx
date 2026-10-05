@@ -1,5 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { slotClass, type StyleSlots } from "@defied/prism-core";
+import { slotClass, type StyleSlots } from "@defied-labs/prism-core";
 
 export type CodeProps = HTMLAttributes<HTMLElement>;
 

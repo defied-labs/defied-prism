@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { flattenRecipe, type Declarations } from "@defied/prism-style-engine";
+import { flattenRecipe, type Declarations } from "@defied-labs/prism-style-engine";
 
 import { ManifestValidator } from "../src/registry/ManifestValidator";
 import { RecipeValidator } from "../src/registry/RecipeValidator";
@@ -41,8 +41,8 @@ describe.each(selectedComponents)("registry component %s", (name) => {
 
   it("keeps each framework's packages in its own target", () => {
     const own: Record<string, string[]> = {
-      react: ["react", "react-dom", "@defied/prism-react"],
-      vue: ["vue", "@defied/prism-vue"],
+      react: ["react", "react-dom", "@defied-labs/prism-react"],
+      vue: ["vue", "@defied-labs/prism-vue"],
     };
     const frameworkPackages = Object.values(own).flat();
     // Shared packages only at the top level: a Vue project must never get React
@@ -50,8 +50,8 @@ describe.each(selectedComponents)("registry component %s", (name) => {
       expect(frameworkPackages, dependency.package).not.toContain(dependency.package);
     }
     for (const target of manifest.compatibility.frameworks) {
-      expect(target.runtimeVersion.package).toBe(`@defied/prism-${target.framework}`);
-      expect(target.dependencies.map((d) => d.package)).toContain(`@defied/prism-${target.framework}`);
+      expect(target.runtimeVersion.package).toBe(`@defied-labs/prism-${target.framework}`);
+      expect(target.dependencies.map((d) => d.package)).toContain(`@defied-labs/prism-${target.framework}`);
       for (const dependency of target.dependencies) {
         expect(own[target.framework], `${target.framework}: ${dependency.package}`).toContain(dependency.package);
       }

@@ -108,7 +108,7 @@
           }
         ],
         "runtimeVersion": {
-          "package": "@defied/prism-react",
+          "package": "@defied-labs/prism-react",
           "version": "^0.1.0"
         },
         "dependencies": [
@@ -118,7 +118,7 @@
             "type": "peerDependency"
           },
           {
-            "package": "@defied/prism-react",
+            "package": "@defied-labs/prism-react",
             "version": "^0.1.0",
             "type": "dependency"
           }
@@ -166,13 +166,13 @@
             "type": "peerDependency"
           },
           {
-            "package": "@defied/prism-vue",
+            "package": "@defied-labs/prism-vue",
             "version": "^0.1.0",
             "type": "dependency"
           }
         ],
         "runtimeVersion": {
-          "package": "@defied/prism-vue",
+          "package": "@defied-labs/prism-vue",
           "version": "^0.1.0"
         }
       }
@@ -185,12 +185,12 @@
   },
   "dependencies": [
     {
-      "package": "@defied/prism-core",
+      "package": "@defied-labs/prism-core",
       "version": "^0.1.0",
       "type": "dependency"
     },
     {
-      "package": "@defied/prism-tokens",
+      "package": "@defied-labs/prism-tokens",
       "version": "^0.1.0",
       "type": "dependency"
     }

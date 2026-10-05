@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState, type RefObject } from "react";
-import { onExitComplete } from "@defied/prism-core";
+import { onExitComplete } from "@defied-labs/prism-core";
 
 const useIsomorphicLayoutEffect = typeof document === "undefined" ? useEffect : useLayoutEffect;
 

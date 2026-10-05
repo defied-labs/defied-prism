@@ -1,4 +1,4 @@
-import { defineRecipe, token as t } from "@defied/prism-style-engine";
+import { defineRecipe, token as t } from "@defied-labs/prism-style-engine";
 
 const maxWidth = (width: string) => ({ "slot:content": { maxWidth: width } });
 

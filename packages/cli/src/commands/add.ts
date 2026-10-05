@@ -16,7 +16,7 @@ import {
   compileRecipeCss,
   compileRecipeTailwind,
   type Recipe,
-} from "@defied/prism-style-engine";
+} from "@defied-labs/prism-style-engine";
 
 type Styling = PrismConfig["styling"];
 

@@ -11,7 +11,7 @@ import {
   resolveItemText,
   sameRecord,
   sortByDocumentPosition,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 /** Layout effect in the browser, plain effect on the server (where neither runs). */
 export const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;

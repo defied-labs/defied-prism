@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, normalizeClass, onBeforeUnmount, onMounted, useAttrs } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { GroupContext, useComboboxContext } from "./context";
 import { slots } from "./styles";
 

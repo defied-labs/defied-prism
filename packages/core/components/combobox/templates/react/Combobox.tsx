@@ -25,8 +25,8 @@ import {
   usePresence,
   type Collection,
   type CollectionRecord,
-} from "@defied/prism-react";
-import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+} from "@defied-labs/prism-react";
+import { nextIndex, onDismiss, slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import {
   ComboboxEvents,
   createComboboxMachineDefinition,
@@ -34,7 +34,7 @@ import {
   matchesQuery,
   type ComboboxEvent,
   type ComboboxOption,
-} from "@defied/prism-core/components/combobox";
+} from "@defied-labs/prism-core/components/combobox";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};

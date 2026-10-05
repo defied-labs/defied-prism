@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, ref, useAttrs } from "vue";
-import { useField, usePresence } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { useField, usePresence } from "@defied-labs/prism-vue";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { useComboboxContext } from "./context";
 import { slots } from "./styles";
 

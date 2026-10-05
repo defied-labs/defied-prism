@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, normalizeClass, provide, useAttrs, useId } from "vue";
-import { useCollection, useControllableState } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { useCollection, useControllableState } from "@defied-labs/prism-vue";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { TabsContext, type Orientation, type TabEntry } from "./context";
 import { slots } from "./styles";
 

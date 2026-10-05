@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { describe, expect, it } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { useMachine } from "@defied/prism-react";
-import { buttonMachineDefinition, ButtonEvents } from "@defied/prism-core";
+import { useMachine } from "@defied-labs/prism-react";
+import { buttonMachineDefinition, ButtonEvents } from "@defied-labs/prism-core";
 
 describe("useMachine Hook Contract", () => {
   it("subscribes correctly and updates state on send", () => {

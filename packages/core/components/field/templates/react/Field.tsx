@@ -8,8 +8,8 @@ import {
   type LabelHTMLAttributes,
   type ReactNode,
 } from "react";
-import { FieldContext, useField, useFieldState } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { FieldContext, useField, useFieldState } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};

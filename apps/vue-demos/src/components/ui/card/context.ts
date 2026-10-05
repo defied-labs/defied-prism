@@ -1,5 +1,5 @@
 import { inject, normalizeClass, type InjectionKey } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 
 export type CardVariants = { variant: "flat" | "raised" | "outlined"; interactive?: boolean };

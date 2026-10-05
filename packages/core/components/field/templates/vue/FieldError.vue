@@ -11,8 +11,8 @@ import {
   watch,
   type VNode,
 } from "vue";
-import { useField } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { useField } from "@defied-labs/prism-vue";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 
 /**

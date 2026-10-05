@@ -75,7 +75,7 @@ export default function Home() {
             </p>
             <div className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row sm:items-center group-has-data-prism/hero:mx-0">
               <div className="flex-1">
-                <Command>npx @defied/prism-cli init</Command>
+                <Command>npx @defied-labs/prism-cli init</Command>
               </div>
               <a
                 href="#matrix"

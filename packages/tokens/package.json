@@ -1,5 +1,5 @@
 {
-  "name": "@defied/prism-tokens",
+  "name": "@defied-labs/prism-tokens",
   "version": "0.1.0",
   "description": "Defied Prism design tokens: CSS variables, Tailwind theme and JSON from one source.",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "test": "vitest run"
   },
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public",
     "exports": {
       ".": {
@@ -52,7 +53,7 @@
     }
   },
   "devDependencies": {
-    "@defied/prism-config": "workspace:*",
+    "@defied-labs/prism-config": "workspace:*",
     "@types/node": "catalog:",
     "tsup": "^8.5.1",
     "tsx": "^4.23.15",

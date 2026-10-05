@@ -12,9 +12,9 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
-import { useComposedRefs, useControllableState } from "@defied/prism-react";
-import { nextIndex, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { useComposedRefs, useControllableState } from "@defied-labs/prism-react";
+import { nextIndex, slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

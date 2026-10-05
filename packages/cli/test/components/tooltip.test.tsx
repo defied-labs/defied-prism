@@ -9,7 +9,7 @@ import path from "node:path";
 import { createElement as h, forwardRef } from "react";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { onDismiss } from "@defied/prism-core";
+import { onDismiss } from "@defied-labs/prism-core";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

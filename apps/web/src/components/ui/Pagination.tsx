@@ -1,8 +1,8 @@
 import { forwardRef, type HTMLAttributes, type MouseEvent, type ReactNode } from "react";
-import { useControllableState } from "@defied/prism-react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
-import { clampPage, paginationRange } from "@defied/prism-core/components/pagination";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { useControllableState } from "@defied-labs/prism-react";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
+import { clampPage, paginationRange } from "@defied-labs/prism-core/components/pagination";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

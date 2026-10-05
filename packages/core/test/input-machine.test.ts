@@ -3,7 +3,7 @@ import {
   Machine,
   inputMachineDefinition,
   InputEvents,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 describe("inputMachine coherent focus/blur/change cycle", () => {
   it("handles empty input focus -> blur -> focus cycle", () => {

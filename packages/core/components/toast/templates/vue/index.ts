@@ -5,4 +5,4 @@ export type {
   Toast as ToastData,
   ToastOptions,
   ToastStore,
-} from "@defied/prism-core/components/toast";
+} from "@defied-labs/prism-core/components/toast";

@@ -24,6 +24,12 @@ program
       .choices(["react", "vue"])
       .default("react"),
   )
+  .addOption(
+    new Option("--style <style>", "Styling engine").choices(["tailwind", "css-modules", "css"]).default("tailwind"),
+  )
+  .option("--primary <color>", "Brand color (hex, rgb() or oklch()); prompted for when omitted on a TTY")
+  .option("--no-install", "Skip installing the runtime packages")
+  .option("--force", "Overwrite an existing prism.json")
   .action(initCommand);
 
 const styleOption = () =>

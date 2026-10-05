@@ -1,5 +1,5 @@
 {
-  "extends": "@defied/prism-config/tsconfig.base.json",
+  "extends": "@defied-labs/prism-config/tsconfig.base.json",
   "include": [
     "src",
     "test",

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, onMounted, ref, useAttrs, watch } from "vue";
-import { mergeFieldControlProps, useControllableState, useField } from "@defied/prism-vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { mergeFieldControlProps, useControllableState, useField } from "@defied-labs/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface CheckboxProps {
   /** Checked state (v-model). */

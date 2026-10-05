@@ -1,5 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type HeadingSize = "display" | "xl" | "lg" | "md" | "sm" | "xs";

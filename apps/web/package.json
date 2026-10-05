@@ -6,18 +6,18 @@
   "scripts": {
     "check-types": "pnpm snippets && next typegen && tsc --noEmit",
     "lint": "eslint .",
-    "dev": "pnpm snippets && pnpm --filter @defied/prism-vue-demos build && next dev --port 3001",
+    "dev": "pnpm snippets && pnpm --filter @defied-labs/prism-vue-demos build && next dev --port 3001",
     "build": "pnpm snippets && next build",
     "start": "next start",
     "test": "pnpm snippets && vitest run --passWithNoTests",
     "snippets": "tsx scripts/generate-snippets.ts && tsx scripts/generate-docs.ts && tsx scripts/generate-api.ts"
   },
   "dependencies": {
-    "@defied/prism-core": "workspace:*",
-    "@defied/prism-env": "workspace:*",
-    "@defied/prism-react": "workspace:*",
-    "@defied/prism-tokens": "workspace:*",
-    "@defied/prism-vue-demos": "workspace:*",
+    "@defied-labs/prism-core": "workspace:*",
+    "@defied-labs/prism-env": "workspace:*",
+    "@defied-labs/prism-react": "workspace:*",
+    "@defied-labs/prism-tokens": "workspace:*",
+    "@defied-labs/prism-vue-demos": "workspace:*",
     "@fontsource-variable/inter": "^5.2.8",
     "@tabler/icons-react": "^3.46.0",
     "@tanstack/react-form": "^1.33.0",
@@ -41,9 +41,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@defied/prism-cli": "workspace:*",
-    "@defied/prism-config": "workspace:*",
-    "@defied/prism-style-engine": "workspace:*",
+    "@defied-labs/prism-cli": "workspace:*",
+    "@defied-labs/prism-config": "workspace:*",
+    "@defied-labs/prism-style-engine": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@testing-library/dom": "^10.4.1",

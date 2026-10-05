@@ -5,7 +5,7 @@ import { createElement as h, useEffect, type ReactNode } from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { FieldContext, useFieldState, type FieldOptions } from "@defied/prism-react";
+import { FieldContext, useFieldState, type FieldOptions } from "@defied-labs/prism-react";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

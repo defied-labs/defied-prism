@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="Row">
 import { computed, normalizeClass, ref, useAttrs, useId, type VNodeChild } from "vue";
-import { useControllableState, useOverflow } from "@defied/prism-vue";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+import { useControllableState, useOverflow } from "@defied-labs/prism-vue";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 import {
   ariaSort,
   nextSort,
@@ -11,7 +11,7 @@ import {
   toggleRow,
   type RowKey,
   type SortState,
-} from "@defied/prism-core/components/data-table";
+} from "@defied-labs/prism-core/components/data-table";
 import type { DataTableColumn } from "./types";
 import styles from "./DataTable.module.css";
 

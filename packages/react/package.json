@@ -1,5 +1,5 @@
 {
-  "name": "@defied/prism-react",
+  "name": "@defied-labs/prism-react",
   "version": "0.1.0",
   "description": "Defied Prism React runtime: hooks and primitives used by generated React components.",
   "license": "MIT",
@@ -24,10 +24,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@defied/prism-core": "workspace:^"
+    "@defied-labs/prism-core": "workspace:^"
   },
   "devDependencies": {
-    "@defied/prism-config": "workspace:*",
+    "@defied-labs/prism-config": "workspace:*",
     "@testing-library/jest-dom": "^6.10.0",
     "@testing-library/react": "^16.3.2",
     "@types/node": "catalog:",
@@ -52,6 +52,7 @@
     "test": "vitest run"
   },
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public",
     "exports": {
       ".": {

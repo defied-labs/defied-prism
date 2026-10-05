@@ -1,6 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
-import { slotClass, type StyleSlots } from "@defied/prism-core";
-import { tailwindSlots } from "@defied/prism-core/tailwind";
+import { slotClass, type StyleSlots } from "@defied-labs/prism-core";
+import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
 
 export type CodeProps = HTMLAttributes<HTMLElement>;
 

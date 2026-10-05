@@ -5,7 +5,7 @@ import {
   type MachineEvent,
   type MachineState,
   type TransitionResult,
-} from "@defied/prism-core";
+} from "@defied-labs/prism-core";
 
 export type MachineInput<
   TStatus extends string,

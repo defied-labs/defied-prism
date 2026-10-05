@@ -7,12 +7,12 @@ import {
   type MouseEvent,
   type PointerEvent,
 } from "react";
-import { useMachine } from "@defied/prism-react";
+import { useMachine } from "@defied-labs/prism-react";
 import {
   buttonMachineDefinition,
   ButtonEvents,
-} from "@defied/prism-core/components/button";
-import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
+} from "@defied-labs/prism-core/components/button";
+import { slotClass, variantData, type StyleSlots } from "@defied-labs/prism-core";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive" | "link";

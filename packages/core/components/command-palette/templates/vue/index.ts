@@ -9,4 +9,4 @@ export type { CommandPaletteProps } from "./CommandPalette.vue";
 export type { CommandInputProps } from "./CommandInput.vue";
 export type { CommandGroupProps } from "./CommandGroup.vue";
 export type { CommandItemProps } from "./CommandItem.vue";
-export type { CommandItem as CommandItemData } from "@defied/prism-core/components/command-palette";
+export type { CommandItem as CommandItemData } from "@defied-labs/prism-core/components/command-palette";

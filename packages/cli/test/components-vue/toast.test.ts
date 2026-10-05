@@ -9,7 +9,7 @@ import path from "node:path";
 import { defineComponent, h, nextTick } from "vue";
 import { cleanup, fireEvent, render, screen } from "@testing-library/vue";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { onDismiss } from "@defied/prism-core";
+import { onDismiss } from "@defied-labs/prism-core";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

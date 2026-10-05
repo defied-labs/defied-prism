@@ -6,7 +6,7 @@ import { createApp, defineComponent, h, ref, type VNode } from "vue";
 import { cleanup, fireEvent, render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { onDismiss } from "@defied/prism-core";
+import { onDismiss } from "@defied-labs/prism-core";
 
 import { generatedRoot, loadGenerated } from "../support/generated";
 

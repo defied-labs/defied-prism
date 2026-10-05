@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { normalizeClass, onBeforeUnmount, useAttrs, useId, watchEffect } from "vue";
-import { useFieldControlProps } from "@defied/prism-vue";
-import { nextIndex, slotClass, variantData } from "@defied/prism-core";
+import { useFieldControlProps } from "@defied-labs/prism-vue";
+import { nextIndex, slotClass, variantData } from "@defied-labs/prism-core";
 import {
   TYPEAHEAD_TIMEOUT,
   selectKeyAction,
   typeaheadIndex,
-} from "@defied/prism-core/components/select";
+} from "@defied-labs/prism-core/components/select";
 import { callListener, useSelectContext, withoutListeners, type ItemEntry } from "./context";
 import { slots } from "./styles";
 import SelectValue from "./SelectValue.vue";

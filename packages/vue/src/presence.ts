@@ -1,5 +1,5 @@
 import { computed, onBeforeUnmount, ref, toValue, watch, type ComputedRef, type MaybeRefOrGetter, type Ref } from "vue";
-import { onExitComplete } from "@defied/prism-core";
+import { onExitComplete } from "@defied-labs/prism-core";
 
 /**
  * Keeps an overlay mounted while its exit animation plays. Render the element

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { DemoName, MountedDemo } from "@defied/prism-vue-demos";
+import type { DemoName, MountedDemo } from "@defied-labs/prism-vue-demos";
 
 export type { DemoName };
 
@@ -25,7 +25,7 @@ export function VueIsland({
 
   useEffect(() => {
     let cancelled = false;
-    import("@defied/prism-vue-demos")
+    import("@defied-labs/prism-vue-demos")
       .then(({ mount }) => {
         if (cancelled || !host.current) return;
         mounted.current = mount(host.current, demo, JSON.parse(propsKey));

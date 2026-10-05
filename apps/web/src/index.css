@@ -3,9 +3,9 @@
 /* Docs chrome (/docs); its colors are namespaced as --color-fd-* */
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
-@import "@defied/prism-tokens/tokens.css";
+@import "@defied-labs/prism-tokens/tokens.css";
 /* Prism's theme values as namespaced utilities (bg-prism-primary, px-prism-4) */
-@import "@defied/prism-tokens/tailwind.css";
+@import "@defied-labs/prism-tokens/tailwind.css";
 /* Your brand on Prism components: regenerate with `prism theme --primary <color>` */
 @import "./prism-theme.css";
 

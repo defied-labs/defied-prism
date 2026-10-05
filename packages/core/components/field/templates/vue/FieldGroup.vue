@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs, useSlots } from "vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass, variantData } from "@defied-labs/prism-core";
 import { slots } from "./styles";
 import { provideGroupDisabled, useGroupDisabled } from "./context";
 
