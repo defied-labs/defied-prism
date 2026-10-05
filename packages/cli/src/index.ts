@@ -28,6 +28,14 @@ program
     new Option("--style <style>", "Styling engine").choices(["tailwind", "css-modules", "css"]).default("tailwind"),
   )
   .option("--primary <color>", "Brand color (hex, rgb() or oklch()); prompted for when omitted on a TTY")
+  .addOption(
+    new Option("--package-manager <pm>", "Package manager (default: from the lockfile, else asked)").choices([
+      "npm",
+      "pnpm",
+      "yarn",
+      "bun",
+    ]),
+  )
   .option("--no-install", "Skip installing the runtime packages")
   .option("--force", "Overwrite an existing prism.json")
   .action(initCommand);
@@ -67,6 +75,11 @@ program
   .action(themeCommand);
 
 program.parseAsync().catch((error: unknown) => {
+  // Ctrl+C during an inquirer prompt
+  if (error instanceof Error && error.name === "ExitPromptError") {
+    console.log("\nCancelled.");
+    process.exit(130);
+  }
   console.error(error instanceof Error ? error.message : error);
   process.exit(1);
 });

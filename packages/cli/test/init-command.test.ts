@@ -54,7 +54,7 @@ describe("initCommand", () => {
   });
 
   it("detects the package manager from the lockfile", async () => {
-    expect(detectPackageManager(dir)).toBe("npm");
+    expect(detectPackageManager(dir)).toBeUndefined();
     await fs.writeFile(join(dir, "pnpm-lock.yaml"), "");
     expect(detectPackageManager(dir)).toBe("pnpm");
   });

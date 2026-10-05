@@ -2,17 +2,21 @@ import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createInterface } from "node:readline/promises";
 
 import { buildThemeCss } from "@defied-labs/prism-tokens";
+import { input, select } from "@inquirer/prompts";
 
 import type { PrismConfig } from "../config/types";
+
+export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
 
 export interface InitOptions {
   framework?: PrismConfig["framework"];
   style?: PrismConfig["styling"];
   /** Brand color; prompted for on a TTY when omitted. */
   primary?: string;
+  /** Package manager; detected from the lockfile, else prompted for on a TTY. */
+  packageManager?: PackageManager;
   /** `--no-install` sets this to false. */
   install?: boolean;
   /** Overwrite an existing prism.json. */
@@ -36,11 +40,37 @@ const STYLESHEET_CANDIDATES = [
 
 const TAILWIND_IMPORT = /^\s*@import\s+["']tailwindcss["'].*$/m;
 
-export function detectPackageManager(cwd: string): "pnpm" | "yarn" | "bun" | "npm" {
+const isInteractive = () => Boolean(process.stdin.isTTY && process.stdout.isTTY);
+
+/** The package manager a lockfile commits the project to, if any. */
+export function detectPackageManager(cwd: string): PackageManager | undefined {
   if (existsSync(path.join(cwd, "pnpm-lock.yaml"))) return "pnpm";
   if (existsSync(path.join(cwd, "yarn.lock"))) return "yarn";
   if (existsSync(path.join(cwd, "bun.lockb")) || existsSync(path.join(cwd, "bun.lock"))) return "bun";
-  return "npm";
+  if (existsSync(path.join(cwd, "package-lock.json"))) return "npm";
+  return undefined;
+}
+
+async function resolvePackageManager(cwd: string, preferred?: PackageManager): Promise<PackageManager> {
+  const detected = detectPackageManager(cwd);
+  if (preferred) {
+    if (detected && detected !== preferred) {
+      console.warn(`⚠ Using ${preferred}, but this project has a ${detected} lockfile.`);
+    }
+    return preferred;
+  }
+  // A lockfile already answers the question; asking would invite a mismatch
+  if (detected) return detected;
+  if (!isInteractive()) return "npm";
+  return select<PackageManager>({
+    message: "Package manager",
+    choices: [
+      { name: "npm", value: "npm" },
+      { name: "pnpm", value: "pnpm" },
+      { name: "yarn", value: "yarn" },
+      { name: "bun", value: "bun" },
+    ],
+  });
 }
 
 export function runtimePackages(framework: PrismConfig["framework"]) {
@@ -78,28 +108,24 @@ export function addStylesheetImports(css: string, styling: PrismConfig["styling"
 }
 
 async function promptBrandColor(): Promise<string | undefined> {
-  if (!process.stdin.isTTY || !process.stdout.isTTY) return undefined;
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
-  try {
-    for (;;) {
-      const answer = (await rl.question("Brand color (hex, rgb() or oklch(); Enter to skip): ")).trim();
-      if (!answer) return undefined;
+  if (!isInteractive()) return undefined;
+  const answer = await input({
+    message: "Brand color (hex, rgb() or oklch(); Enter to skip)",
+    validate: (value) => {
+      if (!value.trim()) return true;
       try {
-        buildThemeCss({ light: { primary: answer } });
-        return answer;
+        buildThemeCss({ light: { primary: value.trim() } });
+        return true;
       } catch (error) {
-        console.error(`  ${error instanceof Error ? error.message : error}`);
+        return error instanceof Error ? error.message : String(error);
       }
-    }
-  } finally {
-    rl.close();
-  }
+    },
+  });
+  return answer.trim() || undefined;
 }
 
-function installPackages(cwd: string, framework: PrismConfig["framework"]) {
-  const pm = detectPackageManager(cwd);
-  const packages = runtimePackages(framework);
-  const args = [pm === "npm" ? "install" : "add", ...packages];
+function installPackages(cwd: string, pm: PackageManager, framework: PrismConfig["framework"]) {
+  const args = [pm === "npm" ? "install" : "add", ...runtimePackages(framework)];
   console.log(`\n→ ${pm} ${args.join(" ")}`);
   const result = spawnSync(pm, args, { cwd, stdio: "inherit", shell: process.platform === "win32" });
   if (result.status !== 0) {
@@ -119,9 +145,14 @@ export async function initCommand(options: InitOptions = {}) {
     throw new Error("[prism] prism.json already exists. Use --force to overwrite it.");
   }
 
-  // Validate the color before touching anything
+  // Ask everything up front, and validate the color, before touching anything
   const primary = options.primary ?? (await promptBrandColor());
   const theme = primary ? buildThemeCss({ light: { primary }, dark: { primary } }) : undefined;
+  const hasPackageJson = existsSync(path.join(cwd, "package.json"));
+  const pm =
+    options.install !== false && hasPackageJson
+      ? await resolvePackageManager(cwd, options.packageManager)
+      : undefined;
 
   const config: PrismConfig = { framework, styling, componentsPath: "src/components/ui", components: [] };
   await fs.writeFile(configPath, JSON.stringify(config, null, 2) + "\n");
@@ -129,12 +160,11 @@ export async function initCommand(options: InitOptions = {}) {
 
   // Dependencies
   const manual: string[] = [];
-  if (options.install === false) {
-    manual.push(`Install the runtime:\n       npm install ${runtimePackages(framework).join(" ")}`);
-  } else if (!existsSync(path.join(cwd, "package.json"))) {
-    manual.push(`No package.json found; install the runtime:\n       npm install ${runtimePackages(framework).join(" ")}`);
-  } else if (installPackages(cwd, framework)) {
-    console.log("✓ Installed runtime packages");
+  if (pm) {
+    if (installPackages(cwd, pm, framework)) console.log("✓ Installed runtime packages");
+  } else {
+    const reason = options.install === false ? "Install the runtime" : "No package.json found; install the runtime";
+    manual.push(`${reason}:\n       npm install ${runtimePackages(framework).join(" ")}`);
   }
 
   // Tokens and theme
