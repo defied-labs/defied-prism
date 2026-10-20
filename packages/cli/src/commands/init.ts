@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { buildThemeCss } from "@defied-labs/prism-tokens";
+import { buildThemeCss } from "@defied/prism-tokens";
 import { input, select } from "@inquirer/prompts";
 
 import type { PrismConfig } from "../config/types";
@@ -74,7 +74,7 @@ async function resolvePackageManager(cwd: string, preferred?: PackageManager): P
 }
 
 export function runtimePackages(framework: PrismConfig["framework"]) {
-  return ["@defied-labs/prism-tokens", `@defied-labs/prism-${framework}`, "@defied-labs/prism-core"];
+  return ["@defied/prism-tokens", `@defied/prism-${framework}`, "@defied/prism-core"];
 }
 
 /** The project's global stylesheet: the one importing Tailwind, else a conventional path. */
@@ -91,8 +91,8 @@ export async function findGlobalStylesheet(cwd: string): Promise<string | undefi
  * Order: tailwindcss → tokens.css → tailwind.css → theme file.
  */
 export function addStylesheetImports(css: string, styling: PrismConfig["styling"], themeImport?: string) {
-  const wanted = [`@import "@defied-labs/prism-tokens/tokens.css";`];
-  if (styling === "tailwind") wanted.push(`@import "@defied-labs/prism-tokens/tailwind.css";`);
+  const wanted = [`@import "@defied/prism-tokens/tokens.css";`];
+  if (styling === "tailwind") wanted.push(`@import "@defied/prism-tokens/tailwind.css";`);
   if (themeImport) wanted.push(`@import "${themeImport}";`);
 
   const missing = wanted.filter((line) => !css.includes(line.slice(9, -2)));

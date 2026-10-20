@@ -26,7 +26,7 @@
       "persistent": true
     },
     "test": {},
-    "@defied-labs/prism-cli#test": {
+    "@defied/prism-cli#test": {
       "dependsOn": [
         "build"
       ]

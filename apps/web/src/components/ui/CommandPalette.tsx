@@ -24,7 +24,7 @@ import {
   usePresence,
   type Collection,
   type CollectionRecord,
-} from "@defied-labs/prism-react";
+} from "@defied/prism-react";
 import {
   hideOthers,
   lockScroll,
@@ -34,7 +34,7 @@ import {
   trapFocus,
   variantData,
   type StyleSlots,
-} from "@defied-labs/prism-core";
+} from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -44,8 +44,8 @@ import {
   isTypingShortcut,
   parseShortcut,
   type CommandItem as CommandItemData,
-} from "@defied-labs/prism-core/components/command-palette";
-import { tailwindSlots } from "@defied-labs/prism-core/tailwind";
+} from "@defied/prism-core/components/command-palette";
+import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({

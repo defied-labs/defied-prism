@@ -10,12 +10,12 @@ describe("addStylesheetImports", () => {
   it("inserts after the tailwind import, in order", () => {
     const css = `@import "tailwindcss";\n\nbody {}\n`;
     expect(addStylesheetImports(css, "tailwind", "./prism-theme.css")).toBe(
-      `@import "tailwindcss";\n@import "@defied-labs/prism-tokens/tokens.css";\n@import "@defied-labs/prism-tokens/tailwind.css";\n@import "./prism-theme.css";\n\nbody {}\n`,
+      `@import "tailwindcss";\n@import "@defied/prism-tokens/tokens.css";\n@import "@defied/prism-tokens/tailwind.css";\n@import "./prism-theme.css";\n\nbody {}\n`,
     );
   });
 
   it("prepends without tailwind, skips tailwind.css for other stylings", () => {
-    expect(addStylesheetImports("body {}\n", "css")).toBe(`@import "@defied-labs/prism-tokens/tokens.css";\nbody {}\n`);
+    expect(addStylesheetImports("body {}\n", "css")).toBe(`@import "@defied/prism-tokens/tokens.css";\nbody {}\n`);
   });
 
   it("is idempotent", () => {

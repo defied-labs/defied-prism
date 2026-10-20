@@ -24,7 +24,7 @@ import {
   usePresence,
   type Collection,
   type CollectionRecord,
-} from "@defied-labs/prism-react";
+} from "@defied/prism-react";
 import {
   hideOthers,
   lockScroll,
@@ -34,7 +34,7 @@ import {
   trapFocus,
   variantData,
   type StyleSlots,
-} from "@defied-labs/prism-core";
+} from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -44,7 +44,7 @@ import {
   isTypingShortcut,
   parseShortcut,
   type CommandItem as CommandItemData,
-} from "@defied-labs/prism-core/components/command-palette";
+} from "@defied/prism-core/components/command-palette";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};
