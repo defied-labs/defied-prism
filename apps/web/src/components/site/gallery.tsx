@@ -21,13 +21,16 @@ export function Gallery({ vueReady }: { vueReady: string[] }) {
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {ITEMS.map(({ demo, title, blurb, add }) => {
         const Demo = reactDemos[demo];
-        const names = add.split(" ");
-        const vue = names.every((name) => vueReady.includes(name));
+        const vue = add.split(" ").every((name) => vueReady.includes(name));
         return (
           <li key={demo} className={`flex min-w-0 flex-col gap-4 rounded-xl border bg-card p-5 ${demo === "data-table" ? "sm:col-span-2" : ""}`}>
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h3 className="font-medium">{title}</h3>
+                <h3 className="font-medium">
+                  <a href={`/docs/components/${demo}`} className="hover:text-primary hover:underline">
+                    {title}
+                  </a>
+                </h3>
                 <p className="mt-1 text-sm text-muted-foreground">{blurb}</p>
               </div>
               <div className="flex shrink-0 flex-wrap justify-end gap-1">
@@ -38,7 +41,7 @@ export function Gallery({ vueReady }: { vueReady: string[] }) {
             <div className="grid min-h-32 flex-1 place-items-center overflow-x-auto rounded-lg bg-background p-4">
               <Demo />
             </div>
-            <Command>{`npx @defied/prism-cli add ${names.join(" && npx @defied/prism-cli add ")}`}</Command>
+            <Command>{`npx @defied/prism-cli add ${add}`}</Command>
           </li>
         );
       })}

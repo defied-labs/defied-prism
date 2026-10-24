@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Set Prism up in an existing project and add your first component.
+description: Set Prism up in an existing project and add your first component, interactively or from a script.
 ---
 
 ## Initialize
@@ -9,16 +9,41 @@ description: Set Prism up in an existing project and add your first component.
 npx @defied/prism-cli init
 ```
 
-For a Vue project:
+`init` asks for your framework, styling engine, components directory, brand color and starter components. It suggests answers based on your `package.json`: Vue or React, and whether you use Tailwind. Then it writes `prism.json`, installs the runtime packages with your package manager and adds Prism's imports to your global stylesheet.
+
+Any flag answers its question in advance, so `init` only asks about what's left:
 
 ```bash
-npx @defied/prism-cli init --framework vue
+npx @defied/prism-cli init --framework vue --style css-modules
 ```
 
-## Add a component
+When it finishes, `init` prints the same setup as a single command with no questions, ready to paste into a script.
+
+## Automate it
+
+Pass `--yes` and `init` never prompts. Anything you don't pass falls back to what the project suggests: framework from `package.json`, else React; Tailwind if the project uses it, else CSS Modules; package manager from the lockfile, else npm. `init` runs this way automatically when there's no terminal or `CI` is set.
 
 ```bash
-npx @defied/prism-cli add dialog
+npx @defied/prism-cli init --yes --framework react --style tailwind --add button dialog
+```
+
+Nothing is written until every option checks out: an invalid color or an unknown component exits with an error. An existing `prism.json` is an error too, unless you pass `--force`.
+
+| Flag | Default |
+| --- | --- |
+| `--framework react\|vue` | from `package.json`, else `react` |
+| `--style tailwind\|css-modules\|css` | `tailwind` if the project uses it, else `css-modules` |
+| `--components-path <path>` | `src/components/ui` |
+| `--primary <color>` | Prism's palette |
+| `--package-manager npm\|pnpm\|yarn\|bun` | from the lockfile, else `npm` |
+| `--add <components...>` | none |
+| `--no-install` | install the runtime |
+| `--force` | refuse to overwrite `prism.json` |
+
+## Add components
+
+```bash
+npx @defied/prism-cli add dialog header
 ```
 
 Registry dependencies (a dialog's trigger is a `Button`) are installed first.

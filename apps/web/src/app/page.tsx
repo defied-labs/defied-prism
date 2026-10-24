@@ -16,7 +16,7 @@ export default function Home() {
           aria-label="Main"
           className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6"
         >
-          <a href="#top" className="font-lora text-lg">
+          <a href="/" className="font-lora text-lg">
             Defied <span className="text-primary">Prism</span>
           </a>
           <ul className="hidden gap-5 text-sm font-medium text-foreground/80 md:flex">
@@ -42,9 +42,12 @@ export default function Home() {
             </li>
           </ul>
           <div className="col-start-3 flex items-center justify-self-end gap-3">
+            <a className="text-sm font-medium text-foreground/80 hover:text-foreground" href="/docs">
+              Docs
+            </a>
             <ModeToggle />
             <a
-              href="#install"
+              href="/docs/installation"
               className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               Get started
@@ -58,8 +61,8 @@ export default function Home() {
           aria-labelledby="hero-title"
           className="group/hero relative grid min-h-screen items-center overflow-hidden px-4 has-data-prism:grid-cols-2 lg:px-20"
         >
-          <div className="relative mx-auto max-w-3xl px-4 pb-24 pt-20 text-center sm:px-16 sm:pt-28 group-has-data-prism/hero:max-w-none group-has-data-prism/hero:text-left">
-            <h1 className="mt-5 font-lora text-4xl leading-[1.05] tracking-tight">
+          <div className="relative mx-auto max-w-4xl px-4 pb-24 pt-20 text-center sm:px-16 sm:pt-28 group-has-data-prism/hero:max-w-none group-has-data-prism/hero:text-left">
+            <h1 className="mt-5 font-lora text-6xl leading-[1.05] tracking-tight">
               Every{" "}
               <span className="text-primary">
                 design system picks your stack
@@ -94,7 +97,7 @@ export default function Home() {
             hueShift={0}
             colorFrequency={0.25}
             noise={0}
-            glow={1}
+            glow={0.5}
           />
         </section>
 
@@ -181,7 +184,7 @@ export default function Home() {
           kicker="Get started"
           title={
             <>
-              Three commands to your{" "}
+              Two commands to your{" "}
               <span className="italic text-primary">first component</span>.
             </>
           }
@@ -217,7 +220,8 @@ export default function Home() {
                 "Start",
                 [
                   ["Install", "#install"],
-                  ["Scale", "#scale"],
+                  ["Docs", "/docs"],
+                  ["Component docs", "/docs/components/button"],
                 ],
               ],
             ].map(([heading, links]) => (

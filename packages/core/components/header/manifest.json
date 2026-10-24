@@ -1,0 +1,453 @@
+{
+  "metadata": {
+    "name": "header",
+    "displayName": "Header",
+    "description": "A site header: brand, navigation and actions. Menus open on hover (or click) on one shared surface that glides from menu to menu; below a breakpoint the navigation becomes a full-screen panel that slides in.",
+    "version": "0.1.0",
+    "manifestVersion": "1.0",
+    "type": "compound",
+    "status": "beta",
+    "category": "navigation",
+    "keywords": [
+      "header",
+      "navbar",
+      "navigation",
+      "site header",
+      "menu",
+      "disclosure"
+    ]
+  },
+  "contract": {
+    "element": "header",
+    "anchor": "root",
+    "slots": {
+      "root": {
+        "element": "header"
+      },
+      "brand": {
+        "element": "a"
+      },
+      "nav": {
+        "element": "nav"
+      },
+      "viewport": {
+        "element": "div"
+      },
+      "list": {
+        "element": "ul"
+      },
+      "item": {
+        "element": "li"
+      },
+      "trigger": {
+        "element": "button"
+      },
+      "content": {
+        "element": "div",
+        "optional": true
+      },
+      "panel": {
+        "element": "div",
+        "optional": true
+      },
+      "link": {
+        "element": "a"
+      },
+      "actions": {
+        "element": "div"
+      },
+      "toggle": {
+        "element": "button"
+      },
+      "close": {
+        "element": "button",
+        "optional": true
+      }
+    },
+    "props": {
+      "variant": {
+        "type": "enum",
+        "values": [
+          "bar",
+          "floating"
+        ],
+        "default": "bar",
+        "visual": true
+      },
+      "position": {
+        "type": "enum",
+        "values": [
+          "static",
+          "sticky",
+          "fixed"
+        ],
+        "default": "sticky",
+        "visual": true
+      }
+    },
+    "states": [
+      "open",
+      "closed"
+    ],
+    "parts": [
+      "media",
+      "body",
+      "title",
+      "description",
+      "icon"
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          " "
+        ],
+        "action": "select",
+        "description": "On a menu trigger, open or close its menu; on the toggle, open or close the collapsed navigation"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "dismiss",
+        "description": "Close the open menu (focus returns to its trigger), then the collapsed navigation (focus returns to the toggle)"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "navigate",
+        "description": "Tabbing past an open menu closes it; while the collapsed navigation is open, focus stays inside it"
+      }
+    ],
+    "aria": {
+      "role": "banner",
+      "attributes": []
+    }
+  },
+  "compatibility": {
+    "frameworks": [
+      {
+        "framework": "react",
+        "minVersion": "18.0.0",
+        "files": [
+          {
+            "source": "templates/react/Header.tsx",
+            "destination": "Header.tsx",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied/prism-react",
+          "version": "^0.1.0"
+        },
+        "dependencies": [
+          {
+            "package": "react",
+            "version": ">=18.0.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied/prism-react",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ]
+      },
+      {
+        "framework": "vue",
+        "minVersion": "3.4.0",
+        "files": [
+          {
+            "source": "templates/vue/index.ts",
+            "destination": "header/index.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/context.ts",
+            "destination": "header/context.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/styles.ts",
+            "destination": "header/styles.ts",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/Header.vue",
+            "destination": "header/Header.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderBrand.vue",
+            "destination": "header/HeaderBrand.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderNav.vue",
+            "destination": "header/HeaderNav.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderItem.vue",
+            "destination": "header/HeaderItem.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderMenu.vue",
+            "destination": "header/HeaderMenu.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderMenuTrigger.vue",
+            "destination": "header/HeaderMenuTrigger.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderMenuContent.vue",
+            "destination": "header/HeaderMenuContent.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderLink.vue",
+            "destination": "header/HeaderLink.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderActions.vue",
+            "destination": "header/HeaderActions.vue",
+            "type": "component",
+            "editable": true
+          },
+          {
+            "source": "templates/vue/HeaderToggle.vue",
+            "destination": "header/HeaderToggle.vue",
+            "type": "component",
+            "editable": true
+          }
+        ],
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": ">=3.4.0",
+            "type": "peerDependency"
+          },
+          {
+            "package": "@defied/prism-vue",
+            "version": "^0.1.0",
+            "type": "dependency"
+          }
+        ],
+        "runtimeVersion": {
+          "package": "@defied/prism-vue",
+          "version": "^0.1.0"
+        }
+      }
+    ],
+    "styling": [
+      "tailwind",
+      "css-modules",
+      "css"
+    ]
+  },
+  "dependencies": [
+    {
+      "package": "@defied/prism-core",
+      "version": "^0.1.0",
+      "type": "dependency"
+    },
+    {
+      "package": "@defied/prism-tokens",
+      "version": "^0.1.0",
+      "type": "dependency"
+    }
+  ],
+  "registryDependencies": [
+    "icon-button"
+  ],
+  "tokens": [
+    {
+      "name": "color.bg",
+      "required": true
+    },
+    {
+      "name": "color.border",
+      "required": true
+    },
+    {
+      "name": "color.fg",
+      "required": true
+    },
+    {
+      "name": "color.muted-fg",
+      "required": true
+    },
+    {
+      "name": "color.ring",
+      "required": true
+    },
+    {
+      "name": "duration.fast",
+      "required": true
+    },
+    {
+      "name": "duration.normal",
+      "required": true
+    },
+    {
+      "name": "duration.slow",
+      "required": true
+    },
+    {
+      "name": "easing.emphasized",
+      "required": true
+    },
+    {
+      "name": "easing.standard",
+      "required": true
+    },
+    {
+      "name": "focus.ring-offset",
+      "required": true
+    },
+    {
+      "name": "focus.ring-width",
+      "required": true
+    },
+    {
+      "name": "font.sans",
+      "required": true
+    },
+    {
+      "name": "leading.normal",
+      "required": true
+    },
+    {
+      "name": "leading.snug",
+      "required": true
+    },
+    {
+      "name": "leading.tight",
+      "required": true
+    },
+    {
+      "name": "radius.md",
+      "required": true
+    },
+    {
+      "name": "radius.sm",
+      "required": true
+    },
+    {
+      "name": "shadow.lg",
+      "required": true
+    },
+    {
+      "name": "shadow.md",
+      "required": true
+    },
+    {
+      "name": "space.1",
+      "required": true
+    },
+    {
+      "name": "space.10",
+      "required": true
+    },
+    {
+      "name": "space.12",
+      "required": true
+    },
+    {
+      "name": "space.2",
+      "required": true
+    },
+    {
+      "name": "space.3",
+      "required": true
+    },
+    {
+      "name": "space.4",
+      "required": true
+    },
+    {
+      "name": "space.5",
+      "required": true
+    },
+    {
+      "name": "space.6",
+      "required": true
+    },
+    {
+      "name": "space.8",
+      "required": true
+    },
+    {
+      "name": "text.3xl",
+      "required": true
+    },
+    {
+      "name": "text.lg",
+      "required": true
+    },
+    {
+      "name": "text.md",
+      "required": true
+    },
+    {
+      "name": "text.sm",
+      "required": true
+    },
+    {
+      "name": "text.xl",
+      "required": true
+    },
+    {
+      "name": "weight.bold",
+      "required": true
+    },
+    {
+      "name": "weight.semibold",
+      "required": true
+    },
+    {
+      "name": "z.dropdown",
+      "required": true
+    },
+    {
+      "name": "z.overlay",
+      "required": true
+    },
+    {
+      "name": "z.sticky",
+      "required": true
+    }
+  ],
+  "accessibility": {
+    "keyboardSupport": true,
+    "screenReaderSupport": true,
+    "ariaPatterns": [
+      "disclosure-navigation"
+    ]
+  },
+  "tests": {
+    "unit": true,
+    "accessibility": true,
+    "visual": false,
+    "e2e": false
+  },
+  "migrations": [],
+  "registryPath": "components/header"
+}

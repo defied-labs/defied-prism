@@ -1,0 +1,52 @@
+---
+title: Header
+description: A site header with brand, navigation and actions. Menus open on hover or click; below a breakpoint the navigation collapses behind a toggle.
+---
+
+<Demo id="header/basic" />
+
+## Installation
+
+```bash
+npx @defied/prism-cli add header
+```
+
+`icon-button` is installed with it: the collapsed nav's toggle and close buttons render an `IconButton`.
+
+## Usage
+
+`Header` is the page's banner. Inside it, `HeaderBrand` links home, `HeaderNav` is the navigation landmark (named "Main" unless you pass `aria-label`), and `HeaderActions` holds buttons that stay visible at every width. Put a `HeaderToggle` last: it only shows while the navigation is collapsed.
+
+Each top-level entry in `HeaderNav` is either a `HeaderItem` holding one `HeaderLink`, or a `HeaderMenu` that discloses a group of links: a `HeaderMenuTrigger`, which reads as plain text, and a `HeaderMenuContent`.
+
+Hovering over a trigger opens its menu, centered under it. Every menu shares one surface, which glides and resizes from menu to menu as the pointer moves across the nav. Menus stay open while the pointer is anywhere over the nav and close when it leaves the nav or reaches a plain item. Hovering is only one way in: menus follow the WAI-ARIA disclosure navigation pattern (a button with `aria-expanded`, not an ARIA menu), so a click, Enter or Space opens them too, and a menu opened by click stays open when the pointer leaves. Escape closes the open menu and returns focus to its trigger; so does an outside click, tabbing past the menu, or following one of its links.
+
+Mark the current page with `active` on its `HeaderLink`. To control which menu is open, pass `value` and `onValueChange` to `HeaderNav` (React), or bind `v-model:value` (Vue), along with a `value` on each `HeaderMenu`.
+
+## Floating
+
+`variant="floating"` is a rounded, centered bar that floats over the page, as on defied.dev. For product entries, give a `HeaderLink` an `image` (the `image` slot in Vue) and a `description`; it shows them beside a bold title. Lay entries out in columns with `columns` on `HeaderMenuContent`.
+
+<Demo id="header/floating" />
+
+## Position
+
+`position` is `sticky` by default, and stays above page content but below dropdowns and dialogs. Use `fixed` for a header that overlays the page (offset your content), or `static` for one that scrolls away.
+
+## Collapsing
+
+Below `collapseBelow` pixels (default `768`) the navigation becomes a full-screen panel that `HeaderToggle` slides in from the side, with large uppercase entries and a close button at the bottom (name it with `closeLabel` on `HeaderNav`). Menus expand in place there instead of on hover. While the panel is open, the page doesn't scroll and focus stays inside it. Escape closes the open menu first, then the panel, returning focus to the toggle; following a link also closes it. Pass `open` and `onOpenChange` (or `v-model:open`) to control it, and `collapseBelow={0}` to never collapse. The header renders expanded on the server and collapses after it mounts.
+
+## Router links
+
+Pass `asChild` to `HeaderBrand` or `HeaderLink` to render your router's link, such as Next.js `Link` or Vue Router's `RouterLink`. In React, `image` and `description` are added inside your link. In Vue, put the `data-part` spans (`media`, then `body` holding `title` and `description`) inside your link yourself.
+
+```tsx
+<HeaderLink asChild active={pathname === "/blog"}>
+  <Link href="/blog">Blog</Link>
+</HeaderLink>
+```
+
+## API reference
+
+<ApiReference component="header" />

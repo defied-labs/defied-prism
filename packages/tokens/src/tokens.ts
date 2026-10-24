@@ -202,6 +202,8 @@ export const scales = {
     disabled: "0.5",
   },
   z: {
+    // Sticky and fixed page chrome (site headers): below every overlay
+    sticky: "900",
     dropdown: "1000",
     overlay: "1100",
     modal: "1110",

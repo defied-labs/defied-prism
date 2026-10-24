@@ -1,6 +1,6 @@
 {
   "name": "@defied/prism-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Defied Prism CLI: add accessible React and Vue components to your project as source you own, styled with Tailwind CSS, CSS Modules or plain CSS.",
   "license": "MIT",
   "repository": {

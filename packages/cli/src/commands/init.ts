@@ -4,23 +4,38 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { buildThemeCss } from "@defied/prism-tokens";
-import { input, select } from "@inquirer/prompts";
+import { checkbox, confirm, input, select } from "@inquirer/prompts";
 
 import type { PrismConfig } from "../config/types";
+import { defaultRegistryPath } from "../registry/defaultRegistry";
+import { addCommand } from "./add";
 
 export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
 
+/**
+ * Every option is a flag. In the developer flow, anything a flag doesn't
+ * answer is asked; in the automation flow (`--yes`, no TTY, or CI) nothing
+ * is asked: missing options fall back to what the project suggests.
+ */
 export interface InitOptions {
+  /** Default: detected from package.json, else react. */
   framework?: PrismConfig["framework"];
+  /** Default: tailwind when the project uses Tailwind (or has no package.json), else css-modules. */
   style?: PrismConfig["styling"];
-  /** Brand color; prompted for on a TTY when omitted. */
+  /** Where components are written. Default: src/components/ui. */
+  componentsPath?: string;
+  /** Brand color. Default: none (Prism's palette). */
   primary?: string;
-  /** Package manager; detected from the lockfile, else prompted for on a TTY. */
+  /** Package manager. Default: from the lockfile, else npm. */
   packageManager?: PackageManager;
+  /** Components to add once initialized. */
+  add?: string[];
   /** `--no-install` sets this to false. */
   install?: boolean;
   /** Overwrite an existing prism.json. */
   force?: boolean;
+  /** Never prompt (the automation flow). */
+  yes?: boolean;
   cwd?: string;
 }
 
@@ -40,7 +55,47 @@ const STYLESHEET_CANDIDATES = [
 
 const TAILWIND_IMPORT = /^\s*@import\s+["']tailwindcss["'].*$/m;
 
+const DEFAULT_COMPONENTS_PATH = "src/components/ui";
+
 const isInteractive = () => Boolean(process.stdin.isTTY && process.stdout.isTTY);
+const isCI = () => Boolean(process.env.CI) && process.env.CI !== "false";
+
+/** The automation flow: `--yes`, or nobody at a terminal to answer. */
+export function isAutomated(options: Pick<InitOptions, "yes">): boolean {
+  return Boolean(options.yes) || !isInteractive() || isCI();
+}
+
+export interface DetectedProject {
+  hasPackageJson: boolean;
+  framework?: PrismConfig["framework"];
+  tailwind: boolean;
+}
+
+/** What the project's package.json says about it. */
+export async function detectProject(cwd: string): Promise<DetectedProject> {
+  const file = path.join(cwd, "package.json");
+  if (!existsSync(file)) return { hasPackageJson: false, tailwind: false };
+  let deps: Record<string, string> = {};
+  try {
+    const pkg = JSON.parse(await fs.readFile(file, "utf8"));
+    deps = { ...pkg.dependencies, ...pkg.devDependencies };
+  } catch {
+    // An unreadable package.json suggests nothing
+  }
+  const has = (name: string) => name in deps;
+  const framework = has("vue") || has("nuxt") ? "vue" : has("react") || has("next") ? "react" : undefined;
+  return { hasPackageJson: true, framework, tailwind: has("tailwindcss") };
+}
+
+/** Registry component names, for the starter components question and `--add` validation. */
+export async function registryComponents(registryPath = defaultRegistryPath()): Promise<string[]> {
+  const dir = path.join(registryPath, "components");
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isDirectory() && existsSync(path.join(dir, entry.name, "manifest.json")))
+    .map((entry) => entry.name)
+    .sort();
+}
 
 /** The package manager a lockfile commits the project to, if any. */
 export function detectPackageManager(cwd: string): PackageManager | undefined {
@@ -51,7 +106,11 @@ export function detectPackageManager(cwd: string): PackageManager | undefined {
   return undefined;
 }
 
-async function resolvePackageManager(cwd: string, preferred?: PackageManager): Promise<PackageManager> {
+async function resolvePackageManager(
+  cwd: string,
+  preferred: PackageManager | undefined,
+  automated: boolean,
+): Promise<PackageManager> {
   const detected = detectPackageManager(cwd);
   if (preferred) {
     if (detected && detected !== preferred) {
@@ -61,7 +120,7 @@ async function resolvePackageManager(cwd: string, preferred?: PackageManager): P
   }
   // A lockfile already answers the question; asking would invite a mismatch
   if (detected) return detected;
-  if (!isInteractive()) return "npm";
+  if (automated) return "npm";
   return select<PackageManager>({
     message: "Package manager",
     choices: [
@@ -107,14 +166,17 @@ export function addStylesheetImports(css: string, styling: PrismConfig["styling"
   return `${block}\n${css}`;
 }
 
+function validateColor(color: string) {
+  buildThemeCss({ light: { primary: color } });
+}
+
 async function promptBrandColor(): Promise<string | undefined> {
-  if (!isInteractive()) return undefined;
   const answer = await input({
     message: "Brand color (hex, rgb() or oklch(); Enter to skip)",
     validate: (value) => {
       if (!value.trim()) return true;
       try {
-        buildThemeCss({ light: { primary: value.trim() } });
+        validateColor(value.trim());
         return true;
       } catch (error) {
         return error instanceof Error ? error.message : String(error);
@@ -135,27 +197,119 @@ function installPackages(cwd: string, pm: PackageManager, framework: PrismConfig
   return true;
 }
 
-export async function initCommand(options: InitOptions = {}) {
-  const cwd = options.cwd ?? process.cwd();
-  const framework = options.framework ?? "react";
-  const styling = options.style ?? "tailwind";
-  const configPath = path.join(cwd, "prism.json");
+export interface InitPlan {
+  framework: PrismConfig["framework"];
+  styling: PrismConfig["styling"];
+  componentsPath: string;
+  primary?: string;
+  /** Undefined: don't install (no package.json, or `--no-install`). */
+  packageManager?: PackageManager;
+  add: string[];
+}
 
-  if (existsSync(configPath) && !options.force) {
-    throw new Error("[prism] prism.json already exists. Use --force to overwrite it.");
+/**
+ * Resolves every answer before anything is written: from flags, then (in
+ * the developer flow) prompts, then what the project suggests. Returns
+ * null when the developer declines to overwrite prism.json.
+ */
+export async function planInit(options: InitOptions, cwd: string, automated: boolean): Promise<InitPlan | null> {
+  if (existsSync(path.join(cwd, "prism.json")) && !options.force) {
+    if (automated) throw new Error("[prism] prism.json already exists. Pass --force to overwrite it.");
+    if (!(await confirm({ message: "prism.json already exists. Overwrite it?", default: false }))) return null;
   }
 
-  // Ask everything up front, and validate the color, before touching anything
-  const primary = options.primary ?? (await promptBrandColor());
-  const theme = primary ? buildThemeCss({ light: { primary }, dark: { primary } }) : undefined;
-  const hasPackageJson = existsSync(path.join(cwd, "package.json"));
-  const pm =
-    options.install !== false && hasPackageJson
-      ? await resolvePackageManager(cwd, options.packageManager)
+  const project = await detectProject(cwd);
+  const suggestedStyling = project.tailwind || !project.hasPackageJson ? "tailwind" : "css-modules";
+
+  // Fail on bad flags before asking anything
+  if (options.primary) validateColor(options.primary);
+  const known = await registryComponents();
+  const unknown = (options.add ?? []).filter((name) => !known.includes(name));
+  if (unknown.length) {
+    throw new Error(
+      `[prism] Unknown component${unknown.length > 1 ? "s" : ""}: ${unknown.join(", ")}. Available: ${known.join(", ")}.`,
+    );
+  }
+
+  const framework =
+    options.framework ??
+    (automated
+      ? (project.framework ?? "react")
+      : await select<PrismConfig["framework"]>({
+          message: "Framework",
+          default: project.framework ?? "react",
+          choices: [
+            { name: "React", value: "react" },
+            { name: "Vue", value: "vue" },
+          ],
+        }));
+
+  const styling =
+    options.style ??
+    (automated
+      ? suggestedStyling
+      : await select<PrismConfig["styling"]>({
+          message: "Styling",
+          default: suggestedStyling,
+          choices: [
+            { name: "Tailwind CSS", value: "tailwind", description: project.tailwind ? "Detected in package.json" : undefined },
+            { name: "CSS Modules", value: "css-modules" },
+            { name: "Plain CSS", value: "css" },
+          ],
+        }));
+
+  const componentsPath =
+    options.componentsPath ??
+    (automated
+      ? DEFAULT_COMPONENTS_PATH
+      : (await input({ message: "Components directory", default: DEFAULT_COMPONENTS_PATH })).trim() ||
+        DEFAULT_COMPONENTS_PATH);
+
+  const primary = options.primary ?? (automated ? undefined : await promptBrandColor());
+
+  const packageManager =
+    options.install !== false && project.hasPackageJson
+      ? await resolvePackageManager(cwd, options.packageManager, automated)
       : undefined;
 
-  const config: PrismConfig = { framework, styling, componentsPath: "src/components/ui", components: [] };
-  await fs.writeFile(configPath, JSON.stringify(config, null, 2) + "\n");
+  const add =
+    options.add ??
+    (automated
+      ? []
+      : await checkbox<string>({
+          message: "Add components now (Space to select, Enter to continue)",
+          choices: known.map((name) => ({ name, value: name })),
+          pageSize: 12,
+        }));
+
+  return { framework, styling, componentsPath, primary, packageManager, add };
+}
+
+/** The non-interactive command that reproduces a plan, for CI and scripts. */
+export function automationCommand(plan: InitPlan, options: Pick<InitOptions, "install" | "force"> = {}): string {
+  const args = ["npx @defied/prism-cli init --yes", `--framework ${plan.framework}`, `--style ${plan.styling}`];
+  if (plan.componentsPath !== DEFAULT_COMPONENTS_PATH) args.push(`--components-path ${JSON.stringify(plan.componentsPath)}`);
+  if (plan.primary) args.push(`--primary ${JSON.stringify(plan.primary)}`);
+  if (plan.packageManager) args.push(`--package-manager ${plan.packageManager}`);
+  if (options.install === false) args.push("--no-install");
+  if (plan.add.length) args.push(`--add ${plan.add.join(" ")}`);
+  if (options.force) args.push("--force");
+  return args.join(" ");
+}
+
+export async function initCommand(options: InitOptions = {}) {
+  const cwd = options.cwd ?? process.cwd();
+  const automated = isAutomated(options);
+  const plan = await planInit(options, cwd, automated);
+  if (!plan) {
+    console.log("Cancelled: prism.json was left as it was.");
+    return;
+  }
+  const { framework, styling, componentsPath, primary, packageManager: pm } = plan;
+  const theme = primary ? buildThemeCss({ light: { primary }, dark: { primary } }) : undefined;
+
+  const config: PrismConfig = { framework, styling, componentsPath, components: [] };
+  await fs.writeFile(path.join(cwd, "prism.json"), JSON.stringify(config, null, 2) + "\n");
   console.log(`✓ Prism initialized (${framework}, ${styling})`);
 
   // Dependencies
@@ -194,7 +348,22 @@ export async function initCommand(options: InitOptions = {}) {
     );
   }
 
-  if (!theme) manual.push(`Use your brand color (optional):\n       npx prism theme --primary "#0d9488"`);
-  manual.push("Add components:\n       npx prism add button");
+  // Starter components (`add` reads prism.json from the working directory)
+  if (plan.add.length) {
+    const previous = process.cwd();
+    if (cwd !== previous) process.chdir(cwd);
+    try {
+      await addCommand(plan.add, {});
+    } finally {
+      if (cwd !== previous) process.chdir(previous);
+    }
+  }
+
+  if (!theme) manual.push(`Use your brand color (optional):\n       npx @defied/prism-cli theme --primary "#0d9488"`);
+  if (!plan.add.length) manual.push("Add components:\n       npx @defied/prism-cli add button");
   console.log(`\nNext steps:\n${manual.map((step, i) => `  ${i + 1}. ${step}`).join("\n")}`);
+
+  if (!automated) {
+    console.log(`\nSame setup without questions (CI, scripts):\n  ${automationCommand(plan, options)}`);
+  }
 }

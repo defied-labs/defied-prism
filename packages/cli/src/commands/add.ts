@@ -112,24 +112,29 @@ export function resolveRegistryPath(
   return options.registry ?? config.registryPath ?? defaultRegistryPath();
 }
 
-export async function addCommand(component: string, options: AddOptions) {
+export async function addCommand(components: string[], options: AddOptions) {
   const config = await loadConfig();
   const styling = options.style ?? config.styling;
   const registryPath = resolveRegistryPath(options, config);
   const context = { framework: config.framework, styling, registryPath, componentsPath: config.componentsPath };
 
   const installed = new Set(config.components ?? []);
-  for (const name of await resolveInstallOrder(component, registryPath)) {
-    // Dependencies already in the project are kept as they are: they may
-    // have been customized. `prism sync` regenerates everything.
-    if (name !== component && installed.has(name)) continue;
-    await regenerateComponent(name, context);
-    await recordInstalledComponent(name);
-    console.log(
-      name === component
-        ? `✓ Added ${component} (${config.framework} / ${styling})`
-        : `✓ Added ${name} (required by ${component})`,
-    );
+  const requested = new Set(components);
+  const added = new Set<string>();
+  for (const component of components) {
+    for (const name of await resolveInstallOrder(component, registryPath)) {
+      // Dependencies already in the project are kept as they are: they may
+      // have been customized. `prism sync` regenerates everything.
+      if (added.has(name) || (!requested.has(name) && installed.has(name))) continue;
+      await regenerateComponent(name, context);
+      await recordInstalledComponent(name);
+      added.add(name);
+      console.log(
+        name === component
+          ? `✓ Added ${component} (${config.framework} / ${styling})`
+          : `✓ Added ${name} (required by ${component})`,
+      );
+    }
   }
   await warnMissingStylesheetImports(styling);
 

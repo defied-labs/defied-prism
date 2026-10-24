@@ -49,6 +49,7 @@
     "text",
     "textarea",
     "tooltip",
-    "visually-hidden"
+    "visually-hidden",
+    "header"
   ]
 }

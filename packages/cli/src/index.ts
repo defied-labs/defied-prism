@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { createRequire } from "node:module";
+
 import { Command, Option } from "commander";
 
 import { initCommand } from "./commands/init";
@@ -9,33 +11,45 @@ import { syncCommand } from "./commands/sync";
 
 import { themeCommand } from "./commands/theme";
 
+const { version } = createRequire(import.meta.url)("../package.json") as { version: string };
+
 const program = new Command();
 
 program
   .name("prism")
   .description("Defied Prism CLI")
-  .version("0.1.0");
+  .version(version);
 
 program
   .command("init")
-  .description("Initialize Prism")
+  .description(
+    "Initialize Prism. Asks for anything the flags don't answer; with --yes (or without a terminal, or in CI) asks nothing and uses the flags plus detected defaults",
+  )
+  .option("-y, --yes", "Never prompt: use the flags, then defaults detected from the project")
   .addOption(
-    new Option("--framework <framework>", "Framework to generate components for")
-      .choices(["react", "vue"])
-      .default("react"),
+    new Option(
+      "--framework <framework>",
+      "Framework to generate components for (default: from package.json, else react)",
+    ).choices(["react", "vue"]),
   )
   .addOption(
-    new Option("--style <style>", "Styling engine").choices(["tailwind", "css-modules", "css"]).default("tailwind"),
+    new Option("--style <style>", "Styling engine (default: tailwind if the project uses it, else css-modules)").choices([
+      "tailwind",
+      "css-modules",
+      "css",
+    ]),
   )
-  .option("--primary <color>", "Brand color (hex, rgb() or oklch()); prompted for when omitted on a TTY")
+  .option("--components-path <path>", "Where components are written (default: src/components/ui)")
+  .option("--primary <color>", "Brand color (hex, rgb() or oklch())")
   .addOption(
-    new Option("--package-manager <pm>", "Package manager (default: from the lockfile, else asked)").choices([
+    new Option("--package-manager <pm>", "Package manager (default: from the lockfile, else npm)").choices([
       "npm",
       "pnpm",
       "yarn",
       "bun",
     ]),
   )
+  .option("--add <components...>", "Components to add once initialized")
   .option("--no-install", "Skip installing the runtime packages")
   .option("--force", "Overwrite an existing prism.json")
   .action(initCommand);
@@ -48,8 +62,8 @@ const styleOption = () =>
   ]);
 
 program
-  .command("add <component>")
-  .description("Add a component to your project")
+  .command("add <components...>")
+  .description("Add one or more components to your project")
   .addOption(styleOption())
   .option("--registry <path|url>", "Registry to install from")
   .action(addCommand);

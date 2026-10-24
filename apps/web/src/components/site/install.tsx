@@ -7,13 +7,11 @@ import { Command } from "./copy-button";
 const STEPS = {
   react: [
     ["Initialize", "npx @defied/prism-cli init"],
-    ["Install the runtime", "npm install @defied/prism-core @defied/prism-react @defied/prism-tokens"],
-    ["Add components", "npx @defied/prism-cli add dialog"],
+    ["Add components", "npx @defied/prism-cli add button dialog"],
   ],
   vue: [
     ["Initialize", "npx @defied/prism-cli init --framework vue"],
-    ["Install the runtime", "npm install @defied/prism-core @defied/prism-vue @defied/prism-tokens"],
-    ["Add components", "npx @defied/prism-cli add dialog"],
+    ["Add components", "npx @defied/prism-cli add button dialog"],
   ],
 } as const;
 
@@ -38,6 +36,7 @@ export function Install() {
             ))}
           </ol>
           <p className="mt-5 text-sm text-muted-foreground">
+            <code className="font-mono">init</code> installs the runtime packages with your package manager.
             Then switch every component to another styling engine at any time:{" "}
             <code className="font-mono">npx @defied/prism-cli sync --style css-modules</code>
           </p>

@@ -30,7 +30,10 @@ export function HeroPrism(props: ComponentProps<typeof Prism>) {
   if (resolvedTheme !== "dark" || !isDesktop || reducedMotion) return null;
   // data-prism switches the hero from centered to split (see page.tsx).
   return (
-    <div data-prism className="h-full self-stretch">
+    <div
+      data-prism
+      className="h-screen w-[60vw] absolute z-10 right-0 top-0 bottom-0 pointer-events-none"
+    >
       <Prism suspendWhenOffscreen {...props} />
     </div>
   );
