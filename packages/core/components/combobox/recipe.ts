@@ -28,26 +28,8 @@ export default defineRecipe({
     color: t("color.fg"),
   },
   slots: {
-    input: {
-      boxSizing: "border-box",
-      width: "100%",
-      color: t("color.fg"),
-      background: t("color.bg"),
-      fontFamily: "inherit",
-      lineHeight: t("leading.normal"),
-      borderWidth: "1px",
-      borderStyle: "solid",
-      borderColor: t("color.border-strong"),
-      transition: `border-color ${t("duration.fast")} ${t("easing.standard")}`,
-      _placeholder: { color: t("color.muted-fg") },
-      _hover: { borderColor: t("color.fg") },
-      _focusVisible: {
-        outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
-        outlineOffset: "0",
-      },
-      _invalid: { borderColor: t("color.danger-solid") },
-      _disabled: { opacity: t("opacity.disabled"), cursor: "not-allowed" },
-    },
+    // The input's look comes from the registry Input (size, fullWidth).
+    input: {},
     listbox: {
       ...popup,
       padding: t("space.1"),
@@ -90,32 +72,8 @@ export default defineRecipe({
     },
   },
   variants: {
-    size: {
-      sm: {
-        "slot:input": {
-          minHeight: t("control.sm"),
-          paddingInline: t("space.2"),
-          fontSize: t("text.sm"),
-          borderRadius: t("radius.md"),
-        },
-      },
-      md: {
-        "slot:input": {
-          minHeight: t("control.md"),
-          paddingInline: t("space.3"),
-          fontSize: t("text.sm"),
-          borderRadius: t("radius.md"),
-        },
-      },
-      lg: {
-        "slot:input": {
-          minHeight: t("control.lg"),
-          paddingInline: t("space.4"),
-          fontSize: t("text.md"),
-          borderRadius: t("radius.lg"),
-        },
-      },
-    },
+    // Forwarded to Input; the parts carry data-size for custom styling.
+    size: { sm: {}, md: {}, lg: {} },
   },
   defaultVariants: { size: "md" },
 });

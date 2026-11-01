@@ -151,4 +151,19 @@ describe("Checkbox", () => {
     rerender(h(m.Checkbox, { indeterminate: true }, "Accept"));
     expect(mark()).toHaveAttribute("d", "M3.5 8h9");
   });
+
+  it("routes a caller-supplied data-slot to the <input>, not the wrappers", () => {
+    render(h(m.Checkbox, { "data-slot": "my-checkbox", "aria-label": "Pick" }));
+    const input = screen.getByRole("checkbox", { name: "Pick" });
+    expect(input.tagName).toBe("INPUT");
+    expect(input.getAttribute("data-slot")).toBe("my-checkbox");
+    // The wrappers keep their own slots
+    expect(input.closest("label")?.getAttribute("data-slot")).toBe("checkbox-label");
+    expect(input.parentElement?.getAttribute("data-slot")).toBe("checkbox-control");
+  });
+
+  it("defaults the input's data-slot to checkbox", () => {
+    render(h(m.Checkbox, { "aria-label": "Pick" }));
+    expect(screen.getByRole("checkbox").getAttribute("data-slot")).toBe("checkbox");
+  });
 });

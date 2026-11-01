@@ -246,6 +246,9 @@
       "type": "dependency"
     }
   ],
+  "registryDependencies": [
+    "dialog"
+  ],
   "tokens": [
     {
       "name": "color.bg",
@@ -265,10 +268,6 @@
     },
     {
       "name": "color.muted-fg",
-      "required": true
-    },
-    {
-      "name": "color.overlay",
       "required": true
     },
     {
@@ -293,10 +292,6 @@
     },
     {
       "name": "easing.exit",
-      "required": true
-    },
-    {
-      "name": "easing.standard",
       "required": true
     },
     {
@@ -365,10 +360,6 @@
     },
     {
       "name": "z.modal",
-      "required": true
-    },
-    {
-      "name": "z.overlay",
       "required": true
     }
   ],

@@ -34,13 +34,13 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "content": {
-    "base": "absolute z-(--prism-z-tooltip) [width:max-content] [max-width:20rem] py-prism-1 px-prism-2 rounded-prism-md bg-prism-inverse text-prism-inverse-fg shadow-prism-md font-prism-sans text-prism-xs leading-prism-snug [--prism-zoom-scale:0.92] [animation:prism-zoom-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:pointer-events-none data-[state=closed]:[animation:prism-zoom-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
+    "base": "absolute z-(--prism-z-tooltip) [width:max-content] [max-width:20rem] py-prism-1 px-prism-2 rounded-prism-md bg-prism-inverse text-prism-inverse-fg shadow-prism-md font-prism-sans text-prism-xs leading-prism-snug [--prism-zoom-scale:0.8] [animation:prism-zoom-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:pointer-events-none data-[state=closed]:[animation:prism-zoom-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
     "variants": {
       "side": {
-        "top": "[bottom:100%] [left:50%] [translate:-50%_0] mb-prism-2 [transform-origin:bottom] [--prism-zoom-y:-0.25rem]",
-        "bottom": "[top:100%] [left:50%] [translate:-50%_0] mt-prism-2 [transform-origin:top] [--prism-zoom-y:0.25rem]",
-        "left": "[right:100%] [top:50%] [translate:0_-50%] mr-prism-2 [transform-origin:right] [--prism-zoom-x:-0.25rem]",
-        "right": "[left:100%] [top:50%] [translate:0_-50%] ml-prism-2 [transform-origin:left] [--prism-zoom-x:0.25rem]"
+        "top": "[bottom:100%] [left:50%] [translate:-50%_0] mb-prism-2 [transform-origin:bottom] [--prism-zoom-y:0.5rem]",
+        "bottom": "[top:100%] [left:50%] [translate:-50%_0] mt-prism-2 [transform-origin:top] [--prism-zoom-y:-0.5rem]",
+        "left": "[right:100%] [top:50%] [translate:0_-50%] mr-prism-2 [transform-origin:right] [--prism-zoom-x:0.5rem]",
+        "right": "[left:100%] [top:50%] [translate:0_-50%] ml-prism-2 [transform-origin:left] [--prism-zoom-x:-0.5rem]"
       }
     }
   }

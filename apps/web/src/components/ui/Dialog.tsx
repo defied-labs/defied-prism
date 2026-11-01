@@ -189,6 +189,13 @@ export interface DialogContentProps extends HTMLAttributes<HTMLDivElement> {
   closeOnEscape?: boolean;
   /** Element to focus on open; defaults to the first focusable element. */
   initialFocus?: () => HTMLElement | null;
+  /**
+   * Drop the content's own recipe styles (position, size, padding, animation)
+   * and keep only `className`: for components that restyle the modal shell.
+   */
+  unstyled?: boolean;
+  /** Extra attributes for the overlay (`className` is merged, `data-slot` wins). */
+  overlayProps?: HTMLAttributes<HTMLDivElement> & { "data-slot"?: string };
 }
 
 export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
@@ -199,6 +206,8 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       closeOnOutsideClick = role !== "alertdialog",
       closeOnEscape = true,
       initialFocus,
+      unstyled = false,
+      overlayProps,
       className,
       style,
       children,
@@ -243,7 +252,10 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
     // element (controlled opens). Captured once per open, shrinks back into it.
     const originRef = useRef<Record<string, string> | null>(null);
     if (dialog.open && !originRef.current && typeof document !== "undefined") {
-      originRef.current = zoomOriginVars(dialog.triggerRef.current ?? document.activeElement);
+      // Nothing focused (e.g. a keyboard shortcut) leaves <body> active: no
+      // origin then, so it falls back to a centred scale-in
+      const focused = document.activeElement === document.body ? null : document.activeElement;
+      originRef.current = zoomOriginVars(dialog.triggerRef.current ?? focused);
       dialog.triggerRef.current = null;
     }
     // Stays mounted, data-state="closed", while the exit animation plays
@@ -254,11 +266,12 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
     return createPortal(
       <div ref={portalRef}>
         <div
+          {...overlayProps}
           aria-hidden="true"
           data-state={state}
-          data-slot="dialog-overlay"
+          data-slot={overlayProps?.["data-slot"] ?? "dialog-overlay"}
           {...variantData(variants)}
-          className={slotClass(slots, "overlay", variants)}
+          className={slotClass(slots, "overlay", variants, overlayProps?.className)}
         />
         <div
           {...props}
@@ -271,9 +284,9 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
           tabIndex={-1}
           style={{ ...originRef.current, ...style } as CSSProperties}
           data-state={state}
-          data-slot="dialog-content"
-          {...variantData(variants)}
-          className={slotClass(slots, "content", variants, className)}
+          data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "dialog-content"}
+          {...(unstyled ? {} : variantData(variants))}
+          className={unstyled ? className : slotClass(slots, "content", variants, className)}
         >
           {children}
         </div>

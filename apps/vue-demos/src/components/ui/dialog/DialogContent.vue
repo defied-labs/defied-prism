@@ -23,6 +23,13 @@ export interface DialogContentProps {
   closeOnEscape?: boolean;
   /** Element to focus on open; defaults to the first focusable element. */
   initialFocus?: () => HTMLElement | null;
+  /**
+   * Drop the content's own recipe styles (position, size, padding, animation)
+   * and keep only `class`: for components that restyle the modal shell.
+   */
+  unstyled?: boolean;
+  /** Extra attributes for the overlay (`class` is merged, `data-slot` wins). */
+  overlayProps?: Record<string, unknown>;
 }
 
 defineOptions({ inheritAttrs: false });
@@ -33,6 +40,8 @@ const props = withDefaults(defineProps<DialogContentProps>(), {
   closeOnOutsideClick: undefined,
   closeOnEscape: true,
   initialFocus: undefined,
+  unstyled: false,
+  overlayProps: undefined,
 });
 
 const attrs = useAttrs();
@@ -45,7 +54,10 @@ const portalRef = ref<HTMLDivElement | null>(null);
 const origin = ref<Record<string, string>>({});
 function captureOrigin() {
   if (typeof document === "undefined") return;
-  origin.value = zoomOriginVars(dialog.trigger.current ?? document.activeElement);
+  // Nothing focused (e.g. a keyboard shortcut) leaves <body> active: no
+  // origin then, so it falls back to a centred scale-in
+  const focused = document.activeElement === document.body ? null : document.activeElement;
+  origin.value = zoomOriginVars(dialog.trigger.current ?? focused);
   dialog.trigger.current = null;
 }
 if (dialog.open.value) captureOrigin();
@@ -109,19 +121,25 @@ const contentAttrs = () => {
     tabindex: -1,
     style: [origin.value, normalizeStyle(style)],
     "data-state": state.value,
-    "data-slot": "dialog-content",
-    ...variantData(variants()),
-    class: slotClass(slots, "content", variants(), normalizeClass(className)),
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "dialog-content",
+    ...(props.unstyled ? {} : variantData(variants())),
+    class: props.unstyled
+      ? normalizeClass(className)
+      : slotClass(slots, "content", variants(), normalizeClass(className)),
   };
 };
 
-const overlayAttrs = () => ({
-  "aria-hidden": "true" as const,
-  "data-state": state.value,
-  "data-slot": "dialog-overlay",
-  ...variantData(variants()),
-  class: slotClass(slots, "overlay", variants()),
-});
+const overlayAttrs = () => {
+  const { class: className, ...rest } = props.overlayProps ?? {};
+  return {
+    ...rest,
+    "aria-hidden": "true" as const,
+    "data-state": state.value,
+    "data-slot": (rest["data-slot"] as string | undefined) ?? "dialog-overlay",
+    ...variantData(variants()),
+    class: slotClass(slots, "overlay", variants(), normalizeClass(className)),
+  };
+};
 </script>
 
 <template>

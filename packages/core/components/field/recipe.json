@@ -7,18 +7,7 @@
     "minWidth": "0"
   },
   "slots": {
-    "label": {
-      "display": "inline-flex",
-      "alignItems": "baseline",
-      "gap": "{space.1}",
-      "fontSize": "{text.sm}",
-      "fontWeight": "{weight.medium}",
-      "lineHeight": "{leading.tight}",
-      "color": "{color.fg}",
-      "part:required-indicator": {
-        "color": "{color.danger-fg}"
-      }
-    },
+    "label": {},
     "description": {
       "margin": "0",
       "fontSize": "{text.xs}",

@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { FieldContext, useField, useFieldState } from "@defied/prism-react";
+import { Label } from "./Label";
 import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import { tailwindSlots } from "@defied/prism-core/tailwind";
 
@@ -24,7 +25,7 @@ const slots: StyleSlots = tailwindSlots({
     }
   },
   "label": {
-    "base": "inline-flex items-baseline gap-prism-1 text-prism-sm font-prism-medium leading-prism-tight text-prism-fg [&_[data-part=required-indicator]]:text-prism-danger-fg",
+    "base": "",
     "variants": {}
   },
   "description": {
@@ -94,31 +95,14 @@ export interface FieldLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
 }
 
-/** Labels the Field's control. The asterisk is visual; the control carries `required`. */
-export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
-  ({ required, id, htmlFor, className, children, ...props }, ref) => {
-    const field = useField();
-    const isRequired = required ?? field?.required ?? false;
-    return (
-      <label
-        {...props}
-        ref={ref}
-        id={id ?? field?.labelId}
-        htmlFor={htmlFor ?? field?.controlId}
-        data-slot="field-label"
-        {...variantData({})}
-        className={slotClass(slots, "label", {}, className)}
-      >
-        {children}
-        {isRequired && (
-          <span data-part="required-indicator" aria-hidden="true">
-            *
-          </span>
-        )}
-      </label>
-    );
-  },
-);
+/**
+ * Labels the Field's control: the registry Label (which reads id, htmlFor,
+ * required and disabled from the Field) tagged as the Field's label slot.
+ * The asterisk is visual; the control carries `required`.
+ */
+export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(({ className, ...props }, ref) => (
+  <Label {...props} ref={ref} data-slot="field-label" className={slotClass(slots, "label", {}, className)} />
+));
 FieldLabel.displayName = "FieldLabel";
 
 export type FieldDescriptionProps = HTMLAttributes<HTMLParagraphElement>;

@@ -14,27 +14,16 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
-import { createPortal } from "react-dom";
 import {
   useCollection,
   useCollectionItem,
   useComposedRefs,
   useControllableState,
   useIsomorphicLayoutEffect,
-  usePresence,
   type Collection,
   type CollectionRecord,
 } from "@defied/prism-react";
-import {
-  hideOthers,
-  lockScroll,
-  nextIndex,
-  onDismiss,
-  slotClass,
-  trapFocus,
-  variantData,
-  type StyleSlots,
-} from "@defied/prism-core";
+import { nextIndex, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -45,6 +34,7 @@ import {
   parseShortcut,
   type CommandItem as CommandItemData,
 } from "@defied/prism-core/components/command-palette";
+import { Dialog, DialogContent } from "./Dialog";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};
@@ -137,10 +127,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     const baseId = useId();
     const listboxId = `${baseId}-listbox`;
 
-    const contentRef = useRef<HTMLDivElement>(null);
-    const portalRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const composedRef = useComposedRefs(ref, contentRef);
     const variants = useMemo(() => ({ size }), [size]);
 
     // Items register through context, in any structure; kept in DOM order
@@ -179,24 +166,6 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     setOpenRef.current = setOpen;
     const openRef = useRef(open);
     openRef.current = open;
-
-    useEffect(() => {
-      const content = contentRef.current;
-      const portal = portalRef.current;
-      if (!open || !content || !portal) return;
-      const cleanups = [
-        lockScroll(),
-        hideOthers(portal),
-        onDismiss({
-          inside: () => [content],
-          onDismiss: () => setOpenRef.current(false),
-        }),
-        trapFocus(content, { initialFocus: inputRef.current }),
-      ];
-      return () => {
-        for (const cleanup of cleanups.reverse()) cleanup();
-      };
-    }, [open]);
 
     // Optional global shortcut toggles the palette
     useEffect(() => {
@@ -273,37 +242,31 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       inputRef,
     };
 
-    // Stays mounted, data-state="closed", while the exit animation plays
-    const { present, state } = usePresence(open, contentRef);
-    if (!present || typeof document === "undefined") return null;
-
-    return createPortal(
+    // The modal shell (portal, presence, focus trap, Escape, outside click,
+    // scroll lock, inert background) is the registry Dialog, restyled here
+    return (
       <PaletteContext.Provider value={ctx}>
-        <div ref={portalRef}>
-          <div
-            aria-hidden="true"
-            data-state={state}
-            data-slot="command-palette-overlay"
-            {...variantData(variants)}
-            className={slotClass(slots, "overlay", variants)}
-          />
-          <div
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent
             {...props}
-            ref={composedRef}
+            ref={ref}
+            unstyled
+            size={size}
+            initialFocus={() => inputRef.current}
+            overlayProps={{
+              "data-slot": "command-palette-overlay",
+              className: slotClass(slots, "overlay", variants),
+            }}
             role="dialog"
-            aria-modal={open ? "true" : undefined}
             aria-label={props["aria-labelledby"] ? undefined : (props["aria-label"] ?? label)}
-            tabIndex={-1}
-            data-state={state}
             data-slot="command-palette-content"
             {...variantData(variants)}
             className={slotClass(slots, "content", variants, className)}
           >
             {children}
-          </div>
-        </div>
-      </PaletteContext.Provider>,
-      document.body,
+          </DialogContent>
+        </Dialog>
+      </PaletteContext.Provider>
     );
   },
 );

@@ -75,8 +75,8 @@ const rootAttrs = () => {
     ...merged,
     disabled: merged.disabled ?? false,
     ...variantData(variants()),
-    "data-state": status.value,
-    "data-slot": "input",
+    "data-state": (attrs["data-state"] as string | undefined) ?? status.value,
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "input",
     class: slotClass(slots, "root", variants(), normalizeClass(attrs.class)),
   };
 };

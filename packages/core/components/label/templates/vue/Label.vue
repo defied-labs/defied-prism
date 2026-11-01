@@ -41,7 +41,7 @@ const rootAttrs = () => {
     ...rest,
     id: (id as string | undefined) ?? field?.labelId,
     for: ((htmlFor ?? reactFor) as string | undefined) ?? field?.controlId,
-    "data-slot": "label",
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "label",
     ...variantData(variants()),
     class: slotClass(slots, "root", variants(), normalizeClass(className)),
   };

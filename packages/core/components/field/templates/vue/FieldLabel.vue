@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs } from "vue";
-import { useField } from "@defied/prism-vue";
-import { slotClass, variantData } from "@defied/prism-core";
+import { slotClass } from "@defied/prism-core";
+import { Label } from "../label";
 import { slots } from "./styles";
 
 export interface FieldLabelProps {
@@ -9,33 +9,23 @@ export interface FieldLabelProps {
   required?: boolean;
 }
 
-/** Labels the Field's control. The asterisk is visual; the control carries `required`. */
+/**
+ * Labels the Field's control: the registry Label (which reads id, for,
+ * required and disabled from the Field) tagged as the Field's label slot.
+ * The asterisk is visual; the control carries `required`.
+ */
+// undefined (not false) when absent, so the Field's value applies
 defineOptions({ inheritAttrs: false });
 
-// undefined (not false) when absent, so the Field's value applies
 const props = withDefaults(defineProps<FieldLabelProps>(), { required: undefined });
-
 const attrs = useAttrs();
-const field = useField();
 
-const isRequired = () => props.required ?? field?.required ?? false;
-
-const rootAttrs = () => {
-  const { class: className, id, for: htmlFor, htmlFor: reactFor, ...rest } = attrs;
-  return {
-    ...rest,
-    id: (id as string | undefined) ?? field?.labelId,
-    for: ((htmlFor ?? reactFor) as string | undefined) ?? field?.controlId,
-    "data-slot": "field-label",
-    ...variantData({}),
-    class: slotClass(slots, "label", {}, normalizeClass(className)),
-  };
+const labelAttrs = () => {
+  const { class: className, ...rest } = attrs;
+  return { ...rest, class: slotClass(slots, "label", {}, normalizeClass(className)) };
 };
 </script>
 
 <template>
-  <label v-bind="rootAttrs()">
-    <slot />
-    <span v-if="isRequired()" data-part="required-indicator" aria-hidden="true">*</span>
-  </label>
+  <Label v-bind="labelAttrs()" :required="props.required" data-slot="field-label"><slot /></Label>
 </template>

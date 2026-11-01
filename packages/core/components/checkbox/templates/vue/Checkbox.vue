@@ -94,7 +94,7 @@ const inputAttrs = () => {
     checked: checked.value,
     "aria-checked": props.indeterminate ? ("mixed" as const) : undefined,
     "data-state": state(),
-    "data-slot": "checkbox",
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "checkbox",
     ...variantData(variants()),
     class: slotClass(slots, "root", variants(), normalizeClass(className)),
   };

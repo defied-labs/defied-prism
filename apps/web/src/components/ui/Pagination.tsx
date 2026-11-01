@@ -2,6 +2,8 @@ import { forwardRef, type HTMLAttributes, type MouseEvent, type ReactNode } from
 import { useControllableState } from "@defied/prism-react";
 import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import { clampPage, paginationRange } from "@defied/prism-core/components/pagination";
+import { Button } from "./Button";
+import { IconButton } from "./IconButton";
 import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
@@ -96,8 +98,8 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       getPageLabel = (page) => `Page ${page}`,
       previousLabel = "Previous page",
       nextLabel = "Next page",
-      previousContent = <span aria-hidden="true">‹</span>,
-      nextContent = <span aria-hidden="true">›</span>,
+      previousContent = "‹",
+      nextContent = "›",
       className,
       "aria-label": ariaLabel = "Pagination",
       ...props
@@ -133,6 +135,9 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
         className: slotClass(slots, kind, variants),
       };
       if (getHref) {
+        // Previous / next content is decorative (IconButton hides it the same way)
+        if (kind !== "link") content = <span aria-hidden="true">{content}</span>;
+        // Links render a plain <a> (Button has no link form) styled by the same slot.
         // Links can't be disabled: drop the href so they stop being links
         return options.disabled ? (
           <a {...common} role="link" aria-disabled="true">
@@ -152,10 +157,19 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           </a>
         );
       }
+      // Page numbers are text buttons; previous / next are icon-only (named by aria-label)
+      const Control = kind === "link" ? Button : IconButton;
       return (
-        <button type="button" {...common} disabled={options.disabled} onClick={() => go(target)}>
+        <Control
+          variant="ghost"
+          size={size}
+          {...common}
+          aria-label={label}
+          disabled={options.disabled}
+          onClick={() => go(target)}
+        >
           {content}
-        </button>
+        </Control>
       );
     };
 

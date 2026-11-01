@@ -3,6 +3,8 @@ import { normalizeClass, useAttrs } from "vue";
 import { useControllableState } from "@defied/prism-vue";
 import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import { clampPage, paginationRange } from "@defied/prism-core/components/pagination";
+import { Button } from "../button";
+import { IconButton } from "../icon-button";
 import styles from "./Pagination.module.css";
 
 export interface PaginationProps {
@@ -86,10 +88,13 @@ function controlAttrs(kind: Kind, target: number, label: string, options: { curr
       },
     };
   }
-  return { ...common, type: "button", disabled: options.disabled, onClick: () => go(target) };
+  // Button / IconButton emit click only when active
+  return { ...common, variant: "ghost", size: props.size, disabled: options.disabled, onClick: () => go(target) };
 }
 
-const tag = () => (props.getHref ? "a" : "button");
+// Page numbers are text buttons; previous / next are icon-only (named by aria-label).
+// Links render a plain <a> (Button has no link form) styled by the same slot.
+const tag = (kind: Kind) => (props.getHref ? "a" : kind === "link" ? Button : IconButton);
 
 // Read in the render, so attribute changes re-render the pager
 const rootAttrs = () => {
@@ -113,13 +118,14 @@ const partAttrs = (slot: "list" | "item" | "ellipsis") => ({
   <nav v-bind="rootAttrs()">
     <ul v-bind="partAttrs('list')">
       <li v-bind="partAttrs('item')">
-        <component :is="tag()" v-bind="controlAttrs('previous', current() - 1, props.previousLabel, { disabled: current() <= 1 })">
-          <slot name="previous"><span aria-hidden="true">‹</span></slot>
+        <component :is="tag('previous')" v-bind="controlAttrs('previous', current() - 1, props.previousLabel, { disabled: current() <= 1 })">
+          <span v-if="props.getHref" aria-hidden="true"><slot name="previous">‹</slot></span>
+          <slot v-else name="previous">‹</slot>
         </component>
       </li>
       <li v-for="item in items()" :key="item" v-bind="partAttrs('item')">
         <component
-          :is="tag()"
+          :is="tag('link')"
           v-if="typeof item === 'number'"
           v-bind="controlAttrs('link', item, props.getPageLabel(item), { current: item === current() })"
         >
@@ -128,8 +134,9 @@ const partAttrs = (slot: "list" | "item" | "ellipsis") => ({
         <span v-else aria-hidden="true" v-bind="partAttrs('ellipsis')">…</span>
       </li>
       <li v-bind="partAttrs('item')">
-        <component :is="tag()" v-bind="controlAttrs('next', current() + 1, props.nextLabel, { disabled: current() >= props.count })">
-          <slot name="next"><span aria-hidden="true">›</span></slot>
+        <component :is="tag('next')" v-bind="controlAttrs('next', current() + 1, props.nextLabel, { disabled: current() >= props.count })">
+          <span v-if="props.getHref" aria-hidden="true"><slot name="next">›</slot></span>
+          <slot v-else name="next">›</slot>
         </component>
       </li>
     </ul>

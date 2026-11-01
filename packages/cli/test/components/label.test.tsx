@@ -64,4 +64,12 @@ describe("Label", () => {
     expect(label.htmlFor).toBe("x");
     expect(indicator(label)).toBeNull();
   });
+
+  it("respects an explicit data-slot, defaulting to label", () => {
+    render(h(m.Label, null, "A"));
+    render(h(m.Label, { "data-slot": "custom" }, "B"));
+    const [a, b] = document.querySelectorAll("label");
+    expect(a!.getAttribute("data-slot")).toBe("label");
+    expect(b!.getAttribute("data-slot")).toBe("custom");
+  });
 });

@@ -14,27 +14,16 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
-import { createPortal } from "react-dom";
 import {
   useCollection,
   useCollectionItem,
   useComposedRefs,
   useControllableState,
   useIsomorphicLayoutEffect,
-  usePresence,
   type Collection,
   type CollectionRecord,
 } from "@defied/prism-react";
-import {
-  hideOthers,
-  lockScroll,
-  nextIndex,
-  onDismiss,
-  slotClass,
-  trapFocus,
-  variantData,
-  type StyleSlots,
-} from "@defied/prism-core";
+import { nextIndex, slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -45,6 +34,7 @@ import {
   parseShortcut,
   type CommandItem as CommandItemData,
 } from "@defied/prism-core/components/command-palette";
+import { Dialog, DialogContent } from "./Dialog";
 import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
@@ -54,11 +44,11 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "overlay": {
-    "base": "fixed inset-0 z-(--prism-z-overlay) bg-prism-overlay [animation:prism-fade-in_var(--prism-duration-normal)_var(--prism-easing-standard)] data-[state=closed]:[animation:prism-fade-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
+    "base": "",
     "variants": {}
   },
   "content": {
-    "base": "fixed z-(--prism-z-modal) [top:15vh] [left:0] [right:0] [margin-inline:auto] box-border [width:calc(100vw_-_2_*_var(--prism-space-4))] [max-height:70vh] flex flex-col overflow-hidden rounded-prism-lg [border-width:1px] border-solid border-prism-border bg-prism-bg text-prism-fg shadow-prism-lg font-prism-sans [animation:prism-scale-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:[animation:prism-scale-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards] data-[state=closed]:pointer-events-none focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
+    "base": "fixed z-(--prism-z-modal) [top:15vh] [left:0] [right:0] [margin-inline:auto] box-border [width:calc(100vw_-_2_*_var(--prism-space-4))] [max-height:70vh] flex flex-col overflow-hidden rounded-prism-lg [border-width:1px] border-solid border-prism-border bg-prism-bg text-prism-fg shadow-prism-lg font-prism-sans [animation:prism-zoom-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)] data-[state=closed]:[animation:prism-zoom-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards] data-[state=closed]:pointer-events-none focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
     "variants": {
       "size": {
         "sm": "[max-width:28rem]",
@@ -185,10 +175,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     const baseId = useId();
     const listboxId = `${baseId}-listbox`;
 
-    const contentRef = useRef<HTMLDivElement>(null);
-    const portalRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const composedRef = useComposedRefs(ref, contentRef);
     const variants = useMemo(() => ({ size }), [size]);
 
     // Items register through context, in any structure; kept in DOM order
@@ -227,24 +214,6 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     setOpenRef.current = setOpen;
     const openRef = useRef(open);
     openRef.current = open;
-
-    useEffect(() => {
-      const content = contentRef.current;
-      const portal = portalRef.current;
-      if (!open || !content || !portal) return;
-      const cleanups = [
-        lockScroll(),
-        hideOthers(portal),
-        onDismiss({
-          inside: () => [content],
-          onDismiss: () => setOpenRef.current(false),
-        }),
-        trapFocus(content, { initialFocus: inputRef.current }),
-      ];
-      return () => {
-        for (const cleanup of cleanups.reverse()) cleanup();
-      };
-    }, [open]);
 
     // Optional global shortcut toggles the palette
     useEffect(() => {
@@ -321,37 +290,31 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       inputRef,
     };
 
-    // Stays mounted, data-state="closed", while the exit animation plays
-    const { present, state } = usePresence(open, contentRef);
-    if (!present || typeof document === "undefined") return null;
-
-    return createPortal(
+    // The modal shell (portal, presence, focus trap, Escape, outside click,
+    // scroll lock, inert background) is the registry Dialog, restyled here
+    return (
       <PaletteContext.Provider value={ctx}>
-        <div ref={portalRef}>
-          <div
-            aria-hidden="true"
-            data-state={state}
-            data-slot="command-palette-overlay"
-            {...variantData(variants)}
-            className={slotClass(slots, "overlay", variants)}
-          />
-          <div
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent
             {...props}
-            ref={composedRef}
+            ref={ref}
+            unstyled
+            size={size}
+            initialFocus={() => inputRef.current}
+            overlayProps={{
+              "data-slot": "command-palette-overlay",
+              className: slotClass(slots, "overlay", variants),
+            }}
             role="dialog"
-            aria-modal={open ? "true" : undefined}
             aria-label={props["aria-labelledby"] ? undefined : (props["aria-label"] ?? label)}
-            tabIndex={-1}
-            data-state={state}
             data-slot="command-palette-content"
             {...variantData(variants)}
             className={slotClass(slots, "content", variants, className)}
           >
             {children}
-          </div>
-        </div>
-      </PaletteContext.Provider>,
-      document.body,
+          </DialogContent>
+        </Dialog>
+      </PaletteContext.Provider>
     );
   },
 );

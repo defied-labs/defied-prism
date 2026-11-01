@@ -37,7 +37,7 @@ const slots: StyleSlots = tailwindSlots({
     }
   },
   "control": {
-    "base": "relative inline-flex shrink-0 [&_[data-part=indicator]]:absolute [&_[data-part=indicator]]:[inset:0.3em] [&_[data-part=indicator]]:rounded-prism-full [&_[data-part=indicator]]:bg-prism-primary-fg [&_[data-part=indicator]]:pointer-events-none [&_[data-part=indicator]]:[animation:prism-pop-in_var(--prism-duration-normal)_var(--prism-easing-emphasized)]",
+    "base": "relative inline-flex shrink-0 [&_[data-part=indicator]]:absolute [&_[data-part=indicator]]:inset-0 [&_[data-part=indicator]]:[margin:auto] [&_[data-part=indicator]]:[width:50%] [&_[data-part=indicator]]:[height:50%] [&_[data-part=indicator]]:rounded-prism-full [&_[data-part=indicator]]:bg-prism-primary-fg [&_[data-part=indicator]]:pointer-events-none [&_[data-part=indicator]]:[animation:prism-fade-in_var(--prism-duration-normal)_var(--prism-easing-standard)]",
     "variants": {
       "size": {
         "sm": "text-prism-sm",

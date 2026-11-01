@@ -46,6 +46,18 @@ function TestField({
 const box = () => screen.getByRole("textbox") as HTMLInputElement;
 
 describe("Input", () => {
+  it("defaults data-slot to input and data-state to the machine status", () => {
+    render(h(m.Input, { "aria-label": "Email" }));
+    expect(box().getAttribute("data-slot")).toBe("input");
+    expect(box().getAttribute("data-state")).toBe("empty");
+  });
+
+  it("an explicit data-slot and data-state win over the defaults", () => {
+    render(h(m.Input, { "aria-label": "Email", "data-slot": "custom", "data-state": "open" }));
+    expect(box().getAttribute("data-slot")).toBe("custom");
+    expect(box().getAttribute("data-state")).toBe("open");
+  });
+
   it("is a bare control: no label, hint or error parts of its own", () => {
     const { container } = render(h(m.Input, { "aria-label": "Email", required: true }));
     expect(container.firstElementChild).toBe(box());

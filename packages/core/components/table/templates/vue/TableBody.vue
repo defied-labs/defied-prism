@@ -14,7 +14,7 @@ const rootAttrs = () => {
   const variants = table.variants();
   return {
     ...rest,
-    "data-slot": "table-body",
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "table-body",
     ...variantData(variants),
     class: slotClass(slots, "body", variants, normalizeClass(className)),
   };

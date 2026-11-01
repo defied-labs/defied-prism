@@ -18,7 +18,7 @@ const rootAttrs = () => {
   return {
     id: table.captionId,
     ...rest,
-    "data-slot": "table-caption",
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "table-caption",
     ...variantData(variants),
     class: slotClass(slots, "caption", variants, normalizeClass(className)),
   };

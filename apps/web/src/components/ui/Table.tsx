@@ -106,6 +106,8 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
     const scrollRef = useRef<HTMLDivElement>(null);
     const overflowing = useOverflow(scrollRef);
 
+    // A caller-supplied root slot also names the scroll container ("x" -> "x-scroll")
+    const rootSlot = (props as { "data-slot"?: string })["data-slot"] ?? "table";
     const name = scrollLabel ?? props["aria-label"] ?? "Table";
     const region = overflowing
       ? {
@@ -120,14 +122,14 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
         <div
           ref={scrollRef}
           {...region}
-          data-slot="table-scroll"
+          data-slot={`${rootSlot}-scroll`}
           {...variantData(variants)}
           className={slotClass(slots, "scroll", variants)}
         >
           <table
             {...props}
             ref={ref}
-            data-slot="table"
+            data-slot={rootSlot}
             {...variantData(variants)}
             className={slotClass(slots, "root", variants, className)}
           />
@@ -151,7 +153,7 @@ export const TableCaption = forwardRef<HTMLTableCaptionElement, HTMLAttributes<H
         id={captionId}
         {...props}
         ref={ref}
-        data-slot="table-caption"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-caption"}
         {...variantData(variants)}
         className={slotClass(slots, "caption", variants, className)}
       />
@@ -168,7 +170,7 @@ export const TableHeader = forwardRef<HTMLTableSectionElement, SectionProps>(({ 
     <thead
       {...props}
       ref={ref}
-      data-slot="table-header"
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-header"}
       {...variantData(variants)}
       className={slotClass(slots, "header", variants, className)}
     />
@@ -183,7 +185,7 @@ export const TableBody = forwardRef<HTMLTableSectionElement, SectionProps>(
       <tbody
         {...props}
         ref={ref}
-        data-slot="table-body"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-body"}
         {...variantData(variants)}
         className={slotClass(slots, "body", variants, className)}
       />
@@ -198,7 +200,7 @@ export const TableFooter = forwardRef<HTMLTableSectionElement, SectionProps>(({ 
     <tfoot
       {...props}
       ref={ref}
-      data-slot="table-footer"
+      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-footer"}
       {...variantData(variants)}
       className={slotClass(slots, "footer", variants, className)}
     />
@@ -213,7 +215,7 @@ export const TableRow = forwardRef<HTMLTableRowElement, HTMLAttributes<HTMLTable
       <tr
         {...props}
         ref={ref}
-        data-slot="table-row"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-row"}
         {...variantData(variants)}
         className={slotClass(slots, "row", variants, className)}
       />
@@ -235,7 +237,7 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
         {...props}
         scope={scope}
         ref={ref}
-        data-slot="table-head"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-head"}
         {...variantData(variants)}
         className={slotClass(slots, "head", variants, className)}
       />
@@ -251,7 +253,7 @@ export const TableCell = forwardRef<HTMLTableCellElement, TdHTMLAttributes<HTMLT
       <td
         {...props}
         ref={ref}
-        data-slot="table-cell"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-cell"}
         {...variantData(variants)}
         className={slotClass(slots, "cell", variants, className)}
       />

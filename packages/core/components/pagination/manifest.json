@@ -52,7 +52,9 @@
       }
     },
     "states": [],
-    "parts": [],
+    "parts": [
+      "icon"
+    ],
     "keyboard": [],
     "aria": {
       "role": "navigation",
@@ -141,6 +143,10 @@
       "version": "^0.1.0",
       "type": "dependency"
     }
+  ],
+  "registryDependencies": [
+    "button",
+    "icon-button"
   ],
   "tokens": [
     {

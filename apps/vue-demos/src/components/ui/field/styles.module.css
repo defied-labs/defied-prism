@@ -6,20 +6,6 @@
   min-width: 0;
 }
 
-.label {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--prism-space-1);
-  font-size: var(--prism-text-sm);
-  font-weight: var(--prism-weight-medium);
-  line-height: var(--prism-leading-tight);
-  color: var(--prism-color-fg);
-}
-
-.label [data-part="required-indicator"] {
-  color: var(--prism-color-danger-fg);
-}
-
 .description {
   margin: 0;
   font-size: var(--prism-text-xs);

@@ -22,7 +22,7 @@ const rootAttrs = () => {
   return {
     ...rest,
     scope: props.scope,
-    "data-slot": "table-head",
+    "data-slot": (attrs["data-slot"] as string | undefined) ?? "table-head",
     ...variantData(variants),
     class: slotClass(slots, "head", variants, normalizeClass(className)),
   };

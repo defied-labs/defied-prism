@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, normalizeClass, provide, useAttrs, useId } from "vue";
+import { computed, normalizeClass, provide, ref, useAttrs, useId, watch } from "vue";
 import { useCollection, useControllableState } from "@defied/prism-vue";
 import { slotClass, variantData } from "@defied/prism-core";
 import { TabsContext, type Orientation, type TabEntry } from "./context";
@@ -52,6 +52,18 @@ const variants = computed(() => ({
   size: props.size,
 }));
 
+const tabs = useCollection<TabEntry>();
+
+// Inactive panels wait before or after the selected one by tab order, so a
+// change slides the panels the way the tabs moved
+const direction = ref<"forward" | "backward">();
+watch(value, (to, from) => {
+  const values = tabs.items.value.map((tab) => tab.value);
+  const a = from == null ? -1 : values.indexOf(from);
+  const b = to == null ? -1 : values.indexOf(to);
+  if (a !== -1 && b !== -1 && a !== b) direction.value = b > a ? "forward" : "backward";
+});
+
 provide(TabsContext, {
   value,
   select: (next) => {
@@ -61,7 +73,8 @@ provide(TabsContext, {
   orientation: computed(() => props.orientation),
   activationMode: computed(() => props.activationMode),
   variants,
-  tabs: useCollection<TabEntry>(),
+  tabs,
+  direction,
 });
 
 // Read in the render, so attribute changes re-render the root
@@ -70,6 +83,7 @@ const rootAttrs = () => {
   return {
     ...rest,
     "data-slot": "tabs",
+    "data-direction": direction.value,
     ...variantData(variants.value),
     class: slotClass(slots, "root", variants.value, normalizeClass(className)),
   };

@@ -64,6 +64,27 @@ describe("Dialog", () => {
     expect(dialog).toHaveAccessibleDescription("Update your public details.");
   });
 
+  it("lets caller data-slot win on content and overlay, and merges overlay classes", () => {
+    renderPage(profileDialog(
+      { defaultOpen: true },
+      { "data-slot": "my-content", overlayProps: { "data-slot": "my-overlay", className: "my-overlay-class" } },
+    ));
+    const overlay = document.querySelector('[data-slot="my-overlay"]')!;
+    expect(dialogEl()!.getAttribute("data-slot")).toBe("my-content");
+    expect(overlay).not.toBeNull();
+    expect(overlay.classList).toContain("my-overlay-class");
+    expect(overlay.classList.length).toBeGreaterThan(1);
+    expect(document.querySelector('[data-slot="dialog-overlay"]')).toBeNull();
+  });
+
+  it("unstyled drops the content recipe classes but keeps the caller's", () => {
+    renderPage(profileDialog({ defaultOpen: true }, { unstyled: true, className: "shell" }));
+    const dialog = dialogEl()!;
+    expect(dialog.className).toBe("shell");
+    expect(dialog.hasAttribute("data-size")).toBe(false);
+    expect(dialog.getAttribute("data-slot")).toBe("dialog-content");
+  });
+
   it("moves focus in, keeps Tab inside, and returns focus on close", async () => {
     const user = userEvent.setup();
     const { trigger } = renderPage();

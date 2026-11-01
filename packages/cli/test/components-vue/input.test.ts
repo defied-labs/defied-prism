@@ -55,6 +55,18 @@ const show = async (node: () => unknown) => {
 const box = () => screen.getByRole("textbox") as HTMLInputElement;
 
 describe("Input (vue)", () => {
+  it("defaults data-slot to input and data-state to the machine status", async () => {
+    await show(() => h(m.Input, { "aria-label": "Email" }));
+    expect(box().getAttribute("data-slot")).toBe("input");
+    expect(box().getAttribute("data-state")).toBe("empty");
+  });
+
+  it("an explicit data-slot and data-state win over the defaults", async () => {
+    await show(() => h(m.Input, { "aria-label": "Email", "data-slot": "custom", "data-state": "open" }));
+    expect(box().getAttribute("data-slot")).toBe("custom");
+    expect(box().getAttribute("data-state")).toBe("open");
+  });
+
   it("is a bare control: no label, hint or error parts of its own", async () => {
     const { container } = await show(() => h(m.Input, { "aria-label": "Email", required: true }));
     expect(container.firstElementChild).toBe(box());

@@ -277,6 +277,10 @@
       "required": true
     },
     {
+      "name": "duration.slow",
+      "required": true
+    },
+    {
       "name": "easing.standard",
       "required": true
     },

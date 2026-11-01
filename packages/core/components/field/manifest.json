@@ -188,6 +188,9 @@
       "type": "dependency"
     }
   ],
+  "registryDependencies": [
+    "label"
+  ],
   "tokens": [
     {
       "name": "color.danger-fg",
@@ -214,10 +217,6 @@
       "required": true
     },
     {
-      "name": "space.1",
-      "required": true
-    },
-    {
       "name": "space.1-5",
       "required": true
     },
@@ -238,15 +237,7 @@
       "required": true
     },
     {
-      "name": "text.sm",
-      "required": true
-    },
-    {
       "name": "text.xs",
-      "required": true
-    },
-    {
-      "name": "weight.medium",
       "required": true
     },
     {

@@ -21,11 +21,14 @@
 
 .control [data-part="indicator"] {
   position: absolute;
-  inset: 0.3em;
+  inset: 0;
+  margin: auto;
+  width: 50%;
+  height: 50%;
   border-radius: var(--prism-radius-full);
   background: var(--prism-color-primary-fg);
   pointer-events: none;
-  animation: prism-pop-in var(--prism-duration-normal) var(--prism-easing-emphasized);
+  animation: prism-fade-in var(--prism-duration-normal) var(--prism-easing-standard);
 }
 
 .radio {

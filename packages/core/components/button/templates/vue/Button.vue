@@ -57,9 +57,12 @@ const rootAttrs = () => {
   return {
     ...rest,
     ...variantData(variants()),
-    // A component composing this one (e.g. a dialog trigger) may name the slot
+    // A component composing this one (e.g. a dialog trigger) may name the
+    // slot and own the state attribute
     "data-slot": (attrs["data-slot"] as string | undefined) ?? "button",
-    "data-state": props.disabled ? "disabled" : props.loading ? "loading" : status.value,
+    "data-state":
+      (attrs["data-state"] as string | undefined) ??
+      (props.disabled ? "disabled" : props.loading ? "loading" : status.value),
     class: slotClass(slots, "root", variants(), normalizeClass(className)),
   };
 };

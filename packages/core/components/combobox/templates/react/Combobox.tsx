@@ -35,6 +35,7 @@ import {
   type ComboboxEvent,
   type ComboboxOption,
 } from "@defied/prism-core/components/combobox";
+import { Input } from "./Input";
 
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = {{STYLE_SLOTS}};
@@ -384,25 +385,30 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
       }
     };
 
+    // Input merges the Field itself: hand it the caller's describedby/invalid
+    // (not the merged ones) so Field ids are added once; required stays off
+    // the element (conveyed with aria-required, like the APG combobox).
     return (
-      <input
+      <Input
         {...props}
         ref={ref}
         id={control.id ?? `${generatedId}-input`}
         type="text"
         role="combobox"
         autoComplete="off"
+        size={variants.size}
+        fullWidth
         disabled={control.disabled}
+        required={false}
         aria-required={control.required || undefined}
-        aria-describedby={control["aria-describedby"]}
-        aria-invalid={control["aria-invalid"]}
+        aria-describedby={describedByProp}
+        aria-invalid={invalidProp}
         aria-autocomplete="list"
         aria-expanded={showList}
         aria-controls={showList ? ctx.listboxId : undefined}
         aria-activedescendant={showList && highlightedItem ? highlightedItem.id : undefined}
         data-state={open ? "open" : "closed"}
         data-slot="combobox-input"
-        {...variantData(variants)}
         className={slotClass(slots, "input", variants, className)}
         value={ctx.inputValue}
         onChange={(event) => {

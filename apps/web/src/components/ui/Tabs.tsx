@@ -19,16 +19,16 @@ import { tailwindSlots } from "@defied/prism-core/tailwind";
 // Filled in by `prism add` from the component's recipe.
 const slots: StyleSlots = tailwindSlots({
   "root": {
-    "base": "flex gap-prism-3 font-prism-sans",
+    "base": "grid gap-prism-3 font-prism-sans",
     "variants": {
       "orientation": {
-        "horizontal": "flex-col",
-        "vertical": "flex-row"
+        "horizontal": "[grid-template-columns:minmax(0,_1fr)] [grid-template-rows:auto_1fr]",
+        "vertical": "[grid-template-columns:auto_minmax(0,_1fr)] [grid-template-rows:minmax(0,_1fr)]"
       }
     }
   },
   "list": {
-    "base": "relative [isolation:isolate] flex gap-prism-1",
+    "base": "[grid-area:1_/_1] relative [isolation:isolate] flex gap-prism-1",
     "variants": {
       "orientation": {
         "horizontal": "flex-row",
@@ -80,8 +80,13 @@ const slots: StyleSlots = tailwindSlots({
     }
   },
   "panel": {
-    "base": "rounded-prism-sm focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
-    "variants": {}
+    "base": "[min-width:0] [transform:translateX(calc(var(--prism-tabs-offset,_0)_*_100%))] [--prism-tabs-ring:calc(var(--prism-focus-ring-width)_+_var(--prism-focus-ring-offset))] [clip-path:inset(calc(var(--prism-tabs-ring)_*_-1)_calc(max(0,_var(--prism-tabs-offset,_0))_*_100%_-_var(--prism-tabs-ring))_calc(var(--prism-tabs-ring)_*_-1)_calc(max(0,_var(--prism-tabs-offset,_0)_*_-1)_*_100%_-_var(--prism-tabs-ring)))] [transition:transform_var(--prism-duration-slow)_var(--prism-easing-standard),_clip-path_var(--prism-duration-slow)_var(--prism-easing-standard),_visibility_var(--prism-duration-slow)_linear] rounded-prism-sm focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:var(--prism-focus-ring-offset)]",
+    "variants": {
+      "orientation": {
+        "horizontal": "[grid-area:2_/_1]",
+        "vertical": "[grid-area:1_/_2]"
+      }
+    }
   }
 });
 
@@ -94,6 +99,10 @@ interface TabsContextValue {
   orientation: Orientation;
   activationMode: "automatic" | "manual";
   variants: { orientation: Orientation; variant: string; size: string };
+  /** Tab values in DOM order; empty until measured. */
+  order: string[];
+  /** Which way the last change moved: forward = to a later tab. */
+  direction: "forward" | "backward" | undefined;
 }
 
 const TabsContext = createContext<TabsContextValue | null>(null);
@@ -106,6 +115,8 @@ function useTabs(part: string): TabsContextValue {
 
 const idFor = (baseId: string, kind: "tab" | "panel", value: string) =>
   `${baseId}-${kind}-${value.replace(/\s+/g, "-")}`;
+
+const useIsomorphicLayoutEffect = typeof document === "undefined" ? useEffect : useLayoutEffect;
 
 export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "dir"> {
   /** Selected tab (controlled). */
@@ -142,15 +153,36 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       onChange: (next) => next !== undefined && onValueChange?.(next),
     });
     const variants = { orientation, variant, size };
+    const rootRef = useRef<HTMLDivElement>(null);
+    const composedRef = useComposedRefs(ref, rootRef);
+
+    // Tab order drives where inactive panels wait (before or after the
+    // selected one), so a change slides the panels the way the tabs moved
+    const [order, setOrder] = useState<string[]>([]);
+    const [direction, setDirection] = useState<"forward" | "backward">();
+    const previous = useRef(value);
+    useIsomorphicLayoutEffect(() => {
+      const root = rootRef.current;
+      if (!root) return;
+      const next = Array.from(root.querySelectorAll<HTMLElement>('[role="tab"]'))
+        .filter((tab) => tab.closest('[data-slot="tabs"]') === root)
+        .map((tab) => tab.dataset.value ?? "");
+      setOrder((current) => (current.length === next.length && current.every((v, i) => v === next[i]) ? current : next));
+      const from = previous.current == null ? -1 : next.indexOf(previous.current);
+      const to = value == null ? -1 : next.indexOf(value);
+      previous.current = value;
+      if (from !== -1 && to !== -1 && from !== to) setDirection(to > from ? "forward" : "backward");
+    });
 
     return (
       <TabsContext.Provider
-        value={{ value, select, baseId: useId(), orientation, activationMode, variants }}
+        value={{ value, select, baseId: useId(), orientation, activationMode, variants, order, direction }}
       >
         <div
           {...props}
-          ref={ref}
+          ref={composedRef}
           data-slot="tabs"
+          data-direction={direction}
           {...variantData(variants)}
           className={slotClass(slots, "root", variants, className)}
         >
@@ -179,8 +211,6 @@ const boxStyle = (box: Box): CSSProperties => ({
   height: box.height,
   transform: `translate(${box.x}px, ${box.y}px)`,
 });
-
-const useIsomorphicLayoutEffect = typeof document === "undefined" ? useEffect : useLayoutEffect;
 
 export const TabList = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, style, children, onKeyDown, onPointerOver, onPointerLeave, ...props }, ref) => {
@@ -322,21 +352,40 @@ export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
-  ({ value, className, ...props }, ref) => {
+  ({ value, className, style, ...props }, ref) => {
     const tabs = useTabs("TabPanel");
     const selected = tabs.value === value;
+    const panelRef = useRef<HTMLDivElement>(null);
+    const composedRef = useComposedRefs(ref, panelRef);
+
+    // Inactive panels stay in layout (all panels share one grid cell, so the
+    // region keeps the size of the largest) but are invisible and inert
+    useIsomorphicLayoutEffect(() => {
+      panelRef.current?.toggleAttribute("inert", !selected);
+    }, [selected]);
+
+    // -1 waits before the selected panel, 1 after it
+    const self = tabs.order.indexOf(value);
+    const active = tabs.value == null ? -1 : tabs.order.indexOf(tabs.value);
+    const offset = selected ? 0 : self !== -1 && active !== -1 && self < active ? -1 : 1;
 
     return (
       <div
         {...props}
-        ref={ref}
+        ref={composedRef}
         role="tabpanel"
         id={idFor(tabs.baseId, "panel", value)}
         aria-labelledby={idFor(tabs.baseId, "tab", value)}
         tabIndex={0}
-        hidden={!selected}
+        aria-hidden={selected ? undefined : true}
         data-state={selected ? "active" : "inactive"}
+        data-direction={tabs.direction}
         data-slot="tabs-panel"
+        style={{
+          ...style,
+          "--prism-tabs-offset": offset,
+          ...(selected ? null : { visibility: "hidden" }),
+        } as CSSProperties}
         {...variantData(tabs.variants)}
         className={slotClass(slots, "panel", tabs.variants, className)}
       />

@@ -45,6 +45,9 @@ provide(TableKey, {
   },
 });
 
+// A caller-supplied root slot also names the scroll container ("x" -> "x-scroll")
+const rootSlot = () => (attrs["data-slot"] as string | undefined) ?? "table";
+
 const scrollAttrs = () => {
   const name = props.scrollLabel ?? (attrs["aria-label"] as string | undefined) ?? "Table";
   const region = overflowing.value
@@ -56,7 +59,7 @@ const scrollAttrs = () => {
     : {};
   return {
     ...region,
-    "data-slot": "table-scroll",
+    "data-slot": `${rootSlot()}-scroll`,
     ...variantData(variants()),
     class: slotClass(slots, "scroll", variants()),
   };
@@ -66,7 +69,7 @@ const tableAttrs = () => {
   const { class: className, ...rest } = attrs;
   return {
     ...rest,
-    "data-slot": "table",
+    "data-slot": rootSlot(),
     ...variantData(variants()),
     class: slotClass(slots, "root", variants(), normalizeClass(className)),
   };

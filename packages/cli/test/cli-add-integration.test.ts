@@ -84,7 +84,9 @@ describe("CLI Integration: registry dependencies", () => {
   it("add keeps a dependency that's already installed (it may be customized)", async () => {
     run("add button");
     await fs.appendFile(join(tempDir, "src/components/ui/Button.tsx"), "\n// customized\n");
-    run("add dialog");
+    const out = run("add dialog");
+    expect(out).toContain("• Kept your existing button (required by dialog)");
+    expect(out).not.toContain("✓ Added button");
     expect(await fs.readFile(join(tempDir, "src/components/ui/Button.tsx"), "utf8")).toContain("// customized");
   });
 

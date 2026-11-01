@@ -108,4 +108,26 @@ describe("Table (vue)", () => {
       expect(el.getAttribute("data-density"), el.getAttribute("data-slot")!).toBe("compact");
     }
   });
+
+  it("lets a caller-supplied data-slot win on every part; the root's also names the scroll container", async () => {
+    const s = (slot: string) => ({ "data-slot": slot });
+    render({
+      render: () =>
+        h(m.Table, s("x"), () => [
+          h(m.TableCaption, s("x-caption"), () => "Cap"),
+          h(m.TableHeader, s("x-header"), () => h(m.TableRow, s("x-row"), () => h(m.TableHead, s("x-head"), () => "H"))),
+          h(m.TableBody, s("x-body"), () => h(m.TableRow, {}, () => h(m.TableCell, s("x-cell"), () => "C"))),
+          h(m.TableFooter, s("x-footer"), () => h(m.TableRow, {}, () => h(m.TableCell, {}, () => "F"))),
+        ]),
+    });
+    await nextTick();
+    for (const [tag, slot] of [
+      ["table", "x"], ["div", "x-scroll"], ["caption", "x-caption"], ["thead", "x-header"], ["tbody", "x-body"],
+      ["tfoot", "x-footer"], ["tr", "x-row"], ["th", "x-head"], ["td", "x-cell"],
+    ]) {
+      expect(document.querySelector(`[data-slot="${slot}"]`)?.tagName.toLowerCase(), slot).toBe(tag);
+    }
+    expect(document.querySelector('[data-slot="table-row"]')).not.toBeNull();
+    expect(document.querySelector('[data-slot="table-cell"]')).not.toBeNull();
+  });
 });

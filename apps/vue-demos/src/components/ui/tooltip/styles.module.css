@@ -18,7 +18,7 @@
   font-family: var(--prism-font-sans);
   font-size: var(--prism-text-xs);
   line-height: var(--prism-leading-snug);
-  --prism-zoom-scale: 0.92;
+  --prism-zoom-scale: 0.8;
   animation: prism-zoom-in var(--prism-duration-normal) var(--prism-easing-emphasized);
 }
 
@@ -33,7 +33,7 @@
   translate: -50% 0;
   margin-bottom: var(--prism-space-2);
   transform-origin: bottom;
-  --prism-zoom-y: -0.25rem;
+  --prism-zoom-y: 0.5rem;
 }
 
 .content[data-side="bottom"] {
@@ -42,7 +42,7 @@
   translate: -50% 0;
   margin-top: var(--prism-space-2);
   transform-origin: top;
-  --prism-zoom-y: 0.25rem;
+  --prism-zoom-y: -0.5rem;
 }
 
 .content[data-side="left"] {
@@ -51,7 +51,7 @@
   translate: 0 -50%;
   margin-right: var(--prism-space-2);
   transform-origin: right;
-  --prism-zoom-x: -0.25rem;
+  --prism-zoom-x: 0.5rem;
 }
 
 .content[data-side="right"] {
@@ -60,5 +60,5 @@
   translate: 0 -50%;
   margin-left: var(--prism-space-2);
   transform-origin: left;
-  --prism-zoom-x: 0.25rem;
+  --prism-zoom-x: -0.5rem;
 }

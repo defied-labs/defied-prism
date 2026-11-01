@@ -256,6 +256,9 @@
       "type": "dependency"
     }
   ],
+  "registryDependencies": [
+    "input"
+  ],
   "tokens": [
     {
       "name": "color.bg",
@@ -263,14 +266,6 @@
     },
     {
       "name": "color.border",
-      "required": true
-    },
-    {
-      "name": "color.border-strong",
-      "required": true
-    },
-    {
-      "name": "color.danger-solid",
       "required": true
     },
     {
@@ -283,22 +278,6 @@
     },
     {
       "name": "color.muted-fg",
-      "required": true
-    },
-    {
-      "name": "color.ring",
-      "required": true
-    },
-    {
-      "name": "control.lg",
-      "required": true
-    },
-    {
-      "name": "control.md",
-      "required": true
-    },
-    {
-      "name": "control.sm",
       "required": true
     },
     {
@@ -318,23 +297,11 @@
       "required": true
     },
     {
-      "name": "focus.ring-width",
-      "required": true
-    },
-    {
       "name": "font.sans",
       "required": true
     },
     {
-      "name": "leading.normal",
-      "required": true
-    },
-    {
       "name": "opacity.disabled",
-      "required": true
-    },
-    {
-      "name": "radius.lg",
       "required": true
     },
     {
@@ -359,18 +326,6 @@
     },
     {
       "name": "space.2",
-      "required": true
-    },
-    {
-      "name": "space.3",
-      "required": true
-    },
-    {
-      "name": "space.4",
-      "required": true
-    },
-    {
-      "name": "text.md",
       "required": true
     },
     {

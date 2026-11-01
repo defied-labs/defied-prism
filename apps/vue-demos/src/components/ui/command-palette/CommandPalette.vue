@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, normalizeClass, onBeforeUnmount, onMounted, provide, ref, useAttrs, useId, watch } from "vue";
-import { useCollection, useControllableState, usePresence } from "@defied/prism-vue";
-import { hideOthers, lockScroll, nextIndex, onDismiss, slotClass, trapFocus, variantData } from "@defied/prism-core";
+import { computed, normalizeClass, provide, ref, useAttrs, useId, watch } from "vue";
+import { useCollection, useControllableState } from "@defied/prism-vue";
+import { nextIndex, slotClass, variantData } from "@defied/prism-core";
 import {
   filterCommands,
   firstEnabled,
@@ -12,6 +12,7 @@ import {
   parseShortcut,
   type CommandItem as CommandItemData,
 } from "@defied/prism-core/components/command-palette";
+import { Dialog, DialogContent } from "../dialog";
 import { slots } from "./styles";
 import { CommandPaletteKey, type ItemRecord, type Size } from "./context";
 
@@ -60,11 +61,7 @@ const query = ref("");
 const highlighted = ref<string | null>(null);
 
 const listboxId = `${useId()}-listbox`;
-const contentRef = ref<HTMLDivElement | null>(null);
-const portalRef = ref<HTMLDivElement | null>(null);
 const inputRef = ref<HTMLInputElement | null>(null);
-// Stays mounted, data-state="closed", while the exit animation plays
-const { present, state } = usePresence(() => open.value, contentRef);
 const variants = computed(() => ({ size: props.size }));
 
 // Items register through context, in any structure; kept in DOM order
@@ -102,34 +99,6 @@ watch(
   },
   { flush: "sync" },
 );
-
-let cleanups: Array<() => void> = [];
-function teardown() {
-  for (const cleanup of cleanups.reverse()) cleanup();
-  cleanups = [];
-}
-function activate(isOpen: boolean) {
-  teardown();
-  const content = contentRef.value;
-  const portal = portalRef.value;
-  if (!isOpen || !content || !portal) return;
-  cleanups = [
-    lockScroll(),
-    hideOthers(portal),
-    onDismiss({
-      inside: () => [content],
-      onDismiss: () => {
-        open.value = false;
-      },
-    }),
-    // Last, so focus moves in after the rest of the page is inert
-    trapFocus(content, { initialFocus: inputRef.value }),
-  ];
-}
-// After the DOM updates, like a React effect
-onMounted(() => activate(open.value));
-watch(() => open.value, activate, { flush: "post" });
-onBeforeUnmount(teardown);
 
 // Optional global shortcut toggles the palette
 watch(
@@ -218,38 +187,43 @@ provide(CommandPaletteKey, {
   inputRef,
 });
 
-// Read in the render, so attribute and state changes re-render the content
+// Read in the render, so attribute changes re-render the content
 const contentAttrs = () => {
   const { class: className, ...rest } = attrs;
   return {
     ...rest,
-    role: "dialog",
-    "aria-modal": open.value ? ("true" as const) : undefined,
+    role: "dialog" as const,
     "aria-label": attrs["aria-labelledby"]
       ? undefined
       : ((attrs["aria-label"] as string | undefined) ?? props.label),
-    tabindex: -1,
-    "data-state": state.value,
     "data-slot": "command-palette-content",
     ...variantData(variants.value),
     class: slotClass(slots, "content", variants.value, normalizeClass(className)),
   };
 };
 
-const overlayAttrs = () => ({
-  "aria-hidden": "true" as const,
-  "data-state": state.value,
+const overlayProps = () => ({
   "data-slot": "command-palette-overlay",
-  ...variantData(variants.value),
   class: slotClass(slots, "overlay", variants.value),
 });
+const initialFocus = () => inputRef.value;
+function setOpen(next: boolean) {
+  open.value = next;
+}
 </script>
 
+<!-- The modal shell (teleport, presence, focus trap, Escape, outside click,
+     scroll lock, inert background) is the registry Dialog, restyled here -->
 <template>
-  <Teleport to="body">
-    <div v-if="present" ref="portalRef">
-      <div v-bind="overlayAttrs()" />
-      <div ref="contentRef" v-bind="contentAttrs()"><slot /></div>
-    </div>
-  </Teleport>
+  <Dialog :open="open" @update:open="setOpen">
+    <DialogContent
+      v-bind="contentAttrs()"
+      unstyled
+      :size="props.size"
+      :initial-focus="initialFocus"
+      :overlay-props="overlayProps()"
+    >
+      <slot />
+    </DialogContent>
+  </Dialog>
 </template>

@@ -19,15 +19,20 @@ export default defineRecipe({
       position: "relative",
       display: "inline-flex",
       flexShrink: "0",
-      // Rendered only on the checked radio: the inner dot, popping in while the
-      // radio itself fades to the primary fill
+      // Rendered only on the checked radio: the inner dot, fading in with the
+      // radio's primary fill. No transform, so nothing can shift it off center;
+      // sized as 50% of the ring so its offsets land on whole pixels (5px at
+      // md, 4px at sm)
       "part:indicator": {
         position: "absolute",
-        inset: "0.3em",
+        inset: "0",
+        margin: "auto",
+        width: "50%",
+        height: "50%",
         borderRadius: t("radius.full"),
         background: t("color.primary-fg"),
         pointerEvents: "none",
-        animation: `prism-pop-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+        animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
       },
     },
     radio: {

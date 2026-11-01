@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="Row">
-import { computed, normalizeClass, ref, useAttrs, useId, type VNodeChild } from "vue";
-import { useControllableState, useOverflow } from "@defied/prism-vue";
+import { computed, normalizeClass, ref, useAttrs, type ComponentPublicInstance, type VNodeChild } from "vue";
+import { useControllableState } from "@defied/prism-vue";
 import { slotClass, variantData, type StyleSlots } from "@defied/prism-core";
 import {
   ariaSort,
@@ -12,6 +12,9 @@ import {
   type RowKey,
   type SortState,
 } from "@defied/prism-core/components/data-table";
+import { Button } from "../button";
+import { Checkbox } from "../checkbox";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../table";
 import type { DataTableColumn } from "./types";
 import styles from "./DataTable.module.css";
 
@@ -127,34 +130,24 @@ const commit = (next: Set<RowKey>) => {
 function onSort(id: string) {
   sort.value = nextSort(sort.value, id, { allowUnsorted: props.allowUnsorted });
 }
-function onRowChange(key: RowKey, event: Event) {
-  commit(toggleRow(selected.value, key, (event.currentTarget as HTMLInputElement).checked));
+function onRowChange(key: RowKey, checked: boolean) {
+  commit(toggleRow(selected.value, key, checked));
 }
 function headerSort(column: DataTableColumn<Row>) {
   const direction = ariaSort(sort.value, column.id);
   return column.sortable && direction !== "none" ? direction : undefined;
 }
 
-const scrollRef = ref<HTMLDivElement | null>(null);
-const tableRef = ref<HTMLTableElement | null>(null);
-const overflowing = useOverflow(scrollRef);
-const captionId = `${useId()}-caption`;
+// Table renders the scroll container (a named, focusable region only when the
+// table overflows); its root element is that container, the <table> inside it.
+const tableComponent = ref<ComponentPublicInstance | null>(null);
+const tableRef = computed(
+  () => ((tableComponent.value?.$el as HTMLElement | undefined)?.querySelector("table") ?? null) as HTMLTableElement | null,
+);
 
 defineExpose({ table: tableRef });
 
 // Read in the render, so attribute changes re-render the table
-const scrollAttrs = (hasCaption: boolean) => {
-  const base = { ...variantData(variants()), "data-slot": "data-table-scroll", class: cls("scroll") };
-  if (!overflowing.value) return base;
-  return {
-    ...base,
-    role: "region",
-    tabindex: 0,
-    ...(hasCaption && !props.scrollLabel
-      ? { "aria-labelledby": captionId }
-      : { "aria-label": props.scrollLabel ?? (attrs["aria-label"] as string | undefined) ?? "Table" }),
-  };
-};
 const rootAttrs = () => {
   const { class: className, ...rest } = attrs;
   return {
@@ -175,117 +168,115 @@ const Content = (p: { value: unknown }) => p.value as VNodeChild;
 </script>
 
 <template>
-  <!-- Wide tables scroll inside their container instead of spilling over
-       the page; only then is the container a named, focusable region. -->
-  <div ref="scrollRef" v-bind="scrollAttrs(caption != null || !!$slots.caption)">
-    <table ref="tableRef" v-bind="rootAttrs()">
-      <caption
-        v-if="caption != null || $slots.caption"
-        :id="captionId"
-        data-slot="data-table-caption"
-        v-bind="variantData(variants())"
-        :class="cls('caption')"
-      >
-        <slot name="caption">{{ caption }}</slot>
-      </caption>
-      <thead>
-        <tr>
-          <th
-            v-if="selectable"
-            scope="col"
-            data-slot="data-table-header-cell"
+  <Table
+    ref="tableComponent"
+    v-bind="rootAttrs()"
+    :density="size === 'sm' ? 'compact' : 'normal'"
+    :scroll-label="scrollLabel"
+  >
+    <TableCaption
+      v-if="caption != null || $slots.caption"
+      data-slot="data-table-caption"
+      v-bind="variantData(variants())"
+      :class="cls('caption')"
+    >
+      <slot name="caption">{{ caption }}</slot>
+    </TableCaption>
+    <TableHeader>
+      <TableRow>
+        <TableHead
+          v-if="selectable"
+          data-slot="data-table-header-cell"
+          v-bind="variantData(variants())"
+          :class="cls('headerCell')"
+        >
+          <Checkbox
+            data-slot="data-table-checkbox"
             v-bind="variantData(variants())"
-            :class="cls('headerCell')"
+            :size="size"
+            :class="cls('checkbox')"
+            :aria-label="selectAllLabel"
+            :checked="allState === true"
+            :indeterminate="allState === 'indeterminate'"
+            :disabled="selectableKeys.length === 0"
+            @checked-change="commit(toggleAll(selected, selectableKeys))"
+          />
+        </TableHead>
+        <TableHead
+          v-for="column in columns"
+          :key="column.id"
+          :aria-sort="headerSort(column)"
+          data-slot="data-table-header-cell"
+          v-bind="variantData(variants())"
+          :class="cls('headerCell')"
+        >
+          <Button
+            v-if="column.sortable"
+            variant="ghost"
+            :size="size === 'sm' ? 'xs' : 'sm'"
+            data-slot="data-table-sort-button"
+            :class="cls('sortButton')"
+            @click="onSort(column.id)"
           >
-            <input
-              type="checkbox"
+            <Content :value="column.header" />
+            <span data-part="sort-icon" aria-hidden="true">{{ sortIcon(ariaSort(sort, column.id)) }}</span>
+          </Button>
+          <Content v-else :value="column.header" />
+        </TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow v-if="rows.length === 0" data-slot="data-table-row" v-bind="variantData(variants())" :class="cls('row')">
+        <TableCell
+          :colspan="columns.length + (selectable ? 1 : 0)"
+          data-slot="data-table-cell"
+          v-bind="variantData(variants())"
+          :class="cls('cell')"
+        >
+          <slot name="empty">{{ empty }}</slot>
+        </TableCell>
+      </TableRow>
+      <template v-else>
+        <TableRow
+          v-for="{ row, index, key } in rows"
+          :key="key"
+          :aria-selected="selectable ? selected.has(key) : undefined"
+          data-slot="data-table-row"
+          v-bind="variantData(variants())"
+          :class="cls('row')"
+        >
+          <TableCell v-if="selectable" data-slot="data-table-cell" v-bind="variantData(variants())" :class="cls('cell')">
+            <Checkbox
               data-slot="data-table-checkbox"
               v-bind="variantData(variants())"
+              :size="size"
               :class="cls('checkbox')"
-              :aria-label="selectAllLabel"
-              :checked="allState === true"
-              :indeterminate="allState === 'indeterminate'"
-              :disabled="selectableKeys.length === 0"
-              @change="commit(toggleAll(selected, selectableKeys))"
+              :aria-label="getRowLabel(row, index)"
+              :checked="selected.has(key)"
+              :disabled="!canSelect(row)"
+              @checked-change="onRowChange(key, $event)"
             />
-          </th>
-          <th
-            v-for="column in columns"
-            :key="column.id"
-            scope="col"
-            :aria-sort="headerSort(column)"
-            data-slot="data-table-header-cell"
-            v-bind="variantData(variants())"
-            :class="cls('headerCell')"
-          >
-            <button
-              v-if="column.sortable"
-              type="button"
-              data-slot="data-table-sort-button"
+          </TableCell>
+          <template v-for="column in columns" :key="column.id">
+            <TableHead
+              v-if="column.rowHeader"
+              scope="row"
+              data-slot="data-table-row-header"
               v-bind="variantData(variants())"
-              :class="cls('sortButton')"
-              @click="onSort(column.id)"
+              :class="cls('rowHeader')"
             >
-              <Content :value="column.header" />
-              <span data-part="sort-icon" aria-hidden="true">{{ sortIcon(ariaSort(sort, column.id)) }}</span>
-            </button>
-            <Content v-else :value="column.header" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="rows.length === 0" data-slot="data-table-row" v-bind="variantData(variants())" :class="cls('row')">
-          <td
-            :colspan="columns.length + (selectable ? 1 : 0)"
-            data-slot="data-table-cell"
-            v-bind="variantData(variants())"
-            :class="cls('cell')"
-          >
-            <slot name="empty">{{ empty }}</slot>
-          </td>
-        </tr>
-        <template v-else>
-          <tr
-            v-for="{ row, index, key } in rows"
-            :key="key"
-            :aria-selected="selectable ? selected.has(key) : undefined"
-            data-slot="data-table-row"
-            v-bind="variantData(variants())"
-            :class="cls('row')"
-          >
-            <td v-if="selectable" data-slot="data-table-cell" v-bind="variantData(variants())" :class="cls('cell')">
-              <input
-                type="checkbox"
-                data-slot="data-table-checkbox"
-                v-bind="variantData(variants())"
-                :class="cls('checkbox')"
-                :aria-label="getRowLabel(row, index)"
-                :checked="selected.has(key)"
-                :disabled="!canSelect(row)"
-                @change="onRowChange(key, $event)"
-              />
-            </td>
-            <template v-for="column in columns" :key="column.id">
-              <th
-                v-if="column.rowHeader"
-                scope="row"
-                data-slot="data-table-row-header"
-                v-bind="variantData(variants())"
-                :class="cls('rowHeader')"
-              >
-                <slot :name="`cell-${column.id}`" :row="row" :value="column.accessor(row)" :index="index">
-                  <Content :value="column.cell ? column.cell(row, column.accessor(row)) : column.accessor(row)" />
-                </slot>
-              </th>
-              <td v-else data-slot="data-table-cell" v-bind="variantData(variants())" :class="cls('cell')">
-                <slot :name="`cell-${column.id}`" :row="row" :value="column.accessor(row)" :index="index">
-                  <Content :value="column.cell ? column.cell(row, column.accessor(row)) : column.accessor(row)" />
-                </slot>
-              </td>
-            </template>
-          </tr>
-        </template>
-      </tbody>
-    </table>
-  </div>
+              <slot :name="`cell-${column.id}`" :row="row" :value="column.accessor(row)" :index="index">
+                <Content :value="column.cell ? column.cell(row, column.accessor(row)) : column.accessor(row)" />
+              </slot>
+            </TableHead>
+            <TableCell v-else data-slot="data-table-cell" v-bind="variantData(variants())" :class="cls('cell')">
+              <slot :name="`cell-${column.id}`" :row="row" :value="column.accessor(row)" :index="index">
+                <Content :value="column.cell ? column.cell(row, column.accessor(row)) : column.accessor(row)" />
+              </slot>
+            </TableCell>
+          </template>
+        </TableRow>
+      </template>
+    </TableBody>
+  </Table>
 </template>

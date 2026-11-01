@@ -7,14 +7,9 @@ export default defineRecipe({
   // The root is a context provider and renders no element
   base: {},
   slots: {
-    overlay: {
-      position: "fixed",
-      inset: "0",
-      zIndex: t("z.overlay"),
-      background: t("color.overlay"),
-      animation: `prism-fade-in ${t("duration.normal")} ${t("easing.standard")}`,
-      _closed: { animation: `prism-fade-out ${t("duration.fast")} ${t("easing.exit")} forwards` },
-    },
+    // Styled by the registry Dialog's overlay; this slot only adds to it
+    overlay: {},
+    // Dialog content is rendered unstyled, so the palette owns the whole shell
     content: {
       position: "fixed",
       zIndex: t("z.modal"),
@@ -37,10 +32,12 @@ export default defineRecipe({
       color: t("color.fg"),
       boxShadow: t("shadow.lg"),
       fontFamily: t("font.sans"),
-      // Grows in; shrinks back out the way it came
-      animation: `prism-scale-in ${t("duration.normal")} ${t("easing.emphasized")}`,
+      // Grows out of its trigger (the registry Dialog sets --prism-zoom-* inline,
+      // also when unstyled) and shrinks back into it; with no trigger (opened
+      // by a shortcut) the vars are unset and it scales in centred
+      animation: `prism-zoom-in ${t("duration.normal")} ${t("easing.emphasized")}`,
       _closed: {
-        animation: `prism-scale-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
+        animation: `prism-zoom-out ${t("duration.fast")} ${t("easing.exit")} forwards`,
         pointerEvents: "none",
       },
       _focusVisible: {

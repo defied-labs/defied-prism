@@ -14,6 +14,8 @@ export interface TabsContextValue {
   variants: ComputedRef<{ orientation: Orientation; variant: string; size: string }>;
   /** Registered tabs in DOM order. */
   tabs: Collection<TabEntry>;
+  /** Which way the last change moved: forward = to a later tab. */
+  direction: Readonly<Ref<"forward" | "backward" | undefined>>;
 }
 
 export const TabsContext: InjectionKey<TabsContextValue> = Symbol("PrismTabs");

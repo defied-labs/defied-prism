@@ -29,7 +29,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
         ref={ref}
         id={id ?? field?.labelId}
         htmlFor={htmlFor ?? field?.controlId}
-        data-slot="label"
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
         {...variantData(variants)}
         className={slotClass(slots, "root", variants, className)}
       >

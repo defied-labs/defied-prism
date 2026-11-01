@@ -9,16 +9,8 @@ export default defineRecipe({
     minWidth: "0",
   },
   slots: {
-    label: {
-      display: "inline-flex",
-      alignItems: "baseline",
-      gap: t("space.1"),
-      fontSize: t("text.sm"),
-      fontWeight: t("weight.medium"),
-      lineHeight: t("leading.tight"),
-      color: t("color.fg"),
-      "part:required-indicator": { color: t("color.danger-fg") },
-    },
+    // Looks come from the registry Label; this slot is a hook for Field-specific overrides
+    label: {},
     description: {
       margin: "0",
       fontSize: t("text.xs"),

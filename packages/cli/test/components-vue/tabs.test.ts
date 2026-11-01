@@ -70,6 +70,30 @@ describe("Tabs (vue)", () => {
     expect(screen.queryByText("billing panel")).not.toBeVisible();
   });
 
+  it("keeps inactive panels in layout, inert, and placed by tab order", async () => {
+    const user = userEvent.setup();
+    await renderTabs({ defaultValue: "billing" });
+    const panel = (v: string) => screen.getByText(`${v} panel`);
+    // Mounted (so the region sizes to the largest) but not shown or reachable
+    for (const v of ["account", "team"]) {
+      expect(panel(v).hidden).toBe(false);
+      expect(panel(v).hasAttribute("inert")).toBe(true);
+      expect(panel(v).getAttribute("aria-hidden")).toBe("true");
+    }
+    expect(panel("billing").hasAttribute("inert")).toBe(false);
+    expect(panel("billing").hasAttribute("aria-hidden")).toBe(false);
+    const offset = (v: string) => panel(v).style.getPropertyValue("--prism-tabs-offset");
+    expect([offset("account"), offset("billing"), offset("team")]).toEqual(["-1", "0", "1"]);
+
+    await user.click(tab("danger"));
+    expect(screen.getByText("billing panel").closest('[data-slot="tabs"]')?.getAttribute("data-direction")).toBe("forward");
+    expect(panel("danger").getAttribute("data-direction")).toBe("forward");
+    expect(offset("billing")).toBe("-1");
+    await user.click(tab("account"));
+    expect(panel("account").getAttribute("data-direction")).toBe("backward");
+    expect(offset("danger")).toBe("1");
+  });
+
   it("uses a roving tabindex", async () => {
     const user = userEvent.setup();
     await renderTabs();

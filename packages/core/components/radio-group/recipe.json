@@ -19,11 +19,14 @@
       "flexShrink": "0",
       "part:indicator": {
         "position": "absolute",
-        "inset": "0.3em",
+        "inset": "0",
+        "margin": "auto",
+        "width": "50%",
+        "height": "50%",
         "borderRadius": "{radius.full}",
         "background": "{color.primary-fg}",
         "pointerEvents": "none",
-        "animation": "prism-pop-in {duration.normal} {easing.emphasized}"
+        "animation": "prism-fade-in {duration.normal} {easing.standard}"
       }
     },
     "radio": {

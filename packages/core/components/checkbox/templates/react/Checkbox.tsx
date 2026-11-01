@@ -86,7 +86,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             checked={checked}
             aria-checked={indeterminate ? "mixed" : undefined}
             data-state={state}
-            data-slot="checkbox"
+            data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "checkbox"}
             {...variantData(variants)}
             className={slotClass(slots, "root", variants, className)}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {

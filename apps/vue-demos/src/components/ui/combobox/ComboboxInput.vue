@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { normalizeClass, useAttrs, useId, watchEffect } from "vue";
 import { mergeFieldControlProps, useField } from "@defied/prism-vue";
-import { nextIndex, slotClass, variantData } from "@defied/prism-core";
+import { nextIndex, slotClass } from "@defied/prism-core";
 import { ComboboxEvents } from "@defied/prism-core/components/combobox";
 import { useComboboxContext } from "./context";
 import { slots } from "./styles";
+import { Input } from "../input";
 
 /** The text input (role="combobox"). Focus stays here while the list is open. */
 defineOptions({ inheritAttrs: false });
@@ -86,10 +87,6 @@ function onKeyDown(event: KeyboardEvent) {
   }
 }
 
-function onInput(event: Event) {
-  ctx.type((event.target as HTMLInputElement).value);
-}
-
 // Show every option as soon as the input is focused or clicked
 function openList(event: Event) {
   if (event.defaultPrevented || ctx.open.value || control().disabled) return;
@@ -109,33 +106,42 @@ const rootAttrs = () => {
   const showList = ctx.showList.value;
   const item = highlightedItem();
   const variants = ctx.variants.value;
+  // Input merges the Field itself: hand it the caller's describedby/invalid
+  // (not the merged ones) so Field ids are added once; required stays off
+  // the element (conveyed with aria-required, like the APG combobox).
   return {
     ...rest,
     id: merged.id ?? `${generatedId}-input`,
     type: "text",
     role: "combobox",
     autocomplete: "off",
+    size: variants.size,
+    fullWidth: true,
     disabled: merged.disabled,
+    required: false,
     "aria-required": merged.required || undefined,
-    "aria-describedby": merged["aria-describedby"],
-    "aria-invalid": merged["aria-invalid"],
+    "aria-describedby": attrs["aria-describedby"],
+    "aria-invalid": attrs["aria-invalid"],
     "aria-autocomplete": "list" as const,
     "aria-expanded": showList,
     "aria-controls": showList ? ctx.listboxId : undefined,
     "aria-activedescendant": showList && item ? item.id : undefined,
     "data-state": ctx.open.value ? "open" : "closed",
     "data-slot": "combobox-input",
-    ...variantData(variants),
     class: slotClass(slots, "input", variants, normalizeClass(className)),
   };
 };
+
+function onUpdate(value: string) {
+  ctx.type(value);
+}
 </script>
 
 <template>
-  <input
+  <Input
     v-bind="rootAttrs()"
-    :value="ctx.inputValue.value"
-    @input="onInput"
+    :model-value="ctx.inputValue.value"
+    @update:model-value="onUpdate"
     @keydown="onKeyDown"
     @focus="openList"
     @click="openList"

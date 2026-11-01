@@ -229,10 +229,6 @@
       "required": true
     },
     {
-      "name": "easing.emphasized",
-      "required": true
-    },
-    {
       "name": "easing.standard",
       "required": true
     },

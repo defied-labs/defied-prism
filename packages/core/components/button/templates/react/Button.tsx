@@ -72,8 +72,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         aria-disabled={loading || undefined}
         aria-busy={loading || undefined}
-        data-state={state}
-        // A component composing this one (e.g. a dialog trigger) may name the slot
+        // A component composing this one (e.g. a dialog trigger) may name the
+        // slot and own the state attribute
+        data-state={(props as { "data-state"?: string })["data-state"] ?? state}
         data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "button"}
         {...variantData(variants)}
         className={slotClass(slots, "root", variants, className)}

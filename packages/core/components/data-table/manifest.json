@@ -86,6 +86,11 @@
       "attributes": []
     }
   },
+  "registryDependencies": [
+    "button",
+    "checkbox",
+    "table"
+  ],
   "compatibility": {
     "frameworks": [
       {
@@ -177,14 +182,6 @@
   ],
   "tokens": [
     {
-      "name": "color.bg-subtle",
-      "required": true
-    },
-    {
-      "name": "color.border",
-      "required": true
-    },
-    {
       "name": "color.border-strong",
       "required": true
     },
@@ -201,55 +198,7 @@
       "required": true
     },
     {
-      "name": "color.primary",
-      "required": true
-    },
-    {
-      "name": "color.ring",
-      "required": true
-    },
-    {
-      "name": "focus.ring-offset",
-      "required": true
-    },
-    {
-      "name": "focus.ring-width",
-      "required": true
-    },
-    {
-      "name": "font.sans",
-      "required": true
-    },
-    {
-      "name": "leading.normal",
-      "required": true
-    },
-    {
-      "name": "opacity.disabled",
-      "required": true
-    },
-    {
-      "name": "radius.sm",
-      "required": true
-    },
-    {
-      "name": "space.1",
-      "required": true
-    },
-    {
-      "name": "space.1-5",
-      "required": true
-    },
-    {
       "name": "space.2",
-      "required": true
-    },
-    {
-      "name": "space.3",
-      "required": true
-    },
-    {
-      "name": "text.sm",
       "required": true
     },
     {
@@ -258,10 +207,6 @@
     },
     {
       "name": "weight.medium",
-      "required": true
-    },
-    {
-      "name": "weight.semibold",
       "required": true
     }
   ],

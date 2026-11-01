@@ -129,9 +129,13 @@ const slots: StyleSlots = {{STYLE_SLOTS}};
 - **Reuse, don't copy.** A part that *is* a button the consumer doesn't
   supply (close X, toast action, month arrows) renders `Button` /
   `IconButton`. Pass `data-slot="<name>-<slot>"` so the part stays
-  identifiable; Button keeps a given `data-slot`. Button owns its
-  `data-state` (loading/disabled), so style an open trigger with
-  `_expanded` (`aria-expanded`), not `_open`.
+  identifiable. Every primitive (button, input, label, checkbox, table
+  parts, dialog content/overlay) keeps a given `data-slot` and
+  `data-state`, falling back to its own. Prefer styling an open trigger
+  with `_expanded` (`aria-expanded`) over overriding Button's
+  `data-state`. When a primitive's look fights the composite's, use its
+  bare option (e.g. `DialogContent unstyled`) instead of fighting
+  specificity with `className`.
 - **Triggers** (dialog, drawer, popover, menu) render a `Button` by
   default, forwarding `variant`/`size`, and take `asChild` to render the
   consumer's element instead (a link, an icon, a menu item).

@@ -65,6 +65,11 @@
       "closeOnEscape": {
         "type": "boolean",
         "default": true
+      },
+      "unstyled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Drops the content's recipe styles, keeping only the caller's class (for components that restyle the modal shell)."
       }
     },
     "states": [

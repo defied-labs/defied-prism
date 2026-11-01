@@ -24,9 +24,9 @@ export default defineRecipe({
       fontFamily: t("font.sans"),
       fontSize: t("text.xs"),
       lineHeight: t("leading.snug"),
-      // Fades in, growing slightly as it settles towards the trigger (`side`
-      // sets where it starts); fades back out the same way, faster
-      "--prism-zoom-scale": "0.92",
+      // Pops out of the trigger: starts smaller and shifted towards it (`side`
+      // sets the direction), then grows away from it; shrinks back, faster
+      "--prism-zoom-scale": "0.8",
       animation: `prism-zoom-in ${t("duration.normal")} ${t("easing.emphasized")}`,
       _closed: {
         pointerEvents: "none",
@@ -43,7 +43,7 @@ export default defineRecipe({
           translate: "-50% 0",
           marginBottom: gap,
           transformOrigin: "bottom",
-          "--prism-zoom-y": "-0.25rem",
+          "--prism-zoom-y": "0.5rem",
         },
       },
       bottom: {
@@ -53,7 +53,7 @@ export default defineRecipe({
           translate: "-50% 0",
           marginTop: gap,
           transformOrigin: "top",
-          "--prism-zoom-y": "0.25rem",
+          "--prism-zoom-y": "-0.5rem",
         },
       },
       left: {
@@ -63,7 +63,7 @@ export default defineRecipe({
           translate: "0 -50%",
           marginRight: gap,
           transformOrigin: "right",
-          "--prism-zoom-x": "-0.25rem",
+          "--prism-zoom-x": "0.5rem",
         },
       },
       right: {
@@ -73,7 +73,7 @@ export default defineRecipe({
           translate: "0 -50%",
           marginLeft: gap,
           transformOrigin: "left",
-          "--prism-zoom-x": "0.25rem",
+          "--prism-zoom-x": "-0.5rem",
         },
       },
     },

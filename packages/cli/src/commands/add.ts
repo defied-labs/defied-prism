@@ -121,11 +121,19 @@ export async function addCommand(components: string[], options: AddOptions) {
   const installed = new Set(config.components ?? []);
   const requested = new Set(components);
   const added = new Set<string>();
+  const kept = new Set<string>();
   for (const component of components) {
     for (const name of await resolveInstallOrder(component, registryPath)) {
       // Dependencies already in the project are kept as they are: they may
       // have been customized. `prism sync` regenerates everything.
-      if (added.has(name) || (!requested.has(name) && installed.has(name))) continue;
+      if (added.has(name) || kept.has(name)) continue;
+      if (!requested.has(name) && installed.has(name)) {
+        kept.add(name);
+        console.log(
+          `• Kept your existing ${name} (required by ${component}). ${component} uses it as it is in your project; run \`prism add ${name}\` to regenerate it from the registry.`,
+        );
+        continue;
+      }
       await regenerateComponent(name, context);
       await recordInstalledComponent(name);
       added.add(name);

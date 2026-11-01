@@ -1,91 +1,30 @@
 import { defineRecipe, token as t } from "@defied/prism-style-engine";
 
-const focusRing = {
-  outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
-  outlineOffset: t("focus.ring-offset"),
-};
-
+// Layout, borders, hover, padding (via Table density) and the checkbox look
+// come from the composed Table and Checkbox; these are data-table deltas only.
 export default defineRecipe({
   name: "data-table",
-  base: {
-    width: "100%",
-    borderCollapse: "collapse",
-    fontFamily: t("font.sans"),
-    color: t("color.fg"),
-    lineHeight: t("leading.normal"),
-  },
+  base: {},
   slots: {
-    scroll: {
-      width: "100%",
-      maxWidth: "100%",
-      overflowX: "auto",
-      borderRadius: t("radius.sm"),
-      _focusVisible: focusRing,
-    },
-    caption: {
-      captionSide: "top",
-      textAlign: "start",
-      paddingBlock: t("space.2"),
-      color: t("color.muted-fg"),
-      fontSize: t("text.sm"),
-    },
-    headerCell: {
-      textAlign: "start",
-      fontWeight: t("weight.semibold"),
-      color: t("color.muted-fg"),
-      whiteSpace: "nowrap",
-      borderBottomWidth: "1px",
-      borderBottomStyle: "solid",
-      borderBottomColor: t("color.border-strong"),
-    },
+    // Rendered by Table, which styles it (and gives it `<slot>-scroll`)
+    scroll: {},
+    // Above the table, unlike Table's bottom caption
+    caption: { captionSide: "top", marginTop: "0", paddingBlock: t("space.2") },
+    headerCell: { borderBottomColor: t("color.border-strong") },
+    // Rendered by the registry Button (ghost); this only styles the sort icon
     sortButton: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: t("space.1"),
-      padding: "0",
-      borderWidth: "0",
-      background: "transparent",
-      color: "inherit",
-      font: "inherit",
-      cursor: "pointer",
-      borderRadius: t("radius.sm"),
-      _hover: { color: t("color.fg") },
-      _focusVisible: focusRing,
       "part:sort-icon": { fontSize: t("text.xs"), color: t("color.muted-fg") },
     },
-    row: {
-      borderBottomWidth: "1px",
-      borderBottomStyle: "solid",
-      borderBottomColor: t("color.border"),
-      _hoverAny: { background: t("color.bg-subtle") },
-      _selected: { background: t("color.muted") },
-    },
+    row: { _selected: { background: t("color.muted") } },
     cell: {},
     // A <th scope="row"> cell (columns with `rowHeader`)
-    rowHeader: { textAlign: "start", fontWeight: t("weight.medium") },
-    checkbox: {
-      margin: "0",
-      accentColor: t("color.primary"),
-      cursor: "pointer",
-      _focusVisible: focusRing,
-      _disabled: { opacity: t("opacity.disabled"), cursor: "not-allowed" },
-    },
+    rowHeader: { fontWeight: t("weight.medium"), color: t("color.fg"), whiteSpace: "normal" },
+    // Rendered by the registry Checkbox
+    checkbox: {},
   },
   variants: {
-    size: {
-      sm: {
-        fontSize: t("text.sm"),
-        "slot:headerCell": { paddingBlock: t("space.1-5"), paddingInline: t("space.2") },
-        "slot:cell": { paddingBlock: t("space.1-5"), paddingInline: t("space.2") },
-        "slot:rowHeader": { paddingBlock: t("space.1-5"), paddingInline: t("space.2") },
-      },
-      md: {
-        fontSize: t("text.sm"),
-        "slot:headerCell": { paddingBlock: t("space.3"), paddingInline: t("space.3") },
-        "slot:cell": { paddingBlock: t("space.3"), paddingInline: t("space.3") },
-        "slot:rowHeader": { paddingBlock: t("space.3"), paddingInline: t("space.3") },
-      },
-    },
+    // sm maps to Table density "compact", md to "normal"
+    size: { sm: {}, md: {} },
   },
   defaultVariants: { size: "md" },
 });

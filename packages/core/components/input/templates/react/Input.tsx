@@ -58,8 +58,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {...props}
         ref={ref}
         disabled={disabled}
-        data-state={status}
-        data-slot="input"
+        data-state={(props as { "data-state"?: string })["data-state"] ?? status}
+        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "input"}
         {...variantData(variants)}
         className={slotClass(slots, "root", variants, className)}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {

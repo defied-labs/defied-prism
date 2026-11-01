@@ -3,12 +3,15 @@ import { defineRecipe, token as t } from "@defied/prism-style-engine";
 export default defineRecipe({
   name: "tabs",
   base: {
-    display: "flex",
+    // A grid, so every panel can share one cell: the panel region takes the
+    // size of the largest panel and switching tabs never shifts the layout
+    display: "grid",
     gap: t("space.3"),
     fontFamily: t("font.sans"),
   },
   slots: {
     list: {
+      gridArea: "1 / 1",
       position: "relative",
       isolation: "isolate",
       display: "flex",
@@ -73,7 +76,27 @@ export default defineRecipe({
         cursor: "not-allowed",
       },
     },
+    // Inactive panels wait beside the selected one (--prism-tabs-offset: -1
+    // before, 1 after; set inline) and slide in or out on a change. The clip
+    // moves against the slide, so a panel never paints outside its own cell.
+    // Duration tokens collapse to 0ms under reduced motion.
     panel: {
+      minWidth: "0",
+      transform: "translateX(calc(var(--prism-tabs-offset, 0) * 100%))",
+      // Outset by the focus ring so the selected panel's ring isn't clipped
+      "--prism-tabs-ring": `calc(${t("focus.ring-width")} + ${t("focus.ring-offset")})`,
+      clipPath: [
+        "inset(calc(var(--prism-tabs-ring) * -1)",
+        "calc(max(0, var(--prism-tabs-offset, 0)) * 100% - var(--prism-tabs-ring))",
+        "calc(var(--prism-tabs-ring) * -1)",
+        "calc(max(0, var(--prism-tabs-offset, 0) * -1) * 100% - var(--prism-tabs-ring)))",
+      ].join(" "),
+      transition: [
+        `transform ${t("duration.slow")} ${t("easing.standard")}`,
+        `clip-path ${t("duration.slow")} ${t("easing.standard")}`,
+        // Visible for the whole slide, in either direction
+        `visibility ${t("duration.slow")} linear`,
+      ].join(", "),
       borderRadius: t("radius.sm"),
       _focusVisible: {
         outline: `${t("focus.ring-width")} solid ${t("color.ring")}`,
@@ -85,14 +108,18 @@ export default defineRecipe({
     orientation: {
       // The line indicator sits under horizontal tabs and beside vertical ones
       horizontal: {
-        flexDirection: "column",
+        gridTemplateColumns: "minmax(0, 1fr)",
+        gridTemplateRows: "auto 1fr",
         "slot:list": { flexDirection: "row" },
+        "slot:panel": { gridArea: "2 / 1" },
         "slot:trigger": { "--prism-tabs-indicator": "inset 0 -2px 0 0" },
         "slot:indicator": { "--prism-tabs-indicator": "inset 0 -2px 0 0" },
       },
       vertical: {
-        flexDirection: "row",
+        gridTemplateColumns: "auto minmax(0, 1fr)",
+        gridTemplateRows: "minmax(0, 1fr)",
         "slot:list": { flexDirection: "column" },
+        "slot:panel": { gridArea: "1 / 2" },
         "slot:trigger": { "--prism-tabs-indicator": "inset 2px 0 0 0" },
         "slot:indicator": { "--prism-tabs-indicator": "inset 2px 0 0 0" },
       },

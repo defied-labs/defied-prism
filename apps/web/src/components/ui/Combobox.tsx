@@ -35,6 +35,7 @@ import {
   type ComboboxEvent,
   type ComboboxOption,
 } from "@defied/prism-core/components/combobox";
+import { Input } from "./Input";
 import { tailwindSlots } from "@defied/prism-core/tailwind";
 
 // Filled in by `prism add` from the component's recipe.
@@ -44,14 +45,8 @@ const slots: StyleSlots = tailwindSlots({
     "variants": {}
   },
   "input": {
-    "base": "box-border w-full text-prism-fg bg-prism-bg [font-family:inherit] leading-prism-normal [border-width:1px] border-solid border-prism-border-strong [transition:border-color_var(--prism-duration-fast)_var(--prism-easing-standard)] placeholder:text-prism-muted-fg enabled:not-aria-disabled:hover:border-prism-fg focus-visible:[outline:var(--prism-focus-ring-width)_solid_var(--prism-color-ring)] focus-visible:[outline-offset:0] aria-invalid:border-prism-danger-solid disabled:opacity-(--prism-opacity-disabled) disabled:cursor-not-allowed",
-    "variants": {
-      "size": {
-        "sm": "min-h-(--prism-control-sm) px-prism-2 text-prism-sm rounded-prism-md",
-        "md": "min-h-(--prism-control-md) px-prism-3 text-prism-sm rounded-prism-md",
-        "lg": "min-h-(--prism-control-lg) px-prism-4 text-prism-md rounded-prism-lg"
-      }
-    }
+    "base": "",
+    "variants": {}
   },
   "listbox": {
     "base": "absolute z-(--prism-z-dropdown) [top:100%] [left:0] [right:0] mt-prism-1 box-border rounded-prism-md [border-width:1px] border-solid border-prism-border bg-prism-bg shadow-prism-lg [animation:prism-roll-in_var(--prism-duration-normal)_var(--prism-easing-standard)] p-prism-1 [max-height:16rem] overflow-y-auto [transform-origin:top] data-[state=closed]:pointer-events-none data-[state=closed]:[animation:prism-roll-out_var(--prism-duration-fast)_var(--prism-easing-exit)_forwards]",
@@ -420,25 +415,30 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
       }
     };
 
+    // Input merges the Field itself: hand it the caller's describedby/invalid
+    // (not the merged ones) so Field ids are added once; required stays off
+    // the element (conveyed with aria-required, like the APG combobox).
     return (
-      <input
+      <Input
         {...props}
         ref={ref}
         id={control.id ?? `${generatedId}-input`}
         type="text"
         role="combobox"
         autoComplete="off"
+        size={variants.size}
+        fullWidth
         disabled={control.disabled}
+        required={false}
         aria-required={control.required || undefined}
-        aria-describedby={control["aria-describedby"]}
-        aria-invalid={control["aria-invalid"]}
+        aria-describedby={describedByProp}
+        aria-invalid={invalidProp}
         aria-autocomplete="list"
         aria-expanded={showList}
         aria-controls={showList ? ctx.listboxId : undefined}
         aria-activedescendant={showList && highlightedItem ? highlightedItem.id : undefined}
         data-state={open ? "open" : "closed"}
         data-slot="combobox-input"
-        {...variantData(variants)}
         className={slotClass(slots, "input", variants, className)}
         value={ctx.inputValue}
         onChange={(event) => {
